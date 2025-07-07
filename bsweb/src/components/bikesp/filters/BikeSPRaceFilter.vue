@@ -1,5 +1,5 @@
 <template>
-  <label for="race-select">Etnia:</label>
+  <label for="race-select">Raça:</label>
   <div class="select-button-wrapper">
     <select id="race-select" v-model="g" @change="changeRace">
       <option value="Amarela">Amarela</option>

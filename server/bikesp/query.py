@@ -73,6 +73,18 @@ class Filters(BaseQuery):
     def filter_by_race(self, race):
         self.join_person()
         self.add_filter('p.race', '=', race)
+    
+    def filter_by_hour(self, hour):
+        self.add_filter('EXTRACT(HOUR FROM t.date)', '=', hour)
+        
+    def filter_by_day_of_week(self, week_days: list):
+        self.add_filter('EXTRACT(DOW FROM date)', 'IN', week_days)
+
+    def filter_by_payout_level(self, min = None, max = None):
+        if min:
+            self.add_filter('t.payoutLevel', '>=', min)
+        if max:
+            self.add_filter('t.payoutLevel', '<=', max)
 
 class Aggregations(BaseQuery):
     def aggregate_by_hours(self):

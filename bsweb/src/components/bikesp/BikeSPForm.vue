@@ -20,7 +20,7 @@ import BikeSPVisualizationInput from './BikeSPVisualizationInput.vue';
 
 const store = useStore();
 const isMapViewOn = computed(() => store.getters['bikesp/isMapViewOn'])
-
+const hasNewDataConfig = computed(() => store.getters['bikesp/hasNewDataConfig'])
 
 const apply = () => {
   store.dispatch('bikesp/updateData');

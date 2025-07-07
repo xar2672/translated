@@ -13,30 +13,29 @@ import "vue-data-ui/style.css";
 import { useStore } from 'vuex';
 import { config, aggregationConfig } from './BikeSPChartConfig';
 import merge from 'lodash/merge';
+import { useI18n } from 'vue-i18n'
+import { getDataset } from "./BikeSPChartDataset";
+
+const { t } = useI18n()
 
 const store = useStore()
+
+const buildTitle = () => {
+    return t('bikesp.chartTitle', {
+        dataType: t(`bikesp.dataType.${store.state.bikesp.activeDataConfig.data_type}`),
+        aggregation: t(`bikesp.aggregation.${store.state.bikesp.activeDataConfig.aggregation}`),
+    });
+}
 
 const computedConfig = computed(() => {
     const newConfig = structuredClone(config);
     newConfig.chart.grid.labels.xAxisLabels.values = store.getters['bikesp/getBikespLabels'];
-    const chartConfig = aggregationConfig[store.state.bikesp.activeFilters.aggregation];
+    newConfig.chart.title.text = buildTitle();
+    const chartConfig = aggregationConfig[store.state.bikesp.activeDataConfig.aggregation];
     return merge(newConfig, chartConfig);
 });
 
-const dataset = computed(() => [
-    {
-        name: 'BikeSP',
-        series: store.getters['bikesp/getBikespValues'],
-        type: 'bar',
-        shape: 'circle',
-        useArea: false,
-        useProgression: false,
-        dataLabels: false,
-        smooth: true,
-        dashed: false,
-        useTag: 'none'
-    }
-]);
+const dataset = computed(() => getDataset(store.state.bikesp));
 </script>
 
 <style scoped>

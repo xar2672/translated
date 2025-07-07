@@ -425,6 +425,25 @@ export const messages = {
         guide: 'Guia do Usuário',
       },
     },
+    bikesp: {
+      dataType: {
+        TRIP_COUNT: 'Número de viagens',
+        TRIP_DURATION: 'Duração das viagens',
+        TRIP_DISTANCE: 'Distância percorrida',
+        MEAN_SPEED: 'Velocidade média',
+        TOTAL_SAMPLES: 'Total de amostras',
+        SAMPLE_MEAN_SPEED: 'Velocidade média',
+      },
+      chartTitle: '{dataType} por {aggregation}',
+      aggregation: {
+        GENDER: 'Gênero',
+        RACE: 'Raça',
+        WEEK: 'Semana',
+        HOUR: 'Hora do dia',
+        DAY_OF_WEEK: 'Dia da semana',
+        PAYOUT_LEVEL: 'Recompensa (R$/Km)',
+      },
+    },
     editModal: {
       title: 'Editando camada',
       inputs: {

@@ -8,10 +8,10 @@
     >
       <option
         v-for="option in currentOptions"
-        :key="option.value"
-        :value="option.value"
+        :key="option"
+        :value="option"
       >
-        {{ option.label }}
+        {{ getTranslationForValue(option) }}
       </option>
     </select>
     <p class="helper-text">
@@ -23,6 +23,9 @@
 <script setup>
 import { ref, computed, onBeforeUnmount, onMounted, watch } from 'vue';
 import { useStore } from 'vuex';
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 const store = useStore();
 
@@ -31,20 +34,24 @@ const selected = ref('TRIP_COUNT');
 const isMapViewOn = computed(() => store.getters['bikesp/isMapViewOn'])
 
 const chartOptions = [
-  { value: 'TRIP_COUNT', label: 'Número de viagens' },
-  { value: 'TRIP_DURATION', label: 'Duração das viagens' },
-  { value: 'TRIP_DISTANCE', label: 'Distância percorrida' },
-  { value: 'MEAN_SPEED', label: 'Velocidade média' },
+  'TRIP_COUNT', 
+  'TRIP_DURATION',
+  'TRIP_DISTANCE',
+  'MEAN_SPEED',
 ];
 
 const mapOptions = [
-  { value: 'TOTAL_SAMPLES', label: 'Total de amostras' },
-  { value: 'SAMPLE_MEAN_SPEED', label: 'Velocidade média (pontos)' },
+  'TOTAL_SAMPLES',
+  'SAMPLE_MEAN_SPEED',
 ];
 
 const currentOptions = computed(() =>
   isMapViewOn.value ? mapOptions : chartOptions
 );
+
+const getTranslationForValue = (value) => {
+  return t(`bikesp.dataType.${value}`)
+}
 
 const onChange = (e) => {
   store.commit('bikesp/updateDataType', selected.value);
@@ -52,9 +59,10 @@ const onChange = (e) => {
 
 // This is necessary to change the default select option when the visualization changes
 watch(currentOptions, (options) => {
-  if (options.length && !options.some(opt => opt.value === selected.value)) {
-    selected.value = options[0].value;
+  if (options.length && !options.some(opt => opt === selected.value)) {
+    selected.value = options[0];
     store.commit('bikesp/updateDataType', selected.value);
+    store.dispatch('bikesp/updateData');
   }
 }, { immediate: true });
 

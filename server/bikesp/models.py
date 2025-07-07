@@ -1,14 +1,14 @@
 import datetime
 from marshmallow import Schema, fields, validates_schema, ValidationError
-from marshmallow.validate import OneOf, Range
+from marshmallow.validate import OneOf, Range, ContainsOnly
 
 class DateFilter(Schema):
     date_from = fields.Date(required=True)
     date_to = fields.Date(required=False, missing=lambda: datetime.date.today())
 
 class PayoutFilter(Schema):
-    min_value = fields.Float(validate=Range(min=0), required=True)
-    max_value = fields.Float(validate=Range(min=0), required=True)
+    min = fields.Float(validate=Range(min=0), required=True)
+    max = fields.Float(validate=Range(min=0), required=True)
 
 GENDER_VALUES = ["M", "F", "NB"]
 RACE_VALUES = ["Branca", "Parda", "Amarela"]
@@ -18,6 +18,7 @@ class Filters(Schema):
     gender = fields.String(validate=OneOf(GENDER_VALUES), allow_none=False)
     race =  fields.String(validate=OneOf(RACE_VALUES), allow_none=False)
     payout_filter = fields.Nested(PayoutFilter)
+    week_days = fields.List(fields.Integer(), validate=ContainsOnly([0, 1, 2, 3, 4, 5, 6]), allow_none=False)
 
 AGGREGATIONS = ['GENDER', 'RACE', 'WEEK', 'HOUR', 'DAY_OF_WEEK', 'PAYOUT_LEVEL']
 DATA_TYPE = ['TRIP_COUNT', 'TRIP_DURATION', 'TRIP_DISTANCE', 'MEAN_SPEED']

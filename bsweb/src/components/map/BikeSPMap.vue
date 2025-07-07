@@ -58,7 +58,7 @@ const gradient = {
 
 const throttledUpdateData = throttle(() => {
     store.dispatch('bikesp/updateData');
-}, 500);
+}, 1000);
 
 const zoomUpdated = (newZoom) => {
     store.commit('bikesp/updateZoomLevel', newZoom);
@@ -102,13 +102,13 @@ const onMapMove = () => {
 
 const updateMap = (data) => {
     if (mapRef.value && data) {
+        heatmapLayer.value.setLatLngs(data)
         heatmapLayer.value.setOptions({
-            minOpacity: 0.5,
+            minOpacity: 0.7,
             radius: 25,
             max: legendMax.value,
             gradient: gradient,
-        })
-        heatmapLayer.value.setLatLngs(data)
+        });
     }
 }
 
@@ -119,6 +119,7 @@ const updateValueRange = (data) => {
   legendMin.value = Math.max(0, minValue);
   legendMax.value = Math.max(1, maxValue);
 };
+
 const addHeatLayer = () => {
     if (!heatmapLayer.value) {
         heatmapLayer.value = L.heatLayer([], {}).addTo(mapRef.value);

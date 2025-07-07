@@ -1,6 +1,6 @@
 const config = {
         theme: '',
-        responsive: true,
+        responsive: false,
         customPalette: ['1f77b4'],
         useCssAnimation: true,
         downsample: {
@@ -201,12 +201,12 @@ const config = {
                     annotator: true
                 },
                 buttonTitles: {
-                    open: 'Open options',
-                    close: 'Close options',
+                    open: 'Abrir opções',
+                    close: 'Fechar opções',
                     tooltip: 'Toggle tooltip',
-                    pdf: 'Download PDF',
-                    csv: 'Download CSV',
-                    img: 'Download PNG',
+                    pdf: 'Baixar PDF',
+                    csv: 'Baixar CSV',
+                    img: 'Baixar PNG',
                     table: 'Toggle table',
                     labels: 'Toggle labels',
                     fullscreen: 'Toggle fullscreen',
@@ -225,7 +225,7 @@ const config = {
         },
         bar: {
             borderRadius: 2,
-            useGradient: true,
+            useGradient: false,
             periodGap: 0.1,
             border: {
                 useSerieColor: false,
@@ -321,7 +321,22 @@ const config = {
         showTable: false
     }
 
+const noLabelsConfig = {
+    chart: {
+        grid: {
+          labels: {
+            xAxisLabels: {
+              values:  ['']
+            }
+          }
+        }
+    }
+}
+
 const aggregationConfig = {
+    GENDER: noLabelsConfig,
+    RACE: noLabelsConfig,
+    PAYOUT_LEVEL: noLabelsConfig,
     WEEK: { 
       chart: {
         grid: {

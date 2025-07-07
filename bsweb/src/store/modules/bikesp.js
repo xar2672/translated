@@ -2,10 +2,10 @@ import { fetchBikeSPData, fetchGeographicBikeSPData } from '../../service/bikeSP
 
 const state = {
     data: [],
-    filters: {
+    dataConfig: {
         data_type: 'TRIP_COUNT'
     },
-    activeFilters: {
+    activeDataConfig: {
         data_type: 'TRIP_COUNT',
     },
     zoom_level: 4,
@@ -23,6 +23,9 @@ const getters = {
     },
     isMapViewOn(state) {
         return state.visualization === 'MAP'
+    },
+    hasNewDataConfig(state) {
+        return !(state.activeDataConfig == state.dataConfig);
     }
 }
 
@@ -31,17 +34,17 @@ const mutations = {
         state.data = data;
     },
     updateDataType(state, data) {
-        state.filters.data_type = data;
+        state.dataConfig.data_type = data;
     },
     updateAggregation(state, data) {
-        state.filters.aggregation = data;
+        state.dataConfig.aggregation = data;
     },
-    updateActiveFilters(state, data) {
-        state.activeFilters = structuredClone(data)
+    updateActiveDataConfig(state, data) {
+        state.activeDataConfig = structuredClone(data)
     },
     updateFilters(state, data) {
-        state.filters = {
-            ...state.filters, 
+        state.dataConfig.filters = {
+            ...state.dataConfig.filters, 
             ...data
         }
     },
@@ -66,11 +69,12 @@ const actions = {
             if (state.visualization === 'MAP') {
                 data = await fetchGeographicBikeSPData(state);
             } else {
-                data = await fetchBikeSPData(state.filters);
+                data = await fetchBikeSPData(state.dataConfig);
             }
+            commit('updateActiveDataConfig', state.dataConfig);
             commit('updateData', data);
-            commit('updateActiveFilters', state.filters);
         } catch (error) {
+            console.log("An error occurred", error);
             commit('updateData', []);
         }
     }

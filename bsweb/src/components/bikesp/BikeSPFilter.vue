@@ -9,10 +9,10 @@
     </div>
     <div class="active-filters">
       <div v-for="filter in value" :key="filter.name" class="filter-wrapper">
-        <component :is="filter.value" />
-        <button class="remove-btn" @click="removeFilter(filter)" title="Remover filtro">
-          &minus;
-        </button>
+        <div class="filter-box">
+          <button class="remove-btn-top" @click="removeFilter(filter)" title="Remover filtro">×</button>
+          <component :is="filter.value" />
+        </div>
       </div>
     </div>
   </div>
@@ -24,13 +24,17 @@ import BikeSPGenderFilter from './filters/BikeSPGenderFilter.vue';
 import BikeSPRaceFilter from './filters/BikeSPRaceFilter.vue';
 import Multiselect from 'vue-multiselect';
 import BikeSPDateFilter from './filters/BikeSPDateFilter.vue';
+import BikeSPWeekDayFilter from './filters/BikeSPWeekDayFilter.vue';
+import BikeSPPayoutFilter from './filters/BikeSPPayoutFilter.vue';
 
 const value = ref([])
 
 const options = [
   {name: 'Gênero', value: BikeSPGenderFilter},
-  {name: 'Etnia', value: BikeSPRaceFilter},
-  {name: 'Data', value: BikeSPDateFilter}
+  {name: 'Raça', value: BikeSPRaceFilter},
+  {name: 'Data', value: BikeSPDateFilter},
+  {name: 'Dia da semana', value: BikeSPWeekDayFilter},
+  {name: 'Recompensa', value: BikeSPPayoutFilter}
 ]
 
 const removeFilter = (filter) => {
@@ -50,7 +54,7 @@ const removeFilter = (filter) => {
 }
 
 .multiselect__content-wrapper {
-  width: 100% !important; /* force the dropdown to match */
+  width: 100% !important;
   min-width: 100% !important;
   box-sizing: border-box;
 }
@@ -65,31 +69,39 @@ const removeFilter = (filter) => {
   border-radius: 6px;
 }
 
-.remove-btn {
-  float: right;
-  background-color: #e74c3c;
-  color: white;
-  border: none;
-  border-radius: 50%;
-  width: 28px;
-  height: 28px;
-  font-size: 18px;
-  font-weight: bold;
-  cursor: pointer;
-  line-height: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background-color 0.2s;
+.filter-box {
+  position: relative;
+  padding: 12px;
+  border-radius: 6px;
+  background-color: #f9f9f9;
+  transition: background-color 0.2s ease;
+  width: 100%;
 }
 
-.remove-btn:hover {
-  background-color: #c0392b;
+.filter-box:hover {
+  background-color: #d3d3d3;
+}
+
+.remove-btn-top {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  background-color: transparent;
+  border: none;
+  color: #aaa;
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: bold;
+  line-height: 1;
+}
+
+.remove-btn-top:hover {
+  color: #e74c3c;
 }
 
 .filter-wrapper {
   display: flex;
-  align-items: center;
+  align-items: right;
   gap: 8px;
   margin-top: 6px;
 }
@@ -102,7 +114,6 @@ const removeFilter = (filter) => {
 }
 
 .filter-wrapper > label {
-  margin-right: auto;
   font-size: 13px;
 }
 </style>

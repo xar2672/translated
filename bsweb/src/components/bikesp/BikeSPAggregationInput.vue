@@ -6,12 +6,12 @@
       v-model="selected"
       @change="onChange"
     >
-      <option value="GENDER">Gênero</option>
-      <option value="RACE">Raça</option>
-      <option value="WEEK">Semana</option>
-      <option value="HOUR">Hora do dia</option>
-      <option value="DAY_OF_WEEK">Dia da semana</option>
-      <option value="PAYOUT_LEVEL">Recompensa (R$/Km)</option>
+      <option value="GENDER">{{ getTranslatedLabel('GENDER') }}</option>
+      <option value="RACE">{{ getTranslatedLabel('RACE') }}</option>
+      <option value="WEEK">{{ getTranslatedLabel('WEEK') }}</option>
+      <option value="HOUR">{{ getTranslatedLabel('HOUR') }}</option>
+      <option value="DAY_OF_WEEK">{{ getTranslatedLabel('DAY_OF_WEEK') }}</option>
+      <option value="PAYOUT_LEVEL">{{ getTranslatedLabel('PAYOUT_LEVEL') }}</option>
     </select>
     <p class="helper-text">
       Escolha uma categoria para agrupar os dados exibidos no gráfico.
@@ -22,6 +22,9 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from 'vue';
 import { useStore } from 'vuex';
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 const store = useStore();
 
@@ -30,6 +33,10 @@ const selected = ref('HOUR');
 const onChange = (e) => {
   store.commit('bikesp/updateAggregation', selected.value);
 };
+
+const getTranslatedLabel = (value) => {
+  return t(`bikesp.aggregation.${value}`)
+} 
 
 onMounted(() => {
   store.commit('bikesp/updateAggregation', selected.value);

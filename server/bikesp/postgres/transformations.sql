@@ -39,13 +39,13 @@ CREATE TABLE TRIP (
     idTrip serial PRIMARY KEY,
     idPerson integer NOT NULL,
     date timestamp NOT NULL,
-    distance double precision NOT NULL CHECK (distance >= 0),
+    distance double precision NOT NULL CHECK (distance > 0),
     idOrigin integer,
     idTarget integer,
     status varchar(30) NOT NULL CHECK (status in ('EmAnalise', 'Reprovado','Aprovado')),
     statusReason varchar(100) NOT NULL,
     duration interval,
-    payoutLevel double precision,
+    payoutLevel double precision NOT NULL CHECK (payoutLevel > 0),
     meanSpeed double precision
 );
 
@@ -61,7 +61,10 @@ SELECT
     status,
     motivoStatus,
     ROUND((COALESCE(remuneracao, '0.00'::money)::numeric / NULLIF(deslocamento / 1000.0, 0))::numeric, 2)
-FROM public.VIAGEM;
+FROM public.VIAGEM
+WHERE remuneracao IS NOT NULL
+  AND remuneracao::numeric > 0
+  AND deslocamento > 0;
 
 DROP TABLE IF EXISTS LOCATIONS CASCADE;
 
@@ -92,7 +95,11 @@ FROM
     jsonb_array_elements(v.trajeto) WITH ORDINALITY AS arr(point_data, ordinality) 
 WHERE
     v.trajeto IS NOT NULL 
-    AND jsonb_typeof(v.trajeto) = 'array';
+    AND jsonb_typeof(v.trajeto) = 'array'
+    AND v.remuneracao IS NOT NULL
+    AND v.remuneracao::numeric > 0
+    AND v.deslocamento > 0
+;
 
 UPDATE TRIP
 SET duration = sub.trip_duration

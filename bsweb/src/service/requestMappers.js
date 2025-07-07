@@ -1,0 +1,64 @@
+function addDateFilterPayload(filters, payload) {
+  const dateFilters = {}
+
+  if (filters.date_from) dateFilters.date_from = filters.date_from;
+  if (filters.date_to) dateFilters.date_to = filters.date_to;
+
+  if (Object.keys(dateFilters).length > 0) {
+    payload.date_filter = dateFilters;
+  }
+}
+
+function addPayoutLevelFilterPayload(filters, payload) {
+  const payoutFilter = {}
+
+  if (filters.min_payout !== undefined) payoutFilter.min = filters.min_payout;
+  if (filters.max_payout !== undefined) payoutFilter.max = filters.max_payout;
+
+  if (Object.keys(payoutFilter).length > 0) {
+    payload.payout_filter = payoutFilter;
+  }
+}
+
+function addFiltersPayload(filters, payload) {
+  if (!filters) return {};
+
+  const filterPayload = {};
+
+  if (filters.gender) filterPayload.gender = filters.gender;
+  if (filters.race) filterPayload.race = filters.race;
+  if (filters.week_days) filterPayload.week_days = filters.week_days;
+  console.log(filters)
+  addDateFilterPayload(filters, filterPayload);
+  addPayoutLevelFilterPayload(filters, filterPayload);
+
+  if (Object.keys(filterPayload).length > 0) {
+    payload.filters = filterPayload;
+  }
+
+  return filterPayload;
+}
+
+export function buildFetchTripDataRequest(data) {
+  const payload = {
+    aggregation: data.aggregation,
+    data_type: data.data_type,
+  };
+
+  addFiltersPayload(data.filters, payload);
+
+  return payload
+}
+
+export function buildFetchGeographicData(data) {
+  const payload = {
+    data_type: data.dataConfig.data_type,
+    zoom_level: data.zoom_level,
+    center: data.map_center,
+    max_distance: data.max_distance,
+  };
+
+  addFiltersPayload(data.dataConfig.filters, payload);
+
+  return payload
+}

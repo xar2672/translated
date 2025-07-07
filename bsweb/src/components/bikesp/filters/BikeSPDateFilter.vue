@@ -1,11 +1,9 @@
 <template>
-  <div class="date-filter-container">
-    <label class="field-label">Data:</label>
-    <div class="date-input-row">
-      <input type="date" v-model="from" @change="updateFilter" />
-      <span class="separator">–</span>
-      <input type="date" v-model="to" @change="updateFilter" />
-    </div>
+  <label>Data:</label>
+  <div class="date-input-row">
+    <input type="date" v-model="from" @change="updateFilter" />
+    <span class="separator">–</span>
+    <input type="date" v-model="to" @change="updateFilter" />
   </div>
 </template>
 
@@ -20,32 +18,20 @@ const to = ref('');
 
 const updateFilter = () => {
   store.commit('bikesp/updateFilters', {
-    from: from.value || undefined,
-    to: to.value || undefined
+    date_from: from.value || undefined,
+    date_to: to.value || undefined
   });
 };
 
 onBeforeUnmount(() => {
   store.commit('bikesp/updateFilters', {
-    from: undefined,
-    to: undefined
+    date_from: undefined,
+    date_to: undefined
   });
 });
 </script>
 
 <style scoped>
-.date-filter-container {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 6px;
-}
-
-.field-label {
-  font-weight: bold;
-  font-size: 14px;
-}
-
 .date-input-row {
   display: flex;
   align-items: center;
@@ -53,9 +39,10 @@ onBeforeUnmount(() => {
 }
 
 input[type="date"] {
-  padding: 6px;
-  font-size: 14px;
+  padding: 4px 6px;
+  font-size: 13px;
   border: 1px solid #ccc;
+  width: 45%;
   border-radius: 4px;
 }
 

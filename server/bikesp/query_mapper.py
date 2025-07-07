@@ -1,5 +1,7 @@
+import array
 from functools import wraps
 from bikesp import query
+import inspect
 
 def operation_adder(field_name):
     def decorator(func):
@@ -38,31 +40,51 @@ def add_query_data_type(q: query.Query):
         'MEAN_SPEED': q.add_mean_speed
     }
 
+def cancel_if_none(arg_name):
+    """
+    Decorator to cancel function execution if the named argument is None.
+    """
+    def decorator(func):
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            sig = inspect.signature(func)
+            bound_args = sig.bind(*args, **kwargs)
+            bound_args.apply_defaults()
+
+            if bound_args.arguments.get(arg_name) is None:
+                return
+
+            return func(*args, **kwargs)
+        return wrapper
+    return decorator
+
+@cancel_if_none('filter')
 def add_date_filter(q: query.Query, filter: dict):
-    if filter is None:
-        return
-    
     q.filter_by_date_range(filter['date_from'], filter['date_to'])
 
+@cancel_if_none('gender')
 def add_gender_filter(q: query.Query, gender: str):
-    if gender is None:
-        return
-    
     q.filter_by_gender(gender)
 
+@cancel_if_none('race')
 def add_race_filter(q: query.Query, race: str):
-    if race is None:
-        return
-    
     q.filter_by_race(race)
 
-def add_filters(q: query.Query, filters: dict):
-    if filters is None:
-        return
+@cancel_if_none('payout_level')
+def add_payout_level_filter(q: query.Query, payout_level: dict):
+    q.filter_by_payout_level(payout_level.get('min'), payout_level.get('max'))
 
+@cancel_if_none('days_of_week')
+def add_day_of_week_filter(q: query.Query, days_of_week: list):
+    q.filter_by_day_of_week(days_of_week)
+
+@cancel_if_none('filters')
+def add_filters(q: query.Query, filters: dict):
     add_date_filter(q, filters.get('date_filter'))
     add_race_filter(q, filters.get('race'))
     add_gender_filter(q, filters.get('gender'))
+    add_payout_level_filter(q, filters.get('payout_filter'))
+    add_day_of_week_filter(q, filters.get('week_days'))
 
 def create_query(request: dict):
     q = query.Query()

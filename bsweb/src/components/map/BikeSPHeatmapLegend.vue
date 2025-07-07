@@ -1,4 +1,3 @@
-<!-- components/HeatmapLegend.vue -->
 <template>
   <div class="heatmap-legend leaflet-control leaflet-control-custom">
     <div class="legend-title">{{ title }}</div>
@@ -15,10 +14,9 @@ const props = defineProps({
   gradient: { type: Object, required: true },
   min: { type: Number, required: true },
   max: { type: Number, required: true },
-  title: { type: String, default: 'Intensidade' },
+  title: { type: String, default: 'Total de amostras' },
 });
 
-// Compute CSS gradient string from gradient object
 const barStyle = {
   background: `linear-gradient(to right, ${Object.entries(props.gradient)
     .sort((a, b) => parseFloat(a[0]) - parseFloat(b[0]))

@@ -25,6 +25,7 @@ const selected = ref('CHART');
 
 const onChange = (e) => {
   store.commit('bikesp/changeView', selected.value);
+  store.dispatch('bikesp/updateData');
 };
 
 onMounted(() => {
