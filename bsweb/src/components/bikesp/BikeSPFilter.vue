@@ -26,6 +26,7 @@ import Multiselect from 'vue-multiselect';
 import BikeSPDateFilter from './filters/BikeSPDateFilter.vue';
 import BikeSPWeekDayFilter from './filters/BikeSPWeekDayFilter.vue';
 import BikeSPPayoutFilter from './filters/BikeSPPayoutFilter.vue';
+import BikeSPHourFilter from './filters/BikeSPHourFilter.vue';
 
 const value = ref([])
 
@@ -34,7 +35,8 @@ const options = [
   {name: 'Raça', value: BikeSPRaceFilter},
   {name: 'Data', value: BikeSPDateFilter},
   {name: 'Dia da semana', value: BikeSPWeekDayFilter},
-  {name: 'Recompensa', value: BikeSPPayoutFilter}
+  {name: 'Recompensa', value: BikeSPPayoutFilter},
+  {name: 'Hora do dia', value: BikeSPHourFilter}
 ]
 
 const removeFilter = (filter) => {
@@ -106,14 +108,14 @@ const removeFilter = (filter) => {
   margin-top: 6px;
 }
 
-.filter-wrapper > select {
+.filter-wrapper select {
   font-size: 13px;
   padding: 6px 10px;
   border: 1px solid #bbb;
   border-radius: 4px;
 }
 
-.filter-wrapper > label {
+.filter-wrapper label {
   font-size: 13px;
 }
 </style>

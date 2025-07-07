@@ -64,7 +64,7 @@ onMounted(() => {
   background-color: #0056b3;
 }
 
-select {
+.controls-container select {
   width: 100%;
   padding: 8px 12px;
   font-size: 14px;
@@ -74,7 +74,7 @@ select {
   transition: border 0.2s ease;
 }
 
-select:focus {
+.controls-container select:focus {
   outline: none;
   border-color: #007bff;
   background-color: #fff;
@@ -86,7 +86,7 @@ select:focus {
   color: #666;
 }
 
-label {
+.controls-container label {
   display: block;
   font-weight: bold;
   margin-bottom: 8px;

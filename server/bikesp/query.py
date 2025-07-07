@@ -74,8 +74,9 @@ class Filters(BaseQuery):
         self.join_person()
         self.add_filter('p.race', '=', race)
     
-    def filter_by_hour(self, hour):
-        self.add_filter('EXTRACT(HOUR FROM t.date)', '=', hour)
+    def filter_by_hour(self, min, max):
+        self.where_parts.append('date::time BETWEEN %s AND %s')
+        self.params.extend([min, max])
         
     def filter_by_day_of_week(self, week_days: list):
         self.add_filter('EXTRACT(DOW FROM date)', 'IN', week_days)

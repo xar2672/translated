@@ -25,7 +25,13 @@ const isMapView = computed(() => store.getters['bikesp/isMapViewOn']);
   gap: 24px;
   align-items: flex-start;
   padding: 16px;
-  height: 80vh; /* or 100vh minus header etc */
+  height: 80vh;
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
 }
 
 .form-panel {

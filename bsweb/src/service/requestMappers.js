@@ -9,6 +9,17 @@ function addDateFilterPayload(filters, payload) {
   }
 }
 
+function addHourFilter(filters, payload) {
+  const hourFilter = {}
+
+  if (filters.from_hour) hourFilter.min = filters.from_hour;
+  if (filters.to_hour) hourFilter.max = filters.to_hour;
+
+  if (Object.keys(hourFilter).length > 0) {
+    payload.hour_filter = hourFilter;
+  }
+}
+
 function addPayoutLevelFilterPayload(filters, payload) {
   const payoutFilter = {}
 
@@ -28,9 +39,10 @@ function addFiltersPayload(filters, payload) {
   if (filters.gender) filterPayload.gender = filters.gender;
   if (filters.race) filterPayload.race = filters.race;
   if (filters.week_days) filterPayload.week_days = filters.week_days;
-  console.log(filters)
+
   addDateFilterPayload(filters, filterPayload);
   addPayoutLevelFilterPayload(filters, filterPayload);
+  addHourFilter(filters, filterPayload)
 
   if (Object.keys(filterPayload).length > 0) {
     payload.filters = filterPayload;

@@ -78,6 +78,10 @@ def add_payout_level_filter(q: query.Query, payout_level: dict):
 def add_day_of_week_filter(q: query.Query, days_of_week: list):
     q.filter_by_day_of_week(days_of_week)
 
+@cancel_if_none('hours')
+def add_hour_filter(q: query.Query, hours: dict):
+    q.filter_by_hour(hours.get('min'), hours.get('max'))
+
 @cancel_if_none('filters')
 def add_filters(q: query.Query, filters: dict):
     add_date_filter(q, filters.get('date_filter'))
@@ -85,6 +89,7 @@ def add_filters(q: query.Query, filters: dict):
     add_gender_filter(q, filters.get('gender'))
     add_payout_level_filter(q, filters.get('payout_filter'))
     add_day_of_week_filter(q, filters.get('week_days'))
+    add_hour_filter(q, filters.get('hour_filter'))
 
 def create_query(request: dict):
     q = query.Query()

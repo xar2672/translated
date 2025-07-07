@@ -9,6 +9,19 @@ class DateFilter(Schema):
 class PayoutFilter(Schema):
     min = fields.Float(validate=Range(min=0), required=True)
     max = fields.Float(validate=Range(min=0), required=True)
+    @validates_schema
+    def validate_range(self, data, **kwargs):
+        if data["min"] >= data["max"]:
+            raise ValidationError("min must be less than max")
+
+class HourFilter(Schema):
+    min = fields.Time(format="%H:%M", required=True)
+    max = fields.Time(format="%H:%M", required=True)
+
+    @validates_schema
+    def validate_range(self, data, **kwargs):
+        if data["min"] >= data["max"]:
+            raise ValidationError("min must be less than max")
 
 GENDER_VALUES = ["M", "F", "NB"]
 RACE_VALUES = ["Branca", "Parda", "Amarela"]
@@ -18,6 +31,7 @@ class Filters(Schema):
     gender = fields.String(validate=OneOf(GENDER_VALUES), allow_none=False)
     race =  fields.String(validate=OneOf(RACE_VALUES), allow_none=False)
     payout_filter = fields.Nested(PayoutFilter)
+    hour_filter = fields.Nested(HourFilter)
     week_days = fields.List(fields.Integer(), validate=ContainsOnly([0, 1, 2, 3, 4, 5, 6]), allow_none=False)
 
 AGGREGATIONS = ['GENDER', 'RACE', 'WEEK', 'HOUR', 'DAY_OF_WEEK', 'PAYOUT_LEVEL']
