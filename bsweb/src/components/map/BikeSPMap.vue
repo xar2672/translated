@@ -43,8 +43,8 @@ const zoom = ref(store.state.bikesp.zoom_level)
 const center = computed(() => store.state.bikesp.map_center);
 const mapRef = ref(null)
 const heatmapLayer = ref(null)
-const legendMin = ref(null);
-const legendMax = ref(null);
+const legendMin = ref(0);
+const legendMax = ref(1);
 
 const gradient = {
   0.0: '#2c7bb6',  // dark blue

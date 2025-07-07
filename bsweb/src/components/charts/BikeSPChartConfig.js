@@ -326,17 +326,39 @@ const noLabelsConfig = {
         grid: {
           labels: {
             xAxisLabels: {
-              values:  ['']
+              values:  [''],
+              show: false,
             }
           }
         }
     }
 }
 
+const hourLabels = () => {
+    return [...Array(24).keys()].map(hour => `${hour}h`)
+}
+
 const aggregationConfig = {
     GENDER: noLabelsConfig,
     RACE: noLabelsConfig,
     PAYOUT_LEVEL: noLabelsConfig,
+    DAY_OF_WEEK: noLabelsConfig,
+    HOUR: {
+      chart: {
+        legend: {
+          show: false,
+        },
+        grid: {
+          labels: {
+            xAxisLabels: {
+              values:  hourLabels(),
+              fontSize: 12,
+              rotation: 15,
+            }
+          }
+        }
+      }
+    },
     WEEK: { 
       chart: {
         grid: {
@@ -347,17 +369,6 @@ const aggregationConfig = {
               showOnlyAtModulo: false,
               fontSize: 12,
               rotation: 15 
-            }
-          }
-        }
-      }
-    },
-    DAY_OF_WEEK: { 
-      chart: {
-        grid: {
-          labels: {
-            xAxisLabels: {
-              values:  ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb']
             }
           }
         }

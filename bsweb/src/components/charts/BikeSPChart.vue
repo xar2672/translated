@@ -7,7 +7,7 @@
     </div>
 </template>
 <script setup>
-import { computed, ref } from "vue";
+import { computed } from "vue";
 import { VueUiXy } from "vue-data-ui";
 import "vue-data-ui/style.css";
 import { useStore } from 'vuex';

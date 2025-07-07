@@ -65,11 +65,32 @@ function buildPayoutLevelDataset(data) {
         buildCustomDataset(data, `R$ ${value}`, [value], colorForValue(value)));
 };
 
+function buildHourDataset(data) {
+    const hours = [...Array(24).keys()]
+
+    const valuesByHour =  Object.fromEntries(data.map(item => [item.label, item.value]));
+
+    const filledSeries = hours.map(hour => valuesByHour[hour] ?? 0);
+
+    return [{
+        ...defaultDataset(data, true),
+        series: filledSeries,
+        name: 'Hora do dia'
+    }]
+};
+
+function buildDayOfWeekDataset(data) {
+    const days = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado']
+    return days.map( (dayName, index) => 
+        buildCustomDataset(data, dayName, [index], colorForValue(index/days.length)));
+};
 
 const datasets = {
     GENDER: buildGenderDataset,
     RACE: buildRaceDataset,
     PAYOUT_LEVEL: buildPayoutLevelDataset,
+    HOUR: buildHourDataset,
+    DAY_OF_WEEK: buildDayOfWeekDataset,
 }
 
 export function getDataset(state) {
@@ -78,6 +99,6 @@ export function getDataset(state) {
     if (!dataset) {
         return [defaultDataset(state.data)];
     }
-
+    console.log(dataset(state.data))
     return dataset(state.data);
 }

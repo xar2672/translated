@@ -12,9 +12,9 @@
 
 <script setup>
 import { onMounted, computed } from 'vue';
+import { useStore } from 'vuex';
 import BikeSPAggregationInput from './BikeSPAggregationInput.vue';
 import BikeSPDataTypeInput from './BikeSPDataTypeInput.vue';
-import { useStore } from 'vuex';
 import BikeSPFilter from './BikeSPFilter.vue';
 import BikeSPVisualizationInput from './BikeSPVisualizationInput.vue';
 
