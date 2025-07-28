@@ -1,9 +1,11 @@
 from datetime import timedelta, datetime
 from decimal import Decimal
-from flask import Blueprint, request
+import json
+from flask import Blueprint, request, make_response
 from bikesp import models, query_mapper
 from marshmallow import ValidationError
 from functools import wraps
+import gzip
 
 bikesp_bp = Blueprint('bikesp', __name__ , url_prefix='/bikesp')
 
@@ -50,7 +52,11 @@ def fetchTripData():
 def fetchLocationData():
     req_data = load_bikesp_geo_data_request()
     query = query_mapper.create_geo_query(req_data)
-    data = query.execute()
-    return {
-        "data": [[lat, lng, value] for (value, lat, lng, geohash) in data]
+    data = {
+        "data": query.execute()
     }
+    content = gzip.compress(json.dumps(data).encode('utf8'), 5)
+    response = make_response(content)
+    response.headers['Content-length'] = len(content)
+    response.headers['Content-Encoding'] = 'gzip'
+    return response

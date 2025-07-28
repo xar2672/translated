@@ -429,7 +429,7 @@ export const messages = {
       dataType: {
         TRIP_COUNT: 'Número de viagens',
         TRIP_DURATION: 'Duração das viagens',
-        TRIP_DISTANCE: 'Distância percorrida',
+        TRIP_DISTANCE: 'Distância percorrida (Km)',
         MEAN_SPEED: 'Velocidade média',
         TOTAL_SAMPLES: 'Total de amostras',
         SAMPLE_MEAN_SPEED: 'Velocidade média',

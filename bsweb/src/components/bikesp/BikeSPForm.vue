@@ -3,9 +3,10 @@
     <BikeSPVisualizationInput />
     <BikeSPDataTypeInput />
     <BikeSPAggregationInput v-if="!isMapViewOn"/>
+    <BikeSPLayerInput mapkey="main" v-if="isMapViewOn"/>
     <BikeSPFilter />
     <div class="button-wrapper">
-      <button @click="apply" class="apply-button">Aplicar</button>
+      <button @click="apply" class="apply-button" :disabled="!hasNewDataConfig">Aplicar</button>
     </div>
   </div>
 </template>
@@ -17,6 +18,7 @@ import BikeSPAggregationInput from './BikeSPAggregationInput.vue';
 import BikeSPDataTypeInput from './BikeSPDataTypeInput.vue';
 import BikeSPFilter from './BikeSPFilter.vue';
 import BikeSPVisualizationInput from './BikeSPVisualizationInput.vue';
+import BikeSPLayerInput from './BikeSPLayerInput.vue';
 
 const store = useStore();
 const isMapViewOn = computed(() => store.getters['bikesp/isMapViewOn'])
@@ -32,6 +34,22 @@ onMounted(() => {
 </script>
 
 <style>
+.arrow {
+  transition: all ease-in-out 0.2s;
+  transform: rotate(-90deg);
+  width: 12px;
+  margin-right: 4px;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+.category-toggle {
+  cursor: pointer;
+  display: flex;
+  align-items: flex-start;
+}
+.arrow.active {
+  transform: none
+}
 .controls-container {
   background-color: #ffffff;
   border: 1px solid #ddd;
@@ -60,7 +78,11 @@ onMounted(() => {
   transition: background-color 0.2s ease;
 }
 
-.apply-button:hover {
+.apply-button:disabled {
+  background-color: rgb(173, 207, 243);
+}
+
+.apply-button:not(:disabled):hover {
   background-color: #0056b3;
 }
 
@@ -86,10 +108,97 @@ onMounted(() => {
   color: #666;
 }
 
-.controls-container label {
+.controls-container label:not(.category-wrapper label *) {
   display: block;
   font-weight: bold;
-  margin-bottom: 8px;
+  margin-right: auto;
+  margin-top: auto;
+  margin-bottom: auto;
   color: #333;
+  text-align: left;
+}
+
+.filter-box {
+  position: relative;
+  padding: 12px;
+  border-radius: 6px;
+  background-color: #f9f9f9;
+  transition: background-color 0.2s ease;
+  width: 100%;
+}
+
+.filter-box:hover {
+  background-color: #d3d3d3;
+}
+
+.remove-btn-top {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  background-color: transparent;
+  border: none;
+  color: #aaa;
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: bold;
+  line-height: 1;
+}
+
+.remove-btn-top:hover {
+  color: #e74c3c;
+}
+
+.active-fields > * {
+  margin-top: 12px;
+}
+
+.active-fields:has(label) {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.filter-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.fixed-width-multiselect {
+  width: 100%;
+}
+
+.multiselect__content-wrapper {
+  width: 100% !important;
+  min-width: 100% !important;
+  box-sizing: border-box;
+}
+
+.active-filters > * {
+  margin-top: 12px;
+}
+
+.active-filters:has(label) {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.filter-wrapper {
+  display: flex;
+  align-items: right;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.filter-wrapper select {
+  font-size: 13px;
+  padding: 6px 10px;
+  border: 1px solid #bbb;
+  border-radius: 4px;
+}
+
+.filter-wrapper label {
+  font-size: 13px;
 }
 </style>

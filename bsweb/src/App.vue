@@ -10,7 +10,7 @@
 
 <style>
 nav {
-  margin-bottom: 20px;
+  margin-bottom: 5px;
 }
 nav a {
   font-weight: bold;

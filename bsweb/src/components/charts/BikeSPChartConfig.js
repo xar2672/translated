@@ -1,6 +1,6 @@
 const config = {
         theme: '',
-        responsive: false,
+        responsive: true,
         customPalette: ['1f77b4'],
         useCssAnimation: true,
         downsample: {
@@ -16,7 +16,7 @@ const config = {
                 show: true,
                 color: '#CCCCCCff',
                 highlightColor: '#4A4A4A',
-                fontSize: 14,
+                fontSize: 12,
                 useResetSlot: false,
                 startIndex: null,
                 endIndex: null,
@@ -89,7 +89,7 @@ const config = {
                 labels: {
                     show: true,
                     color: '#1A1A1Aff',
-                    fontSize: 16,
+                    fontSize: 12,
                     axis: {
                         yLabel: '',
                         yLabelOffsetX: 0,
@@ -122,7 +122,7 @@ const config = {
                         color: '#1A1A1Aff',
                         show: true,
                         values: [],
-                        fontSize: 18,
+                        fontSize: 12,
                         showOnlyFirstAndLast: false,
                         showOnlyAtModulo: false,
                         modulo: 12,
@@ -139,14 +139,14 @@ const config = {
                 offsetY: 0
             },
             labels: {
-                fontSize: 16,
+                fontSize: 12,
                 prefix: '',
                 suffix: ''
             },
             legend: {
                 color: '#1A1A1Aff',
                 show: true,
-                fontSize: 16
+                fontSize: 12
             },
             title: {
                 text: 'BikeSP Data',
@@ -262,7 +262,7 @@ const config = {
             },
             labels: {
                 show: true,
-                offsetY: -16,
+                offsetY: -6,
                 rounding: 0,
                 color: '#1A1A1Aff',
                 formatter: null
@@ -376,7 +376,20 @@ const aggregationConfig = {
     }
 }
 
+const dataTypeConfig = {
+    TRIP_DISTANCE: {
+        bar: {
+            labels: {
+                formatter: ({ value, config }) => {
+                    return `${(value/1000).toFixed(2)}`;
+                }
+            }
+        }
+    }
+}
+
 export {
    config,
-   aggregationConfig
+   aggregationConfig,
+   dataTypeConfig
 }

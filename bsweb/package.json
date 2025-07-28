@@ -15,7 +15,6 @@
     "eslint-plugin-vue": "9.32.0",
     "jquery": "3.7.1",
     "leaflet-polylinedecorator": "^1.6.0",
-    "leaflet.heat": "^0.2.0",
     "lodash": "^4.17.21",
     "shpjs": "6.0.1",
     "toastr": "2.1.4",

@@ -25,8 +25,9 @@ const store = useStore();
 const value = ref([0, 23.99]);
 
 const formatHour = (val) => {
+  if (val >= 24) val = 23.99
   const hours = Math.floor(val);
-  const minutes = Math.round((val - hours) * 60);
+  const minutes = Math.floor((val - hours) * 60);
   return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
 };
 
@@ -46,7 +47,10 @@ onMounted(() => {
 });
 
 onBeforeUnmount(() => {
-  commitValue(undefined, undefined);
+  store.commit('bikesp/updateFilters', { 
+    from_hour: undefined,
+    to_hour: undefined
+  });
 });
 </script>
 

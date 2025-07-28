@@ -29,6 +29,3 @@ const store = useStore();
 const allLayers = computed(() => store.getters.allLayers);
 const allBikelineLayers = computed(() => store.getters.allBikelineLayers);
 </script>
-
-<style scoped>
-</style>

@@ -11,7 +11,7 @@ import { computed } from "vue";
 import { VueUiXy } from "vue-data-ui";
 import "vue-data-ui/style.css";
 import { useStore } from 'vuex';
-import { config, aggregationConfig } from './BikeSPChartConfig';
+import { config, aggregationConfig, dataTypeConfig } from './BikeSPChartConfig';
 import merge from 'lodash/merge';
 import { useI18n } from 'vue-i18n'
 import { getDataset } from "./BikeSPChartDataset";
@@ -28,11 +28,12 @@ const buildTitle = () => {
 }
 
 const computedConfig = computed(() => {
-    const newConfig = structuredClone(config);
+    let newConfig = structuredClone(config);
     newConfig.chart.grid.labels.xAxisLabels.values = store.getters['bikesp/getBikespLabels'];
     newConfig.chart.title.text = buildTitle();
-    const chartConfig = aggregationConfig[store.state.bikesp.activeDataConfig.aggregation];
-    return merge(newConfig, chartConfig);
+    newConfig = merge(newConfig, aggregationConfig[store.state.bikesp.activeDataConfig.aggregation]);
+    newConfig = merge(newConfig, dataTypeConfig[store.state.bikesp.activeDataConfig.data_type])
+    return newConfig;
 });
 
 const dataset = computed(() => getDataset(store.state.bikesp));
@@ -40,7 +41,6 @@ const dataset = computed(() => getDataset(store.state.bikesp));
 
 <style scoped>
 .chart-wrapper {
-  display: flex;
-  justify-content: center;
+  height: 700px;
 }
 </style>

@@ -7,6 +7,10 @@ class BaseQuery():
         self.group_by_parts = []
         self.where_parts = []
         self.params = []
+        self.withs = []
+        self.froms = []
+        self.orderByGroups = True
+        self.groupByParams = []
     
     def join_person(self):
         query = 'JOIN PERSON p ON t.idPerson = p.idPerson'
@@ -23,7 +27,11 @@ class BaseQuery():
         self.joins.append(query)
 
     def build_query(self):
-        query_string = f"SELECT {', '.join(self.select_parts)} FROM {self.table}"
+        self.froms.append(self.table)
+        query_string = ''
+        if len(self.withs) > 0:
+            query_string = f"WITH {', '.join(self.withs)}"
+        query_string += f"SELECT {', '.join(self.select_parts)} FROM {', '.join(self.froms)}"
 
         if self.joins:
             query_string += ' ' + '\n'.join(self.joins)
@@ -33,7 +41,8 @@ class BaseQuery():
         
         if self.group_by_parts:
             query_string += ' GROUP BY ' + ', '.join(self.group_by_parts)
-            query_string += ' ORDER BY ' + ', '.join(self.group_by_parts)
+            if self.orderByGroups:
+                query_string += ' ORDER BY ' + ', '.join(self.group_by_parts)
 
         query_string += ';'
         print(query_string)
@@ -41,6 +50,7 @@ class BaseQuery():
 
     def execute(self):
         query_string = self.build_query()
+        self.params.extend(self.groupByParams)
         try:
             cursor = postgres.get_cursor()
             cursor.execute(query_string, self.params)
@@ -58,7 +68,7 @@ class Filters(BaseQuery):
             self.where_parts.append(f"{column} {operator} ({placeholders})")
             self.params.extend(value)
         else:
-            self.where_parts.append(f"{column} {operator} %s") # Use %s as placeholder
+            self.where_parts.append(f"{column} {operator} %s")
             self.params.append(value)
 
     def filter_by_date_range(self, start_date, end_date, column='t.date'):
@@ -66,13 +76,13 @@ class Filters(BaseQuery):
         self.params.append(start_date)
         self.params.append(end_date)
     
-    def filter_by_gender(self, gender):
+    def filter_by_gender(self, genders: list):
         self.join_person()
-        self.add_filter('p.gender', '=', gender)
+        self.add_filter('p.gender', 'IN', genders)
 
-    def filter_by_race(self, race):
+    def filter_by_race(self, races: list):
         self.join_person()
-        self.add_filter('p.race', '=', race)
+        self.add_filter('p.race', 'IN', races)
     
     def filter_by_hour(self, min, max):
         self.where_parts.append('date::time BETWEEN %s AND %s')
@@ -87,6 +97,8 @@ class Filters(BaseQuery):
         if max:
             self.add_filter('t.payoutLevel', '<=', max)
 
+MAX_LOCATIONS_RETURNED = 2500
+METERS_PER_DEGREE = 110000
 class Aggregations(BaseQuery):
     def aggregate_by_hours(self):
         self.select_parts.append('EXTRACT(HOUR FROM date) AS hour')
@@ -118,21 +130,38 @@ class Aggregations(BaseQuery):
         self.group_by_parts.append('race')
         self.join_person()
 
+    def get_grid_deg(self, zoom_level):
+        lat_cos = 1
+        meters_per_pixel = 156543.03392 * lat_cos / 2**zoom_level
+        cellMeters = 20*meters_per_pixel
+
+        return (cellMeters / (111000 * lat_cos), cellMeters / 111000)
     def aggregate_by_location(self, zoom_level, lat, lng, max_distance):
-        self.select_parts.append('ST_Y(ST_Centroid(ST_Collect(l.point_geom::geometry))) AS latitude')
-        self.select_parts.append('ST_X(ST_Centroid(ST_Collect(l.point_geom::geometry))) AS longitude')
-        self.select_parts.append('ST_GeoHash(l.point_geom, %s) AS geohash')
-        self.group_by_parts.append('geohash')
+        grid_deg_x, grid_deg_y = self.get_grid_deg(zoom_level)
+        self.withs.append('''
+            params AS (
+                SELECT 
+                ST_SetSRID(ST_MakePoint(%s, %s), 4326)::geometry AS center_geom
+            )
+            '''
+        )
+        self.froms.append('params pa')
+        self.select_parts.append('ST_Y(ST_SnapToGrid(l.point_geom::geometry, 0, 0, %s, %s)) AS latitude')
+        self.select_parts.append('ST_X(ST_SnapToGrid(l.point_geom::geometry, 0, 0, %s, %s)) AS longitude')
         self.where_parts.append(
             '''
             ST_DWithin(
               l.point_geom,
-              ST_SetSRID(ST_MakePoint(%s, %s), 4326)::geography,
+              pa.center_geom,
               %s
             )
             '''
         )
-        self.params.extend([zoom_level, lng, lat, max_distance])
+        self.group_by_parts.append('ST_SnapToGrid(l.point_geom::geometry, 0, 0, %s, %s)')
+        params = [lng, lat] + [grid_deg_x, grid_deg_y]*2 + [max_distance]
+        self.groupByParams.extend([grid_deg_x, grid_deg_y])
+        self.params.extend(params)
+        self.orderByGroups = False
 
 class DataTypes(BaseQuery):
     def add_trip_count(self):
@@ -153,6 +182,10 @@ class DataTypes(BaseQuery):
 
     def add_point_count(self):
         self.select_parts.append('COUNT(*) AS point_count')
+        self.table = "LOCATIONS l"
+
+    def add_location_mean_speed(self):
+        self.select_parts.append('AVG(l.mean_speed) AS mean_speed')
         self.table = "LOCATIONS l"
 
 class Query(Filters, Aggregations, DataTypes):

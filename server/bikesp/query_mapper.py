@@ -40,6 +40,13 @@ def add_query_data_type(q: query.Query):
         'MEAN_SPEED': q.add_mean_speed
     }
 
+@operation_adder('data_type')
+def add_location_data_type(q: query.Query):
+    return {
+        'TOTAL_SAMPLES': q.add_point_count,
+        'SAMPLE_MEAN_SPEED': q.add_location_mean_speed
+    }
+
 def cancel_if_none(arg_name):
     """
     Decorator to cancel function execution if the named argument is None.
@@ -62,13 +69,13 @@ def cancel_if_none(arg_name):
 def add_date_filter(q: query.Query, filter: dict):
     q.filter_by_date_range(filter['date_from'], filter['date_to'])
 
-@cancel_if_none('gender')
-def add_gender_filter(q: query.Query, gender: str):
-    q.filter_by_gender(gender)
+@cancel_if_none('genders')
+def add_gender_filter(q: query.Query, genders: list):
+    q.filter_by_gender(genders)
 
-@cancel_if_none('race')
-def add_race_filter(q: query.Query, race: str):
-    q.filter_by_race(race)
+@cancel_if_none('races')
+def add_race_filter(q: query.Query, races: list):
+    q.filter_by_race(races)
 
 @cancel_if_none('payout_level')
 def add_payout_level_filter(q: query.Query, payout_level: dict):
@@ -85,8 +92,8 @@ def add_hour_filter(q: query.Query, hours: dict):
 @cancel_if_none('filters')
 def add_filters(q: query.Query, filters: dict):
     add_date_filter(q, filters.get('date_filter'))
-    add_race_filter(q, filters.get('race'))
-    add_gender_filter(q, filters.get('gender'))
+    add_race_filter(q, filters.get('races'))
+    add_gender_filter(q, filters.get('genders'))
     add_payout_level_filter(q, filters.get('payout_filter'))
     add_day_of_week_filter(q, filters.get('week_days'))
     add_hour_filter(q, filters.get('hour_filter'))
@@ -100,7 +107,6 @@ def create_query(request: dict):
 
 def create_geo_query(request: dict):
     q = query.Query()
-    q.add_point_count()
     center = request.get('center')
     q.aggregate_by_location(
         request.get('zoom_level'), 
@@ -111,4 +117,5 @@ def create_geo_query(request: dict):
     if request.get('filters'):
         q.join_trip()
         add_filters(q, request.get('filters'))
+    add_location_data_type(q, request)
     return q

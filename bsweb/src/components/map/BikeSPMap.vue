@@ -2,7 +2,7 @@
   <div>
     <l-map
     :ref="mapkey"
-    :zoom="zoom"
+    :zoom="8"
     :center="center"
     :inertia-deceleration="10000"
     @update:zoom="zoomUpdated"
@@ -17,64 +17,68 @@
     />
     <BikeSPHeatmapLegend
       v-if="legendMin !== null && legendMax !== null"
-      :gradient="gradient"
       :min="legendMin"
       :max="legendMax"
     />
+    <BikeLayer :mapkey="props.mapkey"/>
+    <BaseLayers :mapkey="props.mapkey"/>
   </l-map>
   </div>
 </template>
 
 <script setup>
-import 'leaflet.heat';
 import L from 'leaflet';
-import { ref, computed, watch, onMounted } from 'vue'
+import { ref, watch } from 'vue'
 import {
   LMap,
   LTileLayer,
-  LControlLayers,
+  LControlLayers
 } from '@vue-leaflet/vue-leaflet';
 import { useStore } from 'vuex';
 import throttle from 'lodash/throttle';
 import BikeSPHeatmapLegend from './BikeSPHeatmapLegend.vue';
+import { HeatmapLayer } from './HeatmapLayer';
+import { getHeatmapConfig } from './BikeSPHeatmapConfig';
+import BikeLayer from './layers/BikeLayer.vue';
+import BaseLayers from './layers/BaseLayers.vue';
+
+const props = defineProps({
+  mapkey: { type: String, required: true }
+});
 
 const store = useStore();
-const zoom = ref(store.state.bikesp.zoom_level)
-const center = computed(() => store.state.bikesp.map_center);
-const mapRef = ref(null)
-const heatmapLayer = ref(null)
+const center = ref(store.state.bikesp.mapCenter);
+const zoom = ref(store.state.bikesp.zoomLevel);
+const mapRef = ref(null);
+const heatmapLayer = ref(null);
 const legendMin = ref(0);
 const legendMax = ref(1);
 
-const gradient = {
-  0.0: '#2c7bb6',  // dark blue
-  0.2: '#00a6ca',  // strong cyan
-  0.4: '#00ccbc',  // aqua
-  0.6: '#90eb9d',  // light green
-  0.75: '#ffff8c', // yellow
-  0.9: '#f9d057',  // warm orange
-  1.0: '#d7191c'   // red
-};
-
 const throttledUpdateData = throttle(() => {
-    store.dispatch('bikesp/updateData');
-}, 1000);
+  store.commit('bikesp/updateMapCenter', center.value);
+  store.commit('bikesp/updateMaxDistance', getMaxVisibleDistance(center.value));
+  store.commit('bikesp/updateZoomLevel', zoom.value);
+  store.dispatch('bikesp/updateData');
+}, 500, { trailing: true, leading: false });
 
 const zoomUpdated = (newZoom) => {
-    store.commit('bikesp/updateZoomLevel', newZoom);
-    store.commit('bikesp/updateMaxDistance', getMaxVisibleDistance(center.value));
-    throttledUpdateData();
+  zoom.value = newZoom
+  throttledUpdateData();
 };
 
 const onMapReady = (map) => {
-    mapRef.value = map;
-    addHeatLayer();
+  mapRef.value = map;
+  addHeatLayer()
+  throttledUpdateData();
 };
 
+const onMapMove = () => {
+  heatmapLayer.value.redraw();
+}
+
 const centerUpdated = (newCenter) => {
-    store.commit('bikesp/updateMapCenter', newCenter);
-    store.commit('bikesp/updateMaxDistance', getMaxVisibleDistance(newCenter));
-    throttledUpdateData();
+  center.value = newCenter
+  throttledUpdateData();
 }
 
 const getMaxVisibleDistance = (center) => {
@@ -84,32 +88,10 @@ const getMaxVisibleDistance = (center) => {
   return centerCast.distanceTo(corner)*1.5; // Multiplying by 1.5 to smooth out movements in the map 
 }
 
-const onMapMove = () => {
-  if (!mapRef.value) return;
-
-  const currentCenter = mapRef.value.getCenter();
-  store.commit('bikesp/updateMapCenter', {
-    lat: currentCenter.lat,
-    lng: currentCenter.lng
-  });
-
-  store.commit('bikesp/updateMaxDistance', getMaxVisibleDistance(currentCenter));
-
-  removeHeatLayer();
-  addHeatLayer();
-  updateMap(store.state.bikesp.data);
-};
-
 const updateMap = (data) => {
-    if (mapRef.value && data) {
-        heatmapLayer.value.setLatLngs(data)
-        heatmapLayer.value.setOptions({
-            minOpacity: 0.7,
-            radius: 25,
-            max: legendMax.value,
-            gradient: gradient,
-        });
-    }
+  if (mapRef.value && data) {
+    heatmapLayer.value.setData(data, legendMax.value)
+  }
 }
 
 const updateValueRange = (data) => {
@@ -121,27 +103,26 @@ const updateValueRange = (data) => {
 };
 
 const addHeatLayer = () => {
-    if (!heatmapLayer.value) {
-        heatmapLayer.value = L.heatLayer([], {}).addTo(mapRef.value);
-    }
-}
+  heatmapLayer.value = new HeatmapLayer([], {
+    radius: 25,
+    opacity: 0.7,
+    maxIntensity: legendMax.value,
+  });
 
-const removeHeatLayer = () => {
-  if (heatmapLayer.value) {
-    mapRef.value.removeLayer(heatmapLayer.value);
-    heatmapLayer.value = null;
-  }
+  heatmapLayer.value.addTo(mapRef.value);
 }
 
 watch(() => store.state.bikesp.data, () => {
-  updateValueRange(store.state.bikesp.data);
-  updateMap(store.state.bikesp.data);
+  // sorting is needed to ensure that the data is drawed in correct order, with higher values on top
+  const data = structuredClone(store.state.bikesp.data)
+  data.sort(function(a, b){
+    return a[2] - b[2];
+  });
+  updateValueRange(data);
+  updateMap(data);
 }, { deep: true })
 
-onMounted(() => {
-  store.commit('bikesp/updateZoomLevel', zoom.value);
-  store.commit('bikesp/updateMapCenter', center.value);
-  store.commit('bikesp/updateMaxDistance', getMaxVisibleDistance(center.value));
-  store.dispatch('bikesp/updateData');
+watch(() => store.state.bikesp.activeDataConfig.data_type, () => {
+  heatmapLayer.value.setGradient(getHeatmapConfig(store.state.bikesp.activeDataConfig.data_type).gradient);
 });
 </script>

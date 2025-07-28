@@ -1,17 +1,21 @@
 import { fetchBikeSPData, fetchGeographicBikeSPData } from '../../service/bikeSPService';
+import isEqual from 'lodash/isEqual';
 
 const state = {
     data: [],
     dataConfig: {
-        data_type: 'TRIP_COUNT'
+        data_type: 'TRIP_COUNT',
+        activeLayers: [],
     },
     activeDataConfig: {
         data_type: 'TRIP_COUNT',
+        activeLayers: [],
     },
-    zoom_level: 4,
-    map_center: { lat: -23.550164466, lng: -46.633664132 },
-    max_distance: 2000000,
+    zoomLevel: 8,
+    mapCenter: { lat: -23.550164466, lng: -46.633664132 },
+    maxDistance: 2000000,
     visualization: 'CHART',
+    dirty: false,
 }
 
 const getters = {
@@ -25,11 +29,17 @@ const getters = {
         return state.visualization === 'MAP'
     },
     hasNewDataConfig(state) {
-        return !(state.activeDataConfig == state.dataConfig);
+        return !isEqual(state.activeDataConfig, state.dataConfig);
     }
 }
 
 const mutations = {
+    updateActiveLayers(state, layer) {
+        state.dataConfig.activeLayers = [
+            ...state.dataConfig.activeLayers,
+            ...layer
+        ]
+    },
     updateData(state, data) {
         state.data = data;
     },
@@ -52,18 +62,18 @@ const mutations = {
         state.visualization = view;
     },
     updateZoomLevel(state, zoom_level) {
-        state.zoom_level = Math.floor(zoom_level/2)+1;
+        state.zoomLevel = zoom_level;
     },
     updateMapCenter(state, newCenter) {
-        state.map_center = newCenter;
+        state.mapCenter = newCenter;
     },
     updateMaxDistance(state, newDistance) {
-        state.max_distance = newDistance
+        state.maxDistance = newDistance
     } 
 }
 
 const actions = {
-    async updateData({ commit, state }) {
+    async updateData({ commit, dispatch, state }) {
         try {
             let data;
             if (state.visualization === 'MAP') {
@@ -73,6 +83,13 @@ const actions = {
             }
             commit('updateActiveDataConfig', state.dataConfig);
             commit('updateData', data);
+            state.activeDataConfig.activeLayers.forEach(({name, value}) => {
+                dispatch('setActiveLayer', {
+                    layer_key: name,
+                    mapkey: "main",
+                    value,
+                }, { root: true });
+            });
         } catch (error) {
             console.log("An error occurred", error);
             commit('updateData', []);

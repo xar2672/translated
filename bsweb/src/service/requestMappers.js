@@ -36,8 +36,8 @@ function addFiltersPayload(filters, payload) {
 
   const filterPayload = {};
 
-  if (filters.gender) filterPayload.gender = filters.gender;
-  if (filters.race) filterPayload.race = filters.race;
+  if (filters.genders) filterPayload.genders = filters.genders;
+  if (filters.races) filterPayload.races = filters.races;
   if (filters.week_days) filterPayload.week_days = filters.week_days;
 
   addDateFilterPayload(filters, filterPayload);
@@ -65,9 +65,9 @@ export function buildFetchTripDataRequest(data) {
 export function buildFetchGeographicData(data) {
   const payload = {
     data_type: data.dataConfig.data_type,
-    zoom_level: data.zoom_level,
-    center: data.map_center,
-    max_distance: data.max_distance,
+    zoom_level: data.zoomLevel,
+    center: data.mapCenter,
+    max_distance: data.maxDistance,
   };
 
   addFiltersPayload(data.dataConfig.filters, payload);

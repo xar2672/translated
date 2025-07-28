@@ -10,19 +10,26 @@
 </template>
 
 <script setup>
+import { computed } from 'vue';
+import { getHeatmapConfig } from './BikeSPHeatmapConfig';
+import { useStore } from 'vuex';
+
+const store = useStore();
+
+const gradient = computed(() => getHeatmapConfig(store.state.bikesp.activeDataConfig.data_type).gradient)
+const title =  computed(() => getHeatmapConfig(store.state.bikesp.activeDataConfig.data_type).title)
+
 const props = defineProps({
-  gradient: { type: Object, required: true },
   min: { type: Number, required: true },
-  max: { type: Number, required: true },
-  title: { type: String, default: 'Total de amostras' },
+  max: { type: Number, required: true }
 });
 
-const barStyle = {
-  background: `linear-gradient(to right, ${Object.entries(props.gradient)
+const barStyle = computed(() => {return {
+  background: `linear-gradient(to right, ${Object.entries(gradient.value)
     .sort((a, b) => parseFloat(a[0]) - parseFloat(b[0]))
     .map(([percent, color]) => `${color} ${parseFloat(percent) * 100}%`)
     .join(', ')})`,
-};
+}});
 </script>
 
 <style scoped>

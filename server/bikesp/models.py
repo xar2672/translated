@@ -1,4 +1,5 @@
 import datetime
+from tokenize import String
 from marshmallow import Schema, fields, validates_schema, ValidationError
 from marshmallow.validate import OneOf, Range, ContainsOnly
 
@@ -28,8 +29,8 @@ RACE_VALUES = ["Branca", "Parda", "Amarela"]
 
 class Filters(Schema):
     date_filter = fields.Nested(DateFilter)
-    gender = fields.String(validate=OneOf(GENDER_VALUES), allow_none=False)
-    race =  fields.String(validate=OneOf(RACE_VALUES), allow_none=False)
+    genders = fields.List(fields.String(), validate=ContainsOnly(GENDER_VALUES), allow_none=False)
+    races =  fields.List(fields.String(), validate=ContainsOnly(RACE_VALUES), allow_none=False)
     payout_filter = fields.Nested(PayoutFilter)
     hour_filter = fields.Nested(HourFilter)
     week_days = fields.List(fields.Integer(), validate=ContainsOnly([0, 1, 2, 3, 4, 5, 6]), allow_none=False)

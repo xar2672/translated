@@ -3,7 +3,7 @@
     <BikeSPForm class="form-panel" />
     <div class="chart-panel">
       <BikeSPChart v-if="!isMapView"/>
-      <BikeSPMap v-if="isMapView"/>
+      <BikeSPMap mapkey="main" v-if="isMapView"/>
     </div>
   </div>
 </template>
@@ -13,16 +13,35 @@ import BikeSPChart from '../components/charts/BikeSPChart.vue';
 import BikeSPForm from '../components/bikesp/BikeSPForm.vue';
 import BikeSPMap from '../components/map/BikeSPMap.vue';
 import { useStore } from 'vuex';
-import { computed } from 'vue';
+import { computed, onMounted } from 'vue';
 
 const store = useStore();
 const isMapView = computed(() => store.getters['bikesp/isMapViewOn']);
+
+onMounted(() => {
+  if (!localStorage.ut) {
+    localStorage.ut = uuidv4();
+  }
+  
+  const actions = [
+    'fetchCategories',
+    'fetchCPTM_lines',
+    'fetchSubway_lines',
+    'fetchCPTM_stations',
+    'fetchSubway_stations',
+    'fetchBikelane',
+    'fetchAccidents'
+  ];
+
+  actions.forEach(action => store.dispatch(action));
+  store.dispatch('user_shapefiles/loadSavedLayers');
+});
 </script>
 
 <style scoped>
 .layout-container {
   display: flex;
-  gap: 24px;
+  gap: 4px;
   align-items: flex-start;
   padding: 16px;
   height: 80vh;
@@ -31,7 +50,6 @@ const isMapView = computed(() => store.getters['bikesp/isMapViewOn']);
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 
 .form-panel {
@@ -44,13 +62,11 @@ const isMapView = computed(() => store.getters['bikesp/isMapViewOn']);
 .chart-panel {
   flex: 1;
   min-width: 0;
-  height: 80vh; /* match container height */
-  /* Make sure child uses full height */
+  height: 80vh;
   display: flex;
   flex-direction: column;
 }
 
-/* Optional: make chart fill its container */
 .chart-panel > * {
   flex-grow: 1;
   width: 100%;
