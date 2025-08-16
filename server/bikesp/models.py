@@ -39,7 +39,7 @@ AGGREGATIONS = ['GENDER', 'RACE', 'WEEK', 'HOUR', 'DAY_OF_WEEK', 'PAYOUT_LEVEL']
 DATA_TYPE = ['TRIP_COUNT', 'TRIP_DURATION', 'TRIP_DISTANCE', 'MEAN_SPEED']
 class BikespDataRequest(Schema):
     filters = fields.Nested(Filters)
-    aggregation = fields.String(validate=OneOf(AGGREGATIONS))
+    aggregation = fields.String(validate=OneOf(AGGREGATIONS), required=True)
     data_type = fields.String(validate=OneOf(DATA_TYPE), required=True)
 
 class LatLng(Schema):

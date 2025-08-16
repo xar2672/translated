@@ -52,6 +52,10 @@ function addFiltersPayload(filters, payload) {
 }
 
 export function buildFetchTripDataRequest(data) {
+  if (data.aggregation === undefined || data.data_type === undefined) {
+    throw new Error("Request missing required fields");
+  }
+
   const payload = {
     aggregation: data.aggregation,
     data_type: data.data_type,

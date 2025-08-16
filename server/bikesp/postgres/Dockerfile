@@ -15,6 +15,4 @@ ENV LC_ALL pt_BR.UTF-8
 
 ENV POSTGRES_INITDB_ARGS="--locale=pt_BR.UTF-8"
 
-COPY ./bikesp.sql /docker-entrypoint-initdb.d/00.sql
-COPY ./create_transformed_db.sql /docker-entrypoint-initdb.d/01.sql
-COPY ./transformations.sql /docker-entrypoint-initdb.d/02.sql
+COPY ./transformations.sql /docker-entrypoint-initdb.d/0-.sql

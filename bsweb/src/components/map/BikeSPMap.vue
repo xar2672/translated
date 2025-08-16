@@ -12,6 +12,16 @@
   >
     <l-control-layers position="topright" />
     <l-tile-layer
+        v-for="tile in properties.tile_layers"
+        :key="`tile-${tile.id}`"
+        :name="tile.name"
+        :url="tile.url"
+        :visible="tile.visible"
+        :attribution="tile.attribution"
+        layer-type="base"
+      />
+
+    <l-tile-layer
       url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       attribution="&copy; OpenStreetMap contributors"
     />
@@ -28,7 +38,7 @@
 
 <script setup>
 import L from 'leaflet';
-import { ref, watch } from 'vue'
+import { onMounted, ref, watch, computed } from 'vue'
 import {
   LMap,
   LTileLayer,
@@ -53,6 +63,7 @@ const mapRef = ref(null);
 const heatmapLayer = ref(null);
 const legendMin = ref(0);
 const legendMax = ref(1);
+const properties = computed(() => store.state.map.maps[props.mapkey].properties);
 
 const throttledUpdateData = throttle(() => {
   store.commit('bikesp/updateMapCenter', center.value);
@@ -124,5 +135,10 @@ watch(() => store.state.bikesp.data, () => {
 
 watch(() => store.state.bikesp.activeDataConfig.data_type, () => {
   heatmapLayer.value.setGradient(getHeatmapConfig(store.state.bikesp.activeDataConfig.data_type).gradient);
+});
+
+
+onMounted(() => {
+    store.dispatch('bikesp/updateData');
 });
 </script>

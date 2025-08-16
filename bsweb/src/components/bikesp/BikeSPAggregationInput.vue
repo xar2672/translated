@@ -40,6 +40,7 @@ const getTranslatedLabel = (value) => {
 
 onMounted(() => {
   store.commit('bikesp/updateAggregation', selected.value);
+  store.dispatch('bikesp/updateData');
 });
 
 onBeforeUnmount(() => {

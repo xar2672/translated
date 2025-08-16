@@ -40,11 +40,12 @@ services:
         # port allows the host machine to link to container
         # pass 80 from host machine to 80 of the image filesystem
         ports:
-            - "80:80"
+            - "31000:80"
 
     postgres:
         build: ./server/bikesp/postgres
         container_name: bikesp_dw
+        restart: always
         environment:
             POSTGRES_DB: bikesp_science
             POSTGRES_USER: postgres

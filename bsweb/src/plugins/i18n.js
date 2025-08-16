@@ -428,11 +428,11 @@ export const messages = {
     bikesp: {
       dataType: {
         TRIP_COUNT: 'Número de viagens',
-        TRIP_DURATION: 'Duração das viagens',
+        TRIP_DURATION: 'Duração das viagens (em minutos)',
         TRIP_DISTANCE: 'Distância percorrida (Km)',
-        MEAN_SPEED: 'Velocidade média',
+        MEAN_SPEED: 'Velocidade média (Km/h)',
         TOTAL_SAMPLES: 'Total de amostras',
-        SAMPLE_MEAN_SPEED: 'Velocidade média',
+        SAMPLE_MEAN_SPEED: 'Velocidade média (Km/h)',
       },
       chartTitle: '{dataType} por {aggregation}',
       aggregation: {

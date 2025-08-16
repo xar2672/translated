@@ -378,6 +378,17 @@ const aggregationConfig = {
 
 const dataTypeConfig = {
     TRIP_DISTANCE: {
+        chart: {
+            grid: {
+                labels: {
+                    yAxis: {
+                        formatter: ({ value, config }) => {
+                            return `${(value/1000).toFixed(2)}`;
+                        }
+                    }
+                },
+            },
+        },
         bar: {
             labels: {
                 formatter: ({ value, config }) => {

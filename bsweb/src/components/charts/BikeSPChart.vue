@@ -7,7 +7,7 @@
     </div>
 </template>
 <script setup>
-import { computed } from "vue";
+import { computed, onMounted } from "vue";
 import { VueUiXy } from "vue-data-ui";
 import "vue-data-ui/style.css";
 import { useStore } from 'vuex';
@@ -37,6 +37,10 @@ const computedConfig = computed(() => {
 });
 
 const dataset = computed(() => getDataset(store.state.bikesp));
+
+onMounted(() => {
+    store.dispatch('bikesp/updateData');
+});
 </script>
 
 <style scoped>

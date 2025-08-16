@@ -1,5 +1,32 @@
 CREATE EXTENSION IF NOT EXISTS postgis;
 
+DROP TABLE IF EXISTS PESSOA CASCADE;
+DROP TABLE IF EXISTS VIAGEM CASCADE;
+
+---
+
+CREATE TABLE PESSOA (
+    idPessoa   integer,
+    genero     varchar(2),
+    raca       varchar(10)
+);
+
+CREATE TABLE VIAGEM (
+    idViagem      integer,
+    idPessoa      integer,
+    data          timestamp,
+    deslocamento  double precision,
+    idOrigem      integer,
+    idDestino     integer,
+    status        varchar(30),
+    motivoStatus  varchar(100),
+    remuneracao   money,
+    trajeto       jsonb
+);
+
+\copy PESSOA FROM '../pessoas.csv' DELIMITER ',' CSV HEADER;
+\copy VIAGEM FROM '../viagens.csv' DELIMITER ',' CSV HEADER;
+-----
 DROP TABLE IF EXISTS PERSON CASCADE; 
 
 CREATE TABLE PERSON (
@@ -193,8 +220,5 @@ SET meanSpeed = ROUND(
   2
 );
 
-SET search_path TO "$user";
-DROP SCHEMA public CASCADE;
-ALTER SCHEMA bikesp_transformed RENAME TO public;
-ALTER ROLE postgres SET search_path TO public, "$user";
-SET search_path TO public, "$user";
+DROP TABLE IF EXISTS PESSOA CASCADE;
+DROP TABLE IF EXISTS VIAGEM CASCADE;
