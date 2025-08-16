@@ -24,8 +24,8 @@ CREATE TABLE VIAGEM (
     trajeto       jsonb
 );
 
-\copy PESSOA FROM '../pessoas.csv' DELIMITER ',' CSV HEADER;
-\copy VIAGEM FROM '../viagens.csv' DELIMITER ',' CSV HEADER;
+\copy PESSOA FROM '~/pessoas.csv' DELIMITER ',' CSV HEADER;
+\copy VIAGEM FROM '~/viagens.csv' DELIMITER ',' CSV HEADER;
 -----
 DROP TABLE IF EXISTS PERSON CASCADE; 
 
