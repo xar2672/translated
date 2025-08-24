@@ -109,7 +109,7 @@ const updateValueRange = (data) => {
   const maxValue = Math.max(...data.map(arr => arr[2]));
   const minValue = Math.min(...data.map(arr => arr[2]))-1;
 
-  legendMin.value = Math.max(0, minValue);
+  legendMin.value = Math.max(1, minValue);
   legendMax.value = Math.max(1, maxValue);
 };
 

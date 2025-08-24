@@ -10,6 +10,7 @@ class BaseQuery():
         self.withs = []
         self.froms = []
         self.orderByGroups = True
+        self.sample = False
         self.groupByParams = []
     
     def join_person(self):
@@ -32,6 +33,9 @@ class BaseQuery():
         if len(self.withs) > 0:
             query_string = f"WITH {', '.join(self.withs)}"
         query_string += f"SELECT {', '.join(self.select_parts)} FROM {', '.join(self.froms)}"
+
+        if self.sample:
+            query_string += " TABLESAMPLE SYSTEM_ROWS(10000)"
 
         if self.joins:
             query_string += ' ' + '\n'.join(self.joins)
@@ -136,30 +140,29 @@ class Aggregations(BaseQuery):
         cellMeters = 20*meters_per_pixel
 
         return (cellMeters / (111000 * lat_cos), cellMeters / 111000)
+    
     def aggregate_by_location(self, zoom_level, lat, lng, max_distance):
         grid_deg_x, grid_deg_y = self.get_grid_deg(zoom_level)
         self.withs.append('''
-            params AS (
-                SELECT 
-                ST_SetSRID(ST_MakePoint(%s, %s), 4326)::geometry AS center_geom
+            snapped_and_ranked AS (
+                SELECT
+                    ST_SnapToGrid(l.point_geom::geometry, 0, 0, %s, %s) AS snapped_geom,
+                    l.*
+                FROM
+                    LOCATIONS AS l
+                WHERE
+                    ST_DWithin(
+                        l.point_geom,
+                        ST_SetSRID(ST_MakePoint(%s, %s), 4326)::geography,
+                        %s
+                    )
             )
-            '''
-        )
-        self.froms.append('params pa')
-        self.select_parts.append('ST_Y(ST_SnapToGrid(l.point_geom::geometry, 0, 0, %s, %s)) AS latitude')
-        self.select_parts.append('ST_X(ST_SnapToGrid(l.point_geom::geometry, 0, 0, %s, %s)) AS longitude')
-        self.where_parts.append(
-            '''
-            ST_DWithin(
-              l.point_geom,
-              pa.center_geom,
-              %s
-            )
-            '''
-        )
-        self.group_by_parts.append('ST_SnapToGrid(l.point_geom::geometry, 0, 0, %s, %s)')
-        params = [lng, lat] + [grid_deg_x, grid_deg_y]*2 + [max_distance]
-        self.groupByParams.extend([grid_deg_x, grid_deg_y])
+        ''')
+        self.table = "snapped_and_ranked"
+        self.select_parts.append('ST_Y(snapped_geom) AS latitude')
+        self.select_parts.append('ST_X(snapped_geom) AS longitude')
+        self.group_by_parts.append('snapped_geom')
+        params = [grid_deg_x, grid_deg_y] + [lng, lat] + [max_distance]
         self.params.extend(params)
         self.orderByGroups = False
 
@@ -182,11 +185,9 @@ class DataTypes(BaseQuery):
 
     def add_point_count(self):
         self.select_parts.append('COUNT(*) AS point_count')
-        self.table = "LOCATIONS l"
 
     def add_location_mean_speed(self):
-        self.select_parts.append('AVG(l.mean_speed) AS mean_speed')
-        self.table = "LOCATIONS l"
+        self.select_parts.append('AVG(mean_speed) AS mean_speed')
 
 class Query(Filters, Aggregations, DataTypes):
     pass

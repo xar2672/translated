@@ -1,4 +1,5 @@
 CREATE EXTENSION IF NOT EXISTS postgis;
+CREATE EXTENSION tsm_system_rows;
 
 DROP TABLE IF EXISTS PESSOA CASCADE;
 DROP TABLE IF EXISTS VIAGEM CASCADE;
@@ -12,20 +13,20 @@ CREATE TABLE PESSOA (
 );
 
 CREATE TABLE VIAGEM (
+    idpessoa      integer,
+    remuneracao   varchar(10)
     idViagem      integer,
-    idPessoa      integer,
     data          timestamp,
     deslocamento  double precision,
     idOrigem      integer,
     idDestino     integer,
     status        varchar(30),
     motivoStatus  varchar(100),
-    remuneracao   money,
     trajeto       jsonb
 );
 
-\copy PESSOA FROM '~/pessoas.csv' DELIMITER ',' CSV HEADER;
-\copy VIAGEM FROM '~/viagens.csv' DELIMITER ',' CSV HEADER;
+\copy PESSOA FROM '/docker-entrypoint-initdb.d/pessoas.csv' DELIMITER ';' CSV HEADER;
+\copy VIAGEM FROM '/docker-entrypoint-initdb.d/viagens.csv' DELIMITER ';' CSV HEADER;
 -----
 DROP TABLE IF EXISTS PERSON CASCADE; 
 
@@ -40,24 +41,7 @@ SELECT
     idPessoa,
     genero,
     raca
-FROM public.PESSOA;
-
-DROP TABLE IF EXISTS TARGET_LOCATIONS CASCADE;
-
-CREATE TABLE TARGET_LOCATIONS (
-    idLocation bigserial PRIMARY KEY,
-    point_geom GEOGRAPHY(Point, 4326) NOT NULL, 
-    typeOfLocation varchar(30) NOT NULL CHECK (typeOfLocation IN ('qualquer','estacao'))
-);
-
-CREATE INDEX idx_target_locations_coords ON TARGET_LOCATIONS USING GIST (point_geom);
-
-INSERT INTO TARGET_LOCATIONS (idLocation, point_geom, typeOfLocation)
-SELECT
-    idLocalizacao,
-    ST_SetSRID(ST_MakePoint(coordenadas[0], coordenadas[1]), 4326)::geography as point_geom,
-    tipoLocalizacao
-FROM public.LOCALIZACAO;
+FROM PESSOA;
 
 DROP TABLE IF EXISTS TRIP CASCADE;
 
@@ -88,8 +72,8 @@ SELECT
     status,
     motivoStatus,
     ROUND((COALESCE(remuneracao, '0.00'::money)::numeric / NULLIF(deslocamento / 1000.0, 0))::numeric, 2)
-FROM public.VIAGEM
-WHERE deslocamento > 0;
+FROM VIAGEM
+WHERE deslocamento > 0 AND motivoStatus != 'Reprovado'; 
 
 DROP TABLE IF EXISTS LOCATIONS CASCADE;
 
@@ -111,12 +95,13 @@ SELECT
     ), 4326)::geography,
     (arr.point_data->>'Data')::timestamp with time zone
 FROM
-    public.VIAGEM AS v,
+    VIAGEM AS v,
     jsonb_array_elements(v.trajeto) WITH ORDINALITY AS arr(point_data, ordinality) 
 WHERE
     v.trajeto IS NOT NULL 
     AND jsonb_typeof(v.trajeto) = 'array'
     AND v.deslocamento > 0
+    AND motivoStatus != 'Reprovado'
 ;
 
 UPDATE LOCATIONS
