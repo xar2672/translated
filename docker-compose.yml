@@ -51,8 +51,8 @@ services:
         container_name: bikesp_dw
         restart: always
         command: >
-            postgres -c shared_buffers=2GB
-               -c work_mem=64MB
+            postgres -c shared_buffers=4GB
+               -c work_mem=128MB
                -c max_wal_size=2GB
                -c maintenance_work_mem=512MB
         environment:

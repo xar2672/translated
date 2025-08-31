@@ -158,7 +158,7 @@ class Aggregations(BaseQuery):
                     )
             )
         ''')
-        self.table = "snapped_and_ranked"
+        self.table = "snapped_and_ranked l"
         self.select_parts.append('ST_Y(snapped_geom) AS latitude')
         self.select_parts.append('ST_X(snapped_geom) AS longitude')
         self.group_by_parts.append('snapped_geom')
