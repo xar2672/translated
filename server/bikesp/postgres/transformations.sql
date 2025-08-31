@@ -1,6 +1,7 @@
 CREATE EXTENSION IF NOT EXISTS postgis;
 CREATE EXTENSION tsm_system_rows;
-
+SHOW work_mem;
+SHOW shared_buffers;
 DROP TABLE IF EXISTS PESSOA CASCADE;
 DROP TABLE IF EXISTS VIAGEM CASCADE;
 
@@ -14,7 +15,7 @@ CREATE TABLE PESSOA (
 
 CREATE TABLE VIAGEM (
     idpessoa      integer,
-    remuneracao   varchar(10)
+    remuneracao   money,
     idViagem      integer,
     data          timestamp,
     deslocamento  double precision,
@@ -113,6 +114,8 @@ CREATE INDEX idx_locations_point_geom
 ON LOCATIONS USING GIST (point_geom);
 
 CREATE INDEX idx_locations_id_trip ON LOCATIONS (idTrip);
+
+CLUSTER LOCATIONS USING idx_locations_point_geom;
 
 UPDATE LOCATIONS AS cur
 SET mean_speed = (

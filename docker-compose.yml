@@ -50,6 +50,11 @@ services:
                 VIAGENS_PATH: $VIAGENS_PATH
         container_name: bikesp_dw
         restart: always
+        command: >
+            postgres -c shared_buffers=2GB
+               -c work_mem=64MB
+               -c max_wal_size=2GB
+               -c maintenance_work_mem=512MB
         environment:
             POSTGRES_DB: bikesp_science
             POSTGRES_USER: postgres
