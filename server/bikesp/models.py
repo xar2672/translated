@@ -24,8 +24,8 @@ class HourFilter(Schema):
         if data["min"] >= data["max"]:
             raise ValidationError("min must be less than max")
 
-GENDER_VALUES = ["M", "F", "NB"]
-RACE_VALUES = ["Branca", "Parda", "Amarela"]
+GENDER_VALUES = ["M", "F", "NB", "NA"]
+RACE_VALUES = ["Branca", "Parda", "Amarela", "Indígena", "Preta", "Prefiro nã"]
 
 class Filters(Schema):
     date_filter = fields.Nested(DateFilter)
