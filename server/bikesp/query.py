@@ -158,10 +158,11 @@ class Aggregations(BaseQuery):
                     )
             )
         ''')
-        self.table = "snapped_and_ranked l"
+        self.table = "snapped_and_ranked lo"
         self.select_parts.append('ST_Y(snapped_geom) AS latitude')
         self.select_parts.append('ST_X(snapped_geom) AS longitude')
         self.group_by_parts.append('snapped_geom')
+        self.joins.append('INNER JOIN TRIP_LOCATION l ON l.idLocation = lo.idLocation')
         params = [grid_deg_x, grid_deg_y] + [lng, lat] + [max_distance]
         self.params.extend(params)
         self.orderByGroups = False
@@ -187,7 +188,7 @@ class DataTypes(BaseQuery):
         self.select_parts.append('COUNT(*) AS point_count')
 
     def add_location_mean_speed(self):
-        self.select_parts.append('AVG(mean_speed) AS mean_speed')
+        self.select_parts.append('AVG(speed) AS mean_speed')
 
 class Query(Filters, Aggregations, DataTypes):
     pass

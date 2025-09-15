@@ -21,7 +21,10 @@ const value = ref([]);
 const options = [
   {name: 'Amarela', value: 'Amarela'},
   {name: 'Branca', value: 'Branca'},
-  {name: 'Parda', value: 'Parda'}
+  {name: 'Parda', value: 'Parda'},
+  {name: 'Indígena', value: 'Indígena'},
+  {name: 'Preta', value: 'Preta'},
+  {name: 'Não informado', value: 'Prefiro nã'},
 ]
 
 watch(value, () => {

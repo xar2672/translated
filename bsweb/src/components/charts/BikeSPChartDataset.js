@@ -42,16 +42,19 @@ function buildGenderDataset(data) {
     return [
         buildCustomDataset(data, 'Feminino', ['F'], 'd5a6bd'),
         buildCustomDataset(data, 'Masculino', ['M'], '6fa8dc'),
-        buildCustomDataset(data, 'Outros', ['F', 'M'], '808080', false),
+        buildCustomDataset(data, 'Não binários', ['NB'], 'FFF430'),
+        buildCustomDataset(data, 'NA', ['NA'], '808080'),
     ]
 };
 
 function buildRaceDataset(data) {
     return [
-        buildCustomDataset(data, 'Amarela', ['Amarela'], 'FFD966'),
+        buildCustomDataset(data, 'Amarela', ['Amarela'], 'FFF430'),
         buildCustomDataset(data, 'Branca', ['Branca'], 'C9DAF8'),
-        buildCustomDataset(data, 'Pardos', ['Pardos'], 'B97A57'),
-        buildCustomDataset(data, 'Outros', ['Amarela', 'Branca', 'Pardos'], 'A9A9A9', false),
+        buildCustomDataset(data, 'Parda', ['Parda'], 'B97A57'),
+        buildCustomDataset(data, 'Indígena', ['Indígena'], 'FFD700'),
+        buildCustomDataset(data, 'Preta', ['Preta'], '000000'),
+        buildCustomDataset(data, 'NA', ['Prefiro nã'], 'A9A9A9'),
     ]
 };
 

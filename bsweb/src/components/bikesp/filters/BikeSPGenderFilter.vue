@@ -21,7 +21,8 @@ const value = ref([]);
 const options = [
   {name: 'Feminino', value: 'F'},
   {name: 'Masculino', value: 'M'},
-  {name: 'Outros', value: 'NB'}
+  {name: 'Não binários', value: 'NB'},
+  {name: 'Não informado', value: 'NA'}
 ]
 
 watch(value, () => {

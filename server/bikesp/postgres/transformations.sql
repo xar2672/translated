@@ -54,7 +54,7 @@ CREATE TABLE TRIP (
     distance double precision,
     idOrigin integer,
     idTarget integer,
-    status varchar(30) NOT NULL CHECK (status in ('EmAnalise', 'Reprovado','Aprovado')),
+    status varchar(30) NOT NULL,
     statusReason varchar(100) NOT NULL,
     duration interval,
     payoutLevel double precision,
@@ -74,119 +74,89 @@ SELECT
     motivoStatus,
     ROUND((COALESCE(remuneracao, '0.00'::money)::numeric / NULLIF(deslocamento / 1000.0, 0))::numeric, 2)
 FROM VIAGEM
-WHERE deslocamento > 0 AND motivoStatus != 'Reprovado'; 
+WHERE deslocamento > 0 AND status = 'Aprovado'; 
 
 DROP TABLE IF EXISTS LOCATIONS CASCADE;
 
 CREATE TABLE LOCATIONS (
-    idSample serial PRIMARY KEY,             
-    idTrip integer NOT NULL REFERENCES TRIP (idTrip), 
+    idLocation serial PRIMARY KEY,             
     point_geom GEOGRAPHY(Point, 4326) NOT NULL,
-    point_timestamp timestamp,
-    geohash TEXT,
-    mean_speed double precision
+    geohash TEXT
 );
 
-INSERT INTO LOCATIONS (idTrip, point_geom, point_timestamp)
+CREATE INDEX idx_location_geom ON LOCATIONS USING GIST (point_geom);
+CREATE INDEX idx_location ON LOCATIONS (idLocation);
+CREATE UNIQUE INDEX idx_location_geohash ON LOCATIONS (geohash);
+
+CREATE TABLE TRIP_LOCATION (
+    idTrip integer NOT NULL REFERENCES TRIP (idTrip),
+    idLocation integer NOT NULL REFERENCES LOCATIONS (idLocation),
+    point_timestamp timestamp NOT NULL,
+    seq serial,
+    speed double precision
+);
+
+CREATE INDEX idx_trip_id ON TRIP_LOCATION (idTrip);
+CREATE INDEX idx_location_id ON TRIP_LOCATION (idLocation);
+
+CREATE TEMP TABLE tmp_raw_points AS
 SELECT
-    v.idViagem,
-    ST_SetSRID(ST_MakePoint(
-        (arr.point_data->'Posicao'->>'longitude')::double precision,
-        (arr.point_data->'Posicao'->>'latitude')::double precision
-    ), 4326)::geography,
-    (arr.point_data->>'Data')::timestamp with time zone
-FROM
-    VIAGEM AS v,
-    jsonb_array_elements(v.trajeto) WITH ORDINALITY AS arr(point_data, ordinality) 
-WHERE
-    v.trajeto IS NOT NULL 
-    AND jsonb_typeof(v.trajeto) = 'array'
-    AND v.deslocamento > 0
-    AND motivoStatus != 'Reprovado'
-;
+    v.idViagem AS idTrip,
+    ST_GeoHash(
+        ST_SetSRID(ST_MakePoint(
+            (arr.point_data->'Posicao'->>'longitude')::double precision,
+            (arr.point_data->'Posicao'->>'latitude')::double precision
+        ), 4326), 8
+    ) AS ghash,
+    AVG((arr.point_data->'Posicao'->>'longitude')::double precision) AS lon,
+    AVG((arr.point_data->'Posicao'->>'latitude')::double precision) AS lat,
+    MAX((arr.point_data->>'Data')::timestamptz) AS ts
+FROM VIAGEM v,
+     jsonb_array_elements(v.trajeto) AS arr(point_data)
+WHERE v.trajeto IS NOT NULL
+  AND jsonb_typeof(v.trajeto) = 'array'
+  AND v.deslocamento > 0
+  AND v.status = 'Aprovado'
+GROUP BY v.idViagem, ghash;
 
-UPDATE LOCATIONS
-SET geohash = ST_GeoHash(point_geom::geometry, 20);
+INSERT INTO LOCATIONS (point_geom, geohash)
+SELECT
+    ST_SetSRID(ST_MakePoint(lon, lat), 4326)::geography,
+    ghash
+FROM tmp_raw_points ON CONFLICT (geohash) DO NOTHING;;
 
-CREATE INDEX idx_locations_geohash ON LOCATIONS (geohash);
+INSERT INTO TRIP_LOCATION (idTrip, idLocation, point_timestamp)
+SELECT
+    t.idTrip,
+    l.idLocation,
+    t.ts
+FROM tmp_raw_points t
+INNER JOIN LOCATIONS l ON l.geohash = t.ghash;
 
-CREATE INDEX idx_locations_point_geom
-ON LOCATIONS USING GIST (point_geom);
-
-CREATE INDEX idx_locations_id_trip ON LOCATIONS (idTrip);
-
-CLUSTER LOCATIONS USING idx_locations_point_geom;
-
-UPDATE LOCATIONS AS cur
-SET mean_speed = (
-  ST_Distance(
-    cur.point_geom::geography,
-    prev.prev_geom::geography
-  )
+WITH point_pairs AS (
+  SELECT
+    tl.idTrip,
+    tl.idLocation,
+    tl.point_timestamp,
+    l.point_geom AS cur_geom,
+    LAG(l.point_geom) OVER (PARTITION BY tl.idTrip ORDER BY tl.seq) AS lgeom,
+    LAG(tl.point_timestamp) OVER (PARTITION BY tl.idTrip ORDER BY tl.seq) AS prev_ts
+  FROM TRIP_LOCATION tl
+  JOIN LOCATIONS l ON tl.idLocation = l.idLocation
+)
+UPDATE TRIP_LOCATION cur
+SET speed = (
+  ST_Distance(pp.lgeom, pp.cur_geom)
   /
-  NULLIF(
-    EXTRACT(
-      EPOCH FROM (cur.point_timestamp - prev.prev_ts)
-    ),
-    0
-  )
-)
-FROM (
-  SELECT
-    idSample,
-    LAG(point_geom) OVER (
-      PARTITION BY idTrip
-      ORDER BY point_timestamp
-    ) AS prev_geom,
-    LAG(point_timestamp) OVER (
-      PARTITION BY idTrip
-      ORDER BY point_timestamp
-    ) AS prev_ts
-  FROM LOCATIONS
-) AS prev
-WHERE cur.idSample = prev.idSample
-  AND prev.prev_geom IS NOT NULL;
+  NULLIF(EXTRACT(EPOCH FROM (cur.point_timestamp - pp.prev_ts)), 0)
+) * 3.6
+FROM point_pairs pp
+WHERE cur.idTrip = pp.idTrip
+  AND cur.idLocation = pp.idLocation
+  AND cur.point_timestamp = pp.point_timestamp
+  AND pp.lgeom IS NOT NULL;
 
-UPDATE LOCATIONS
-SET mean_speed = mean_speed * 3.6;
-
-UPDATE LOCATIONS
-SET mean_speed = NULL
-WHERE mean_speed > 85;
-
-
-WITH first_points AS (
-  SELECT DISTINCT ON (idTrip)
-    idTrip,
-    point_geom AS first_geom
-  FROM LOCATIONS
-  ORDER BY idTrip, point_timestamp ASC
-),
-last_points AS (
-  SELECT DISTINCT ON (idTrip)
-    idTrip,
-    point_geom AS last_geom
-  FROM LOCATIONS
-  ORDER BY idTrip, point_timestamp DESC
-),
-trip_endpoints AS (
-  SELECT
-    fp.idTrip,
-    fp.first_geom,
-    lp.last_geom
-  FROM first_points fp
-  JOIN last_points lp ON fp.idTrip = lp.idTrip
-)
-DELETE FROM LOCATIONS l
-USING trip_endpoints te
-WHERE
-  l.idTrip = te.idTrip
-  AND (
-    ST_DWithin(l.point_geom, te.first_geom, 300)
-    OR
-    ST_DWithin(l.point_geom, te.last_geom, 300)
-  );
-
+CLUSTER LOCATIONS USING idx_location_geom;
 
 UPDATE TRIP
 SET duration = sub.trip_duration
@@ -195,18 +165,42 @@ FROM (
         l.idTrip,
         (MAX(l.point_timestamp) - MIN(l.point_timestamp)) AS trip_duration
     FROM
-        LOCATIONS l
+        TRIP_LOCATION l
     GROUP BY
         l.idTrip
 ) AS sub
 WHERE
     TRIP.idTrip = sub.idTrip;
-
-UPDATE TRIP
-SET meanSpeed = ROUND(
-  ((distance / 1000.0) / NULLIF(EXTRACT(EPOCH FROM duration) / 3600.0, 0))::numeric,
-  2
-);
+    
+WITH trip_endpoints AS (
+    SELECT
+        tl.idTrip,
+        MIN(tl.point_timestamp) AS first_ts,
+        MAX(tl.point_timestamp) AS last_ts
+    FROM TRIP_LOCATION tl
+    GROUP BY tl.idTrip
+),
+end_locations AS (
+    SELECT
+        te.idTrip,
+        l_start.idLocation AS first_id,
+        l_start.point_geom AS first_geom,
+        l_end.idLocation AS last_id,
+        l_end.point_geom AS last_geom
+    FROM trip_endpoints te
+    JOIN TRIP_LOCATION l_start 
+        ON l_start.idTrip = te.idTrip AND l_start.point_timestamp = te.first_ts
+    JOIN TRIP_LOCATION l_end
+        ON l_end.idTrip = te.idTrip AND l_end.point_timestamp = te.last_ts
+)
+DELETE FROM TRIP_LOCATION tl
+USING end_locations e, LOCATIONS l
+WHERE tl.idLocation = l.idLocation
+  AND tl.idTrip = e.idTrip
+  AND (
+        ST_DWithin(l.point_geom, e.first_geom, 300)  -- within 300 meters of start
+     OR ST_DWithin(l.point_geom, e.last_geom, 300)   -- within 300 meters of end
+  );
 
 DROP TABLE IF EXISTS PESSOA CASCADE;
 DROP TABLE IF EXISTS VIAGEM CASCADE;
