@@ -172,35 +172,37 @@ FROM (
 WHERE
     TRIP.idTrip = sub.idTrip;
     
-WITH trip_endpoints AS (
-    SELECT
-        tl.idTrip,
-        MIN(tl.point_timestamp) AS first_ts,
-        MAX(tl.point_timestamp) AS last_ts
-    FROM TRIP_LOCATION tl
-    GROUP BY tl.idTrip
+WITH first_per_trip AS (
+  SELECT DISTINCT ON (idTrip) idTrip, idLocation
+  FROM TRIP_LOCATION
+  ORDER BY idTrip, point_timestamp ASC, seq ASC
+),
+last_per_trip AS (
+  SELECT DISTINCT ON (idTrip) idTrip, idLocation
+  FROM TRIP_LOCATION
+  ORDER BY idTrip, point_timestamp DESC, seq DESC
 ),
 end_locations AS (
-    SELECT
-        te.idTrip,
-        l_start.idLocation AS first_id,
-        l_start.point_geom AS first_geom,
-        l_end.idLocation AS last_id,
-        l_end.point_geom AS last_geom
-    FROM trip_endpoints te
-    JOIN TRIP_LOCATION l_start 
-        ON l_start.idTrip = te.idTrip AND l_start.point_timestamp = te.first_ts
-    JOIN TRIP_LOCATION l_end
-        ON l_end.idTrip = te.idTrip AND l_end.point_timestamp = te.last_ts
+  SELECT
+    f.idTrip,
+    f.idLocation AS first_id,
+    lf.point_geom AS first_geom,
+    l.idLocation AS last_id,
+    ll.point_geom AS last_geom
+  FROM first_per_trip f
+  JOIN last_per_trip l USING (idTrip)
+  JOIN LOCATIONS lf ON lf.idLocation = f.idLocation
+  JOIN LOCATIONS ll ON ll.idLocation = l.idLocation
 )
 DELETE FROM TRIP_LOCATION tl
 USING end_locations e, LOCATIONS l
 WHERE tl.idLocation = l.idLocation
   AND tl.idTrip = e.idTrip
   AND (
-        ST_DWithin(l.point_geom, e.first_geom, 300)  -- within 300 meters of start
-     OR ST_DWithin(l.point_geom, e.last_geom, 300)   -- within 300 meters of end
+        ST_DWithin(l.point_geom, e.first_geom, 300)
+     OR ST_DWithin(l.point_geom, e.last_geom, 300)
   );
+
 
 DROP TABLE IF EXISTS PESSOA CASCADE;
 DROP TABLE IF EXISTS VIAGEM CASCADE;
