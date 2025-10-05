@@ -340,8 +340,8 @@ export const messages = {
     weekday: 'Dia da semana',
     holidays: 'Feriados',
     // Filters (trips)
-    tripDistance: 'Distância',
-    tripDuration: 'Duração',
+    tripDistance: 'Distância média',
+    tripDuration: 'Duração média',
     avgSpeed: 'Velocidade média',
     tripReason: 'Motivos da viagem',
     // Filters (demographic)
@@ -428,8 +428,8 @@ export const messages = {
     bikesp: {
       dataType: {
         TRIP_COUNT: 'Número de viagens',
-        TRIP_DURATION: 'Duração das viagens (em minutos)',
-        TRIP_DISTANCE: 'Distância percorrida (Km)',
+        TRIP_DURATION: 'Duração média das viagens (em minutos)',
+        TRIP_DISTANCE: 'Distância média percorrida (Km)',
         MEAN_SPEED: 'Velocidade média (Km/h)',
         TOTAL_SAMPLES: 'Total de amostras',
         SAMPLE_MEAN_SPEED: 'Velocidade média (Km/h)',
@@ -437,7 +437,7 @@ export const messages = {
       chartTitle: '{dataType} por {aggregation}',
       aggregation: {
         GENDER: 'Gênero',
-        RACE: 'Raça',
+        RACE: 'Raça/cor',
         WEEK: 'Semana',
         HOUR: 'Hora do dia',
         DAY_OF_WEEK: 'Dia da semana',

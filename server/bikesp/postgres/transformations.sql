@@ -72,9 +72,9 @@ SELECT
     idDestino,
     status,
     motivoStatus,
-    ROUND((COALESCE(remuneracao, '0.00'::money)::numeric / NULLIF(deslocamento / 1000.0, 0))::numeric, 2)
+    0
 FROM VIAGEM
-WHERE deslocamento > 0 AND status = 'Aprovado'; 
+WHERE deslocamento > 0 AND status = 'Aprovado' AND data > '2025-07-01'; 
 
 DROP TABLE IF EXISTS LOCATIONS CASCADE;
 
@@ -117,6 +117,7 @@ WHERE v.trajeto IS NOT NULL
   AND jsonb_typeof(v.trajeto) = 'array'
   AND v.deslocamento > 0
   AND v.status = 'Aprovado'
+  AND v.data > '2025-07-01'
 GROUP BY v.idViagem, ghash;
 
 INSERT INTO LOCATIONS (point_geom, geohash)
@@ -139,17 +140,21 @@ WITH point_pairs AS (
     tl.idLocation,
     tl.point_timestamp,
     l.point_geom AS cur_geom,
-    LAG(l.point_geom) OVER (PARTITION BY tl.idTrip ORDER BY tl.seq) AS lgeom,
-    LAG(tl.point_timestamp) OVER (PARTITION BY tl.idTrip ORDER BY tl.seq) AS prev_ts
+    LAG(l.point_geom) OVER (PARTITION BY tl.idTrip ORDER BY tl.point_timestamp) AS lgeom,
+    LAG(tl.point_timestamp) OVER (PARTITION BY tl.idTrip ORDER BY tl.point_timestamp) AS prev_ts
   FROM TRIP_LOCATION tl
   JOIN LOCATIONS l ON tl.idLocation = l.idLocation
 )
 UPDATE TRIP_LOCATION cur
-SET speed = (
-  ST_Distance(pp.lgeom, pp.cur_geom)
-  /
-  NULLIF(EXTRACT(EPOCH FROM (cur.point_timestamp - pp.prev_ts)), 0)
-) * 3.6
+SET speed = CASE
+    WHEN (ST_Distance(pp.lgeom, pp.cur_geom)
+          / NULLIF(EXTRACT(EPOCH FROM (cur.point_timestamp - pp.prev_ts)), 0)
+         ) * 3.6 > 70
+    THEN 21
+    ELSE (ST_Distance(pp.lgeom, pp.cur_geom)
+          / NULLIF(EXTRACT(EPOCH FROM (cur.point_timestamp - pp.prev_ts)), 0)
+         ) * 3.6
+END
 FROM point_pairs pp
 WHERE cur.idTrip = pp.idTrip
   AND cur.idLocation = pp.idLocation
@@ -157,30 +162,16 @@ WHERE cur.idTrip = pp.idTrip
   AND pp.lgeom IS NOT NULL;
 
 CLUSTER LOCATIONS USING idx_location_geom;
-
-UPDATE TRIP
-SET duration = sub.trip_duration
-FROM (
-    SELECT
-        l.idTrip,
-        (MAX(l.point_timestamp) - MIN(l.point_timestamp)) AS trip_duration
-    FROM
-        TRIP_LOCATION l
-    GROUP BY
-        l.idTrip
-) AS sub
-WHERE
-    TRIP.idTrip = sub.idTrip;
     
 WITH first_per_trip AS (
   SELECT DISTINCT ON (idTrip) idTrip, idLocation
   FROM TRIP_LOCATION
-  ORDER BY idTrip, point_timestamp ASC, seq ASC
+  ORDER BY idTrip, point_timestamp ASC
 ),
 last_per_trip AS (
   SELECT DISTINCT ON (idTrip) idTrip, idLocation
   FROM TRIP_LOCATION
-  ORDER BY idTrip, point_timestamp DESC, seq DESC
+  ORDER BY idTrip, point_timestamp DESC
 ),
 end_locations AS (
   SELECT
@@ -203,6 +194,47 @@ WHERE tl.idLocation = l.idLocation
      OR ST_DWithin(l.point_geom, e.last_geom, 300)
   );
 
+UPDATE TRIP
+SET duration = sub.trip_duration
+FROM (
+    SELECT
+        l.idTrip,
+        (MAX(l.point_timestamp) - MIN(l.point_timestamp)) AS trip_duration
+    FROM
+        TRIP_LOCATION l
+    GROUP BY
+        l.idTrip
+) AS sub
+WHERE
+    TRIP.idTrip = sub.idTrip;
+
+UPDATE TRIP
+SET meanSpeed = sub.meanSpeed
+FROM (
+  SELECT
+    t.idTrip as idTrip,
+    AVG(l.speed) as meanSpeed
+  FROM
+    TRIP t
+  JOIN TRIP_LOCATION l ON l.idTrip = t.idTrip
+  GROUP BY t.idTrip
+) AS sub
+WHERE sub.idTrip = TRIP.idTrip;
+
+UPDATE TRIP t
+SET payoutLevel = ROUND((sub.totalPayout::numeric / LEAST(sub.totalDistance, 16))::numeric, 2)
+FROM (
+  SELECT
+    t2.idPerson,
+    date_trunc('day', t2.date) AS trip_day,
+    SUM(t2.payout) AS totalPayout,
+    SUM(LEAST(t2.distance/1000, 8)) AS totalDistance
+  FROM TRIP t2
+  WHERE t2.payout::numeric > 0.0
+  GROUP BY t2.idPerson, date_trunc('day', t2.date)
+) AS sub
+WHERE sub.idPerson = t.idPerson
+  AND date_trunc('day', t.date) = sub.trip_day;
 
 DROP TABLE IF EXISTS PESSOA CASCADE;
 DROP TABLE IF EXISTS VIAGEM CASCADE;
