@@ -12,7 +12,7 @@ class PayoutFilter(Schema):
     max = fields.Float(validate=Range(min=0), required=True)
     @validates_schema
     def validate_range(self, data, **kwargs):
-        if data["min"] >= data["max"]:
+        if data["min"] > data["max"]:
             raise ValidationError("min must be less than max")
 
 class HourFilter(Schema):
@@ -21,7 +21,7 @@ class HourFilter(Schema):
 
     @validates_schema
     def validate_range(self, data, **kwargs):
-        if data["min"] >= data["max"]:
+        if data["min"] > data["max"]:
             raise ValidationError("min must be less than max")
 
 GENDER_VALUES = ["M", "F", "NB", "NA"]
