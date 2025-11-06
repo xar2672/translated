@@ -50,7 +50,7 @@ const mutations = {
         state.dataConfig.aggregation = data;
     },
     updateActiveDataConfig(state, data) {
-        state.activeDataConfig = structuredClone(data)
+        state.activeDataConfig = structuredClone(data);
     },
     updateFilters(state, data) {
         state.dataConfig.filters = {

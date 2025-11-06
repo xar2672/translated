@@ -3,7 +3,6 @@ FROM postgres:16
 # The locale configurations are needed because bikesp database have fields that are
 # locale dependent (like remuneracao)
 
-ARG PESSOAS_PATH
 ARG VIAGENS_PATH
 
 RUN apt-get update && apt-get install -y \
@@ -20,5 +19,4 @@ ENV LC_ALL pt_BR.UTF-8
 ENV POSTGRES_INITDB_ARGS="--locale=pt_BR.UTF-8"
 
 COPY ./transformations.sql /docker-entrypoint-initdb.d/0-.sql
-COPY ${PESSOAS_PATH} /docker-entrypoint-initdb.d/pessoas.csv
 COPY ${VIAGENS_PATH} /docker-entrypoint-initdb.d/viagens.csv

@@ -343,6 +343,7 @@ const aggregationConfig = {
     RACE: noLabelsConfig,
     PAYOUT_LEVEL: noLabelsConfig,
     DAY_OF_WEEK: noLabelsConfig,
+    REMUNERATION: noLabelsConfig,
     HOUR: {
       chart: {
         legend: {

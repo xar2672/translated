@@ -28,7 +28,8 @@ def add_query_aggregation_operations(q: query.Query):
         'DAY_OF_WEEK': q.aggregate_by_day_of_week,
         'GENDER': q.aggregate_by_gender,
         'RACE': q.aggregate_by_race,
-        'PAYOUT_LEVEL': q.aggregate_by_payout_level
+        'PAYOUT_LEVEL': q.aggregate_by_payout_level,
+        'REMUNERATION': q.aggregate_by_remuneration
     }
 
 @operation_adder('data_type')

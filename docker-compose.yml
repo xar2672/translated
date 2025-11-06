@@ -46,7 +46,6 @@ services:
         build: 
             context: ./server/bikesp/postgres
             args:
-                PESSOAS_PATH: $PESSOAS_PATH
                 VIAGENS_PATH: $VIAGENS_PATH
         container_name: bikesp_dw
         restart: always

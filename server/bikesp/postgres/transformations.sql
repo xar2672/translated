@@ -5,44 +5,43 @@ SHOW shared_buffers;
 DROP TABLE IF EXISTS PESSOA CASCADE;
 DROP TABLE IF EXISTS VIAGEM CASCADE;
 
----
-
-CREATE TABLE PESSOA (
-    idPessoa   integer,
-    genero     varchar(2),
-    raca       varchar(10)
-);
-
 CREATE TABLE VIAGEM (
-    idpessoa      integer,
-    remuneracao   money,
     idViagem      integer,
+    idPessoa   integer,
     data          timestamp,
     deslocamento  double precision,
     idOrigem      integer,
     idDestino     integer,
     status        varchar(30),
+    remuneracao money,
     motivoStatus  varchar(100),
-    trajeto       jsonb
+    trajeto       jsonb,
+    activityrecognitiontrip jsonb,
+    metadados jsonb,
+    genero     varchar(2),
+    raca       varchar(10),
+    renda      varchar(100)
 );
 
-\copy PESSOA FROM '/docker-entrypoint-initdb.d/pessoas.csv' DELIMITER ';' CSV HEADER;
 \copy VIAGEM FROM '/docker-entrypoint-initdb.d/viagens.csv' DELIMITER ';' CSV HEADER;
 -----
 DROP TABLE IF EXISTS PERSON CASCADE; 
 
 CREATE TABLE PERSON (
-    idPerson serial PRIMARY KEY,
+    idPerson integer PRIMARY KEY,
     gender varchar(2) NOT NULL,
-    race varchar(10) NOT NULL
+    race varchar(10) NOT NULL,
+    remuneration varchar(100) NOT NULL
 );
 
-INSERT INTO PERSON (idPerson, gender, race)
+INSERT INTO PERSON (idPerson, gender, race, remuneration)
 SELECT
     idPessoa,
-    genero,
-    raca
-FROM PESSOA;
+    COALESCE(genero, 'M') AS gender,
+    raca,
+    REGEXP_REPLACE(renda, '.*\(([^)]*)\).*', '\1') AS renda_simplificada
+FROM VIAGEM
+ON CONFLICT (idPerson) DO NOTHING;
 
 DROP TABLE IF EXISTS TRIP CASCADE;
 
@@ -74,7 +73,8 @@ SELECT
     motivoStatus,
     0
 FROM VIAGEM
-WHERE deslocamento > 0 AND status = 'Aprovado' AND data > '2025-07-01'; 
+WHERE deslocamento > 0 AND status = 'Aprovado' AND data > '2025-07-01'
+ON CONFLICT (idTrip) DO NOTHING; 
 
 DROP TABLE IF EXISTS LOCATIONS CASCADE;
 

@@ -129,6 +129,11 @@ class Aggregations(BaseQuery):
         self.group_by_parts.append('gender')
         self.join_person()
 
+    def aggregate_by_remuneration(self):
+        self.select_parts.append('p.remuneration AS remuneration')
+        self.group_by_parts.append('remuneration')
+        self.join_person()
+
     def aggregate_by_race(self):
         self.select_parts.append('p.race AS race')
         self.group_by_parts.append('race')

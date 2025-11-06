@@ -442,6 +442,7 @@ export const messages = {
         HOUR: 'Hora do dia',
         DAY_OF_WEEK: 'Dia da semana',
         PAYOUT_LEVEL: 'Recompensa (R$/Km)',
+        REMUNERATION: 'Nível de renda'
       },
     },
     editModal: {

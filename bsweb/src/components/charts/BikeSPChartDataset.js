@@ -88,12 +88,19 @@ function buildDayOfWeekDataset(data) {
         buildCustomDataset(data, dayName, [index], colorForValue(index/days.length)));
 };
 
+function buildRemunerationDataSet(data) {
+    const remuneration = data.map(obj => obj['label']);
+    return remuneration.map( (rem, index) => 
+        buildCustomDataset(data, rem, [rem], colorForValue(Math.random())));
+};
+
 const datasets = {
     GENDER: buildGenderDataset,
     RACE: buildRaceDataset,
     PAYOUT_LEVEL: buildPayoutLevelDataset,
     HOUR: buildHourDataset,
     DAY_OF_WEEK: buildDayOfWeekDataset,
+    REMUNERATION: buildRemunerationDataSet,
 }
 
 export function getDataset(state) {

@@ -12,6 +12,7 @@
       <option value="HOUR">{{ getTranslatedLabel('HOUR') }}</option>
       <option value="DAY_OF_WEEK">{{ getTranslatedLabel('DAY_OF_WEEK') }}</option>
       <option value="PAYOUT_LEVEL">{{ getTranslatedLabel('PAYOUT_LEVEL') }}</option>
+      <option value="REMUNERATION">{{ getTranslatedLabel('REMUNERATION') }}</option>
     </select>
     <p class="helper-text">
       Escolha uma categoria para agrupar os dados exibidos no gráfico.
