@@ -62,7 +62,7 @@ onMounted(() => {
 .chart-panel {
   flex: 1;
   min-width: 0;
-  height: 90vh;
+  height: 80vh;
   display: flex;
   flex-direction: column;
 }
