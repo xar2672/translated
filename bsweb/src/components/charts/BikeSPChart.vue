@@ -45,6 +45,6 @@ onMounted(() => {
 
 <style scoped>
 .chart-wrapper {
-  height: 700px;
+  max-height: 700px;
 }
 </style>

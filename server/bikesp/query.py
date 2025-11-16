@@ -192,6 +192,9 @@ class DataTypes(BaseQuery):
     def add_point_count(self):
         self.select_parts.append('COUNT(*) AS point_count')
 
+    def add_total_trips_in_point(self):
+        self.select_parts.append('COUNT(DISTINCT l.idTrip) AS point_count')
+
     def add_location_mean_speed(self):
         self.select_parts.append('AVG(speed) AS mean_speed')
 

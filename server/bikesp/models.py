@@ -55,7 +55,7 @@ class LatLng(Schema):
         if not (-180 <= lng <= 180):
             raise ValidationError("Longitude must be between -180 and 180.", field_name='lng')
 
-GEO_DATA_TYPE = ['TOTAL_SAMPLES', 'SAMPLE_MEAN_SPEED']
+GEO_DATA_TYPE = ['TOTAL_SAMPLES', 'SAMPLE_MEAN_SPEED', 'TOTAL_TRIPS']
 class BikespGeographicDataRequest(Schema):
     filters = fields.Nested(Filters)
     data_type = fields.String(validate=OneOf(GEO_DATA_TYPE), required=True)

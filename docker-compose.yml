@@ -51,7 +51,8 @@ services:
         restart: always
         command: >
             postgres -c shared_buffers=4GB
-               -c work_mem=128MB
+               -c max_connections=20
+               -c work_mem=256MB
                -c max_wal_size=2GB
                -c maintenance_work_mem=512MB
         environment:

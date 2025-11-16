@@ -45,7 +45,8 @@ def add_query_data_type(q: query.Query):
 def add_location_data_type(q: query.Query):
     return {
         'TOTAL_SAMPLES': q.add_point_count,
-        'SAMPLE_MEAN_SPEED': q.add_location_mean_speed
+        'SAMPLE_MEAN_SPEED': q.add_location_mean_speed,
+        'TOTAL_TRIPS': q.add_total_trips_in_point
     }
 
 def cancel_if_none(arg_name):

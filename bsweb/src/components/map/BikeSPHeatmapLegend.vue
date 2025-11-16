@@ -3,8 +3,10 @@
     <div class="legend-title">{{ title }}</div>
     <div class="gradient-bar" :style="barStyle"></div>
     <div class="legend-labels">
-      <span>{{ Math.round(min) }}</span>
-      <span>{{ Math.round(max) }}</span>
+      <span>{{ compact(Math.round(min)) }}</span>
+      <span>{{ compact(Math.round(max/3)) }}</span>
+      <span>{{ compact(Math.round(2*max/3)) }}</span>
+      <span>{{ compact(Math.round(max)) }}</span>
     </div>
   </div>
 </template>
@@ -30,6 +32,13 @@ const barStyle = computed(() => {return {
     .map(([percent, color]) => `${color} ${parseFloat(percent) * 100}%`)
     .join(', ')})`,
 }});
+
+const compact = (number) => {
+  return Intl.NumberFormat('en-US', {
+    notation: "compact",
+    maximumFractionDigits: 1
+  }).format(Math.round(number))
+}
 </script>
 
 <style scoped>

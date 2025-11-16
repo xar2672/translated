@@ -43,6 +43,7 @@ const chartOptions = [
 const mapOptions = [
   'TOTAL_SAMPLES',
   'SAMPLE_MEAN_SPEED',
+  'TOTAL_TRIPS'
 ];
 
 const currentOptions = computed(() =>

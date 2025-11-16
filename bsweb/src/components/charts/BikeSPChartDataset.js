@@ -89,7 +89,18 @@ function buildDayOfWeekDataset(data) {
 };
 
 function buildRemunerationDataSet(data) {
-    const remuneration = data.map(obj => obj['label']);
+    const remuneration = [
+        "até R$ 820",
+        "entre R$ 821 e R$ 1.640",
+        "entre R$ 1.641 e R$ 3.280",
+        "entre R$ 3.281 e R$ 4.920",
+        "entre R$ 4.921 e R$ 8.200",
+        "entre R$ 8.201 e R$ 16.400",
+        "entre R$ 16.401 e R$ 32.800",
+        "mais de R$ 32.800"
+    ];
+
+
     return remuneration.map( (rem, index) => 
         buildCustomDataset(data, rem, [rem], colorForValue(Math.random())));
 };
@@ -109,6 +120,5 @@ export function getDataset(state) {
     if (!dataset) {
         return [defaultDataset(state.data)];
     }
-    console.log(dataset(state.data))
     return dataset(state.data);
 }

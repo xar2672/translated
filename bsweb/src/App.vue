@@ -1,8 +1,11 @@
 <template>
   <div id="app">
     <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/bikesp">Bikes Page</router-link>
+      <router-link to="/">BikescienceWeb</router-link> |
+      <router-link to="/bikesp">
+        <img src="https://ecosustain.cc/assets/img/logo-ecosustain.svg" alt="icon" style="width:20px; height:20px; vertical-align:middle;" />
+        Piloto Bike SP - Painel Analítico
+      </router-link>
     </nav>
     <router-view />
   </div>

@@ -56,13 +56,13 @@ onMounted(() => {
   flex: 0 0 320px;
   max-width: 320px;
   overflow-y: auto;
-  height: 80vh;
+  height: 90vh;
 }
 
 .chart-panel {
   flex: 1;
   min-width: 0;
-  height: 80vh;
+  height: 90vh;
   display: flex;
   flex-direction: column;
 }

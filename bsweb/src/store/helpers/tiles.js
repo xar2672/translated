@@ -5,7 +5,7 @@ const tiles = [
     id: 1,
     name: 'Voyager',
     url: 'https://api.maptiler.com/maps/voyager/{z}/{x}/{y}.png?key=ajQurp8FqZX9pYwNKnIv',
-    visible: true,
+    visible: false,
     attribution,
   },
   {
@@ -43,20 +43,20 @@ const tiles = [
     visible: false,
     attribution,
   },
-  // {
-  //   id: 6,
-  //   name: 'Outdoor',
-  //   url: 'https://api.maptiler.com/maps/outdoor/{z}/{x}/{y}.png?key=ajQurp8FqZX9pYwNKnIv',
-  //   visible: false,
+  {
+    id: 6,
+    name: 'Outdoor',
+    url: 'https://api.maptiler.com/maps/outdoor/{z}/{x}/{y}.png?key=ajQurp8FqZX9pYwNKnIv',
+    visible: false,
   // attribution,
-  // },
-  // {
-  //   id: 7,
-  //   name: 'Toner',
-  //   url: 'https://api.maptiler.com/maps/toner/{z}/{x}/{y}.png?key=ajQurp8FqZX9pYwNKnIv',
-  //   visible: false,
+  },
+  {
+    id: 7,
+    name: 'Toner',
+    url: 'https://api.maptiler.com/maps/toner/{z}/{x}/{y}.png?key=ajQurp8FqZX9pYwNKnIv',
+    visible: true,
   // attribution,
-  // },
+  },
   {
     id: 8,
     name: 'Topo',
@@ -64,13 +64,13 @@ const tiles = [
     visible: false,
     // attribution,
   },
-  // {
-  //   id: 9,
-  //   name: 'Topographique',
-  //   url: 'https://api.maptiler.com/maps/topographique/{z}/{x}/{y}.png?key=ajQurp8FqZX9pYwNKnIv',
-  //   visible: false,
+  {
+    id: 9,
+    name: 'Topographique',
+    url: 'https://api.maptiler.com/maps/topographique/{z}/{x}/{y}.png?key=ajQurp8FqZX9pYwNKnIv',
+    visible: false,
   // attribution,
-  // },
+  },
 ];
 
 export default tiles;

@@ -432,6 +432,7 @@ export const messages = {
         TRIP_DISTANCE: 'Distância média percorrida (Km)',
         MEAN_SPEED: 'Velocidade média (Km/h)',
         TOTAL_SAMPLES: 'Total de amostras',
+        TOTAL_TRIPS: 'Total de viagens',
         SAMPLE_MEAN_SPEED: 'Velocidade média (Km/h)',
       },
       chartTitle: '{dataType} por {aggregation}',
