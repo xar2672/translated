@@ -1,6 +1,6 @@
 <template>
   <div class="data-type-selector">
-    <label for="data-type-select">Selecionar tipo de dado:</label>
+    <label for="data-type-select">$t(bikesp.changeDataType):</label>
     <select
       id="data-type-select"
       v-model="selected"
@@ -15,7 +15,7 @@
       </option>
     </select>
     <p class="helper-text">
-      Escolha qual métrica você deseja visualizar no gráfico.
+      $(bikesp.datatype_helper)
     </p>
   </div>
 </template>

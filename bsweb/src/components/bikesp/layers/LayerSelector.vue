@@ -1,9 +1,9 @@
 <template>
-  <label for="filter-select">Camadas:</label>
+  <label for="filter-select">t$(bikesp.layers)</label>
   <div class="select-button-wrapper">
     <multiselect class="fixed-width-multiselect" id="multiselect" v-model="value" :options="options" :multiple="true" :close-on-select="true" :clear-on-select="false"
-        :preserve-search="true" placeholder="Selecione as camadas do mapa" label="label" track-by="name" :preselect-first="false"
-        :taggable="true" deselectLabel="" selectLabel="" selectedLabel="Selecionado">
+        :preserve-search="true" placeholder=$t(bikesp.chooseLayer) label="label" track-by="name" :preselect-first="false"
+        :taggable="true" deselectLabel="" selectLabel="" selectedLabel=$t(bikesp.selected)>
     </multiselect>
   </div>
 </template>

@@ -6,7 +6,7 @@
     <BikeSPLayerInput mapkey="main" v-if="isMapViewOn"/>
     <BikeSPFilter />
     <div class="button-wrapper">
-      <button @click="apply" class="apply-button" :disabled="!hasNewDataConfig">Aplicar</button>
+      <button @click="apply" class="apply-button" :disabled="!hasNewDataConfig">$t(bikesp.apply)</button>
     </div>
   </div>
 </template>

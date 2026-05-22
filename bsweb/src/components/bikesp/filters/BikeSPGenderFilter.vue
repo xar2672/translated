@@ -1,9 +1,9 @@
 <template>
-  <label>Gênero:</label>
+  <label>t$(bikesp.aggregation.GENDER):</label>
   <div class="select-button-wrapper">
     <multiselect class="fixed-width-multiselect" id="multiselect" v-model="value" :options="options" :multiple="true" :close-on-select="true" :clear-on-select="false"
-        :preserve-search="true" placeholder="Escolha um gênero" label="name" track-by="name" :preselect-first="false"
-        :taggable="true" deselectLabel="" selectLabel="" selectedLabel="Selecionado">
+        :preserve-search="true" placeholder=$t(bikesp.genderSelect) label="name" track-by="name" :preselect-first="false"
+        :taggable="true" deselectLabel="" selectLabel="" selectedLabel=$t(bikesp.selected)>
     </multiselect>
   </div>
 </template>
@@ -18,11 +18,15 @@ const store = useStore();
 
 const value = ref([]);
 
+const getTranslationForValue = (value) => {
+  return t(`bikesp.gender.${value}`)
+}
+
 const options = [
-  {name: 'Feminino', value: 'F'},
-  {name: 'Masculino', value: 'M'},
-  {name: 'Não binários', value: 'NB'},
-  {name: 'Não informado', value: 'NA'}
+  {name: getTranslationForValue('feminine'), value: 'F'},
+  {name: getTranslationForValue('masculine'), value: 'M'},
+  {name: getTranslationForValue('nonBinary'), value: 'NB'},
+  {name: getTranslationForValue('na'), value: 'NA'}
 ]
 
 watch(value, () => {

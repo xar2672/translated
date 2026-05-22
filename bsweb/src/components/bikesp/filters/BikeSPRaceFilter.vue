@@ -1,9 +1,9 @@
 <template>
-  <label for="race-select">Raça:</label>
+  <label for="race-select">t$(bikesp.aggregation.RACE):</label>
   <div class="select-button-wrapper">
     <multiselect class="fixed-width-multiselect" id="multiselect" v-model="value" :options="options" :multiple="true" :close-on-select="true" :clear-on-select="false"
-        :preserve-search="true" placeholder="Escolha uma raça" label="name" track-by="name" :preselect-first="false"
-        :taggable="true" deselectLabel="" selectLabel="" selectedLabel="Selecionado">
+        :preserve-search="true" placeholder=$t(bikesp.chooseRace) label="name" track-by="name" :preselect-first="false"
+        :taggable="true" deselectLabel="" selectLabel="" selectedLabel=$t(bikesp.selected)>
     </multiselect>
   </div>
 </template>
@@ -18,13 +18,17 @@ const store = useStore();
 
 const value = ref([]);
 
+const getTranslationForValue = (value) => {
+  return t(`bikesp.race.${value}`)
+}
+
 const options = [
-  {name: 'Amarela', value: 'Amarela'},
-  {name: 'Branca', value: 'Branca'},
-  {name: 'Parda', value: 'Parda'},
-  {name: 'Indígena', value: 'Indígena'},
-  {name: 'Preta', value: 'Preta'},
-  {name: 'Não informado', value: 'Prefiro nã'},
+  {name: getTranslationForValue('asian'), value: 'Amarela'},
+  {name: getTranslationForValue('white'), value: 'Branca'},
+  {name: getTranslationForValue('brown'), value: 'Parda'},
+  {name: getTranslationForValue('indigenous'), value: 'Indígena'},
+  {name: getTranslationForValue('black'), value: 'Preta'},
+  {name: getTranslationForValue('na'), value: 'Prefiro nã'},
 ]
 
 watch(value, () => {

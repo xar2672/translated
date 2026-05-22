@@ -167,6 +167,7 @@ const submitFiles = () => {
   shapefileToGeoJson({ formData, props, fileType: fileType.value });
 };
 
+// Erros
 const validateFiles = () => {
   if (!files.value || ![1, 4].includes(files.value.length)) {
     error.value = 'Você deve adicionar @@@';

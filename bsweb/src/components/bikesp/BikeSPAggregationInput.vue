@@ -1,6 +1,6 @@
 <template>
   <div class="aggregation-selector">
-    <label for="aggregation-select">Agrupar dados por:</label>
+    <label for="aggregation-select">$t(bikesp.changeAggregation):</label>
     <select
       id="aggregation-select"
       v-model="selected"
@@ -15,7 +15,7 @@
       <option value="REMUNERATION">{{ getTranslatedLabel('REMUNERATION') }}</option>
     </select>
     <p class="helper-text">
-      Escolha uma categoria para agrupar os dados exibidos no gráfico.
+      $t(bikesp.aggregation_helper)
     </p>
   </div>
 </template>

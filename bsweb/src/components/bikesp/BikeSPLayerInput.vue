@@ -2,17 +2,17 @@
   <div>
     <div class="category-toggle" @click="toggleCategory">
       <img :src="iconArrow" :class="['arrow', { active: isVisible }]">
-      <label>Camadas</label>
+      <label>$t(bikesp.layers)</label>
     </div>
     <div v-show="isVisible" class="filter-container">
       <multiselect class="fixed-width-multiselect" id="multiselect" v-model="value" :options="options" :multiple="true" :close-on-select="true" :clear-on-select="false"
-        :preserve-search="true" placeholder="Selecione tipos de camadas do mapa" label="name" track-by="name" :preselect-first="false"
-        :taggable="true" deselectLabel="" selectLabel="" selectedLabel="Selecionado">
+        :preserve-search="true" placeholder=$t(bikesp.selectMapLayer) label="name" track-by="name" :preselect-first="false"
+        :taggable="true" deselectLabel="" selectLabel="" selectedLabel=$t(bikesp.selected)>
       </multiselect>
       <div class="active-fields">
         <div v-for="category in value" :key="category.category_name" class="filter-wrapper">
           <div class="filter-box">
-            <button class="remove-btn-top" @click="removeLayerCategory(category)" title="Remover categoria">×</button>
+            <button class="remove-btn-top" @click="removeLayerCategory(category)" title=$t(bikesp.removeCategory)>×</button>
             <LayerSelector :category="category.value"/>
           </div>
         </div>

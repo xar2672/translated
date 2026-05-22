@@ -9,7 +9,7 @@
           name="twomaps"
           size="is-small"
         >
-          <span class="label">Mover os mapas separadamente</span>
+          <span class="label">$t(twoMaps.independentControl)</span>
         </b-radio>
       </div>
       <div class="field">
@@ -20,7 +20,7 @@
           name="twomaps"
           size="is-small"
         >
-          <span class="label">Mover os mapas simultaneamente</span>
+          <span class="label">$t(twoMaps.sameControl)</span>
         </b-radio>
       </div>
     </div>

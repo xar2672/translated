@@ -154,7 +154,7 @@
       <article>
         <h3>Base layer</h3>
         <span>Defines the geometric shape of the areas in the map:</span>
-        <ul>
+        <ul>////
           <li><strong>Grid: </strong> customizable rectangular area;</li>
           <li>
             <strong>OD Zones: </strong>geographic areas that were used in the
@@ -176,7 +176,7 @@
       <article>
         <h3>Editing the grid</h3>
         <p>
-          Changes the grid paramaters. The size defines in how many rectangles
+          Changes the grid paramaters. The Size defines in how many rectangles
           the grid is going to be divided, for instance, setting the size as 10
           divides the grid in 10x10 rectangles. The other parameters defines the
           grid limits in the west, east, north and south direction. The default
@@ -226,8 +226,8 @@
       <article>
         <h3>Layers</h3>
         <p>
-          By using layers you can show subway/rails lines and stations, the
-          cycling infrasctructure e other itens, like accidents.
+          By using layers, you can show subway/rails lines and stations, the
+          cycling infrasctructure and other itens, like cycling accidents.
         </p>
         <ol>
           <li>Select the <strong>Layers</strong> guide</li>

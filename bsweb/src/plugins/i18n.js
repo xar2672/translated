@@ -55,6 +55,8 @@ export const messages = {
       rightMap: 'Right Map',
       mirroredChanges: 'Mirrored actions',
       hideRightControls: 'Hide right controls',
+      independentControl: 'Move maps individually',
+      sameControl: 'Move maps together',
       copy: {
         flows: {
           main: {
@@ -204,6 +206,49 @@ export const messages = {
         guide: 'User Guide',
       },
     },
+    bikesp: {
+      date: 'Date',
+      layers: 'Layers',
+      filters: 'Filters',
+      chooseFilter: 'Choose filter',
+      removeFilter: 'Remove filter',
+      apply: 'Apply',
+      selected: 'Selected',
+      // Data type
+      dataType: {
+        TRIP_COUNT: 'Number of trips',
+        TRIP_DURATION: 'Average trip length (in minutes)',
+        TRIP_DISTANCE: 'Average distance traveled (Km)',
+        MEAN_SPEED: 'Average speed (Km/h)',
+        TOTAL_SAMPLES: 'Total of samples',
+        TOTAL_TRIPS: 'Total of trips',
+        SAMPLE_MEAN_SPEED: 'Average sample speed (Km/h)',
+      },
+      changeDataType: 'Select data type', //Selecionar tipo de dado
+      datatype_helper: 'Choose which metric you would prefer to view on the grapth', //Escolha qual métrica você deseja visualizar no gráfico.
+      // Aggregation
+      chartTitle: '{dataType} per {aggregation}',
+      aggregation: {
+        GENDER: 'Gender',
+        RACE: 'Race/skin color',
+        WEEK: 'Week',
+        HOUR: 'Day hour',
+        DAY_OF_WEEK: 'Weekdays',
+        PAYOUT_LEVEL: 'Payout (R$/Km)',
+        REMUNERATION: 'Level of income'
+      },
+      changeAggregation: 'Group data by', //Agrupar dados por:
+      aggregation_helper: 'Choose one category to group the shown data on the graph.', //Escolha uma categoria para agrupar os dados exibidos no gráfico.
+      // Map layer
+      selectMapLayer: 'Select map layers', //Selecione tipos de camadas do mapa
+      removeCategory: 'Remove category', //Remover categoria
+      // View type
+      changeViewType: 'Select view type', //Selecione o tipo de visualização
+      viewtype_helper: 'Choose the preferable way to view the data.', //Escolha a forma como deseja visualizar os dados.
+      map: 'Map', //Mapa
+      chart: 'Chart', //Gráfico
+
+    },
     editModal: {
       title: 'Editing layer',
       inputs: {
@@ -275,6 +320,8 @@ export const messages = {
       rightMap: 'Mapa da Direita',
       mirroredChanges: 'Espelhar alterações',
       hideRightControls: 'Ocultar controles da direita',
+      independentControl: 'Mover os mapas separadamente',
+      sameControl: 'Mover os mapas simultaneament',
       copy: {
         flows: {
           main: {
@@ -426,6 +473,31 @@ export const messages = {
       },
     },
     bikesp: {
+      date: 'Data',
+      layers: 'Camadas',
+      filters: 'Filtros',
+      chooseFilter: 'Escolha um filtro',
+      removeFilter: 'Remover filtro',
+      chooseDateofWeek: 'Escolha um dia da semana', //CHANGER HERE
+      gender: {
+        feminine: 'Feminino',
+        masculine: 'Masculino',
+        nonBinary: 'Não binários',
+        na: 'Não informado',
+      },
+      chooseGender: 'Escolha um gênero', //CHANGE HERE
+      race: {
+        asian: 'Amarelo',
+        black: 'Preto',
+        brown: 'Pardo',
+        indigenous: 'Indígena',
+        na: 'Não Informado',
+        white: 'Branco',
+      },
+      chooseRace: 'Escolha uma raça', //CHANGE HERE
+      apply: 'Aplicar',
+      selected: 'Selecionado',
+      // Data type
       dataType: {
         TRIP_COUNT: 'Número de viagens',
         TRIP_DURATION: 'Duração média das viagens (em minutos)',
@@ -435,6 +507,9 @@ export const messages = {
         TOTAL_TRIPS: 'Total de viagens',
         SAMPLE_MEAN_SPEED: 'Velocidade média (Km/h)',
       },
+      changeDataType: 'Selecionar tipo de dado',
+      datatype_helper: 'Escolha qual métrica você deseja visualizar no gráfico.',
+      // Aggregation
       chartTitle: '{dataType} por {aggregation}',
       aggregation: {
         GENDER: 'Gênero',
@@ -445,6 +520,17 @@ export const messages = {
         PAYOUT_LEVEL: 'Recompensa (R$/Km)',
         REMUNERATION: 'Nível de renda'
       },
+      changeAggregation: 'Agrupar dados por',
+      aggregation_helper: 'Escolha uma categoria para agrupar os dados exibidos no gráfico.',
+      // Map layer
+      chooseMapLayer: 'Selecione as camadas do mapa', //CHANGE HERE
+      selectMapLayer: 'Selecione tipos de camadas do mapa',
+      removeCategory: 'Remover categoria',
+      // View type
+      changeViewType: 'Selecione o tipo de visualização',
+      viewtype_helper: 'Escolha a forma como deseja visualizar os dados.',
+      map: 'Mapa',
+      chart: 'Gráfico',
     },
     editModal: {
       title: 'Editando camada',
@@ -453,6 +539,13 @@ export const messages = {
         width: 'Espessura (px)',
         opacity: 'Opacidade',
         color: 'Cor',
+      },
+      validadeModal: {
+        name: 'Nome é obrigatório.',
+        width: 'Espessura é obrigatória.',
+        opacity: 'Opacidade é obrigatória.',
+        emptyColor: 'Cor é obrigatória.',
+        invalidColor: 'Cor deve ser informada em hexadecimal, por exemplo #ffffff.',
       },
       button: 'Enviar',
     },

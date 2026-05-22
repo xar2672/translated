@@ -1,16 +1,16 @@
 <template>
   <div class="data-type-selector">
-    <label for="data-type-select">Selecione o tipo de visualização:</label>
+    <label for="data-type-select">$t(bikesp.changeViewType):</label>
     <select
       id="data-type-select"
       v-model="selected"
       @change="onChange"
     >
-      <option value="MAP">Mapa</option>
-      <option value="CHART">Gráfico</option>
+      <option value="MAP">$t(bikesp.map)</option>
+      <option value="CHART">$t(bikesp.chart)</option>
     </select>
     <p class="helper-text">
-      Escolha a forma como deseja visualizar os dados.
+      $t(bikesp.viewtype_helper)
     </p>
   </div>
 </template>

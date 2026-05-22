@@ -25,7 +25,7 @@
         <a href="https://interscity.org">InterSCity</a>
         , the Future Internet for Smart Cities Project hosted at IME-USP. Its main
         goal is to ease access to visual analysis of bicycle mobility data. Thus,
-        people interested in such information use the tool through a Web browser
+        people interested in such information can use the tool through a Web browser
         without the need for specific knowledge about programming languages.
       </p>
       <p>
@@ -45,6 +45,7 @@
 </template>
 
 <script setup>
+//Mudanças ABOUT
 import logoCapes from '@/assets/logos/capes.jpg';
 import logoCnpq from '@/assets/logos/cnpq.png';
 import logoFapesp from '@/assets/logos/fapesp.png';

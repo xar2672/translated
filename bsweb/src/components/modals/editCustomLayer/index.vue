@@ -33,6 +33,10 @@ const editLayerIndex = computed(() => store.getters['modals/editLayerIndex']);
 const uploadedLayers = computed(() => store.getters['user_shapefiles/uploadedLayers']);
 const layer = computed(() => uploadedLayers.value[editLayerIndex.value]);
 
+const getTranslationForValue = (value) => {
+  return t(`editModal.validadeModal.${value}`)
+}
+
 // Initialize form when layer changes
 watch(() => editLayerIndex.value, (newVal) => {
   if (newVal !== null) {
@@ -46,23 +50,23 @@ watch(() => editLayerIndex.value, (newVal) => {
 
 const validateFields = () => {
   if (!name.value.length) {
-    error.value = 'Nome é obrigatório.';
+    error.value = getTranslationForValue("name");
     return false;
   }
   if (!weight.value?.toString().length) {
-    error.value = 'Espessura é obrigatória.';
+    error.value = getTranslationForValue("width");
     return false;
   }
   if (!opacity.value?.toString().length) {
-    error.value = 'Opacidade é obrigatória.';
+    error.value = getTranslationForValue("opacity");
     return false;
   }
   if (!color.value.length) {
-    error.value = 'Cor é obrigatória.';
+    error.value = getTranslationForValue("emptyColor");
     return false;
   }
   if (!/^#([0-9a-f]{3}|[0-9a-f]{6})$/gi.test(color.value)) {
-    error.value = 'Cor deve ser informada em hexadecimal, por exemplo #ffffff.';
+    error.value = getTranslationForValue("invalidColor");
     return false;
   }
   return true;
