@@ -212,6 +212,23 @@ export const messages = {
       filters: 'Filters',
       chooseFilter: 'Choose filter',
       removeFilter: 'Remove filter',
+      chooseDateofWeek: 'Choose a day of the week',
+      gender: {
+        feminine: 'Feminine',
+        masculine: 'Masculine',
+        nonBinary: 'Non binary',
+        na: 'Not informed',
+      },
+      chooseGender: 'Choose a gender',
+      race: {
+        asian: 'Asian',
+        black: 'Black',
+        brown: 'Brown',
+        indigenous: 'Indigenous',
+        na: 'Not informed',
+        white: 'White',
+      },
+      chooseRace: 'Choose a race',
       apply: 'Apply',
       selected: 'Selected',
       // Data type
@@ -224,8 +241,8 @@ export const messages = {
         TOTAL_TRIPS: 'Total of trips',
         SAMPLE_MEAN_SPEED: 'Average sample speed (Km/h)',
       },
-      changeDataType: 'Select data type', //Selecionar tipo de dado
-      datatype_helper: 'Choose which metric you would prefer to view on the grapth', //Escolha qual métrica você deseja visualizar no gráfico.
+      changeDataType: 'Select data type',
+      datatype_helper: 'Choose which metric you would prefer to view on the grapth',
       // Aggregation
       chartTitle: '{dataType} per {aggregation}',
       aggregation: {
@@ -237,16 +254,17 @@ export const messages = {
         PAYOUT_LEVEL: 'Payout (R$/Km)',
         REMUNERATION: 'Level of income'
       },
-      changeAggregation: 'Group data by', //Agrupar dados por:
-      aggregation_helper: 'Choose one category to group the shown data on the graph.', //Escolha uma categoria para agrupar os dados exibidos no gráfico.
+      changeAggregation: 'Group data by',
+      aggregation_helper: 'Choose one category to group the shown data on the graph.',
       // Map layer
-      selectMapLayer: 'Select map layers', //Selecione tipos de camadas do mapa
-      removeCategory: 'Remove category', //Remover categoria
+      chooseMapLayer: 'Select map layers',
+      selectMapLayer: 'Select map layer type',
+      removeCategory: 'Remove category',
       // View type
-      changeViewType: 'Select view type', //Selecione o tipo de visualização
-      viewtype_helper: 'Choose the preferable way to view the data.', //Escolha a forma como deseja visualizar os dados.
-      map: 'Map', //Mapa
-      chart: 'Chart', //Gráfico
+      changeViewType: 'Select view type',
+      viewtype_helper: 'Choose the preferable way to view the data.',
+      map: 'Map',
+      chart: 'Chart',
 
     },
     editModal: {
@@ -478,14 +496,14 @@ export const messages = {
       filters: 'Filtros',
       chooseFilter: 'Escolha um filtro',
       removeFilter: 'Remover filtro',
-      chooseDateofWeek: 'Escolha um dia da semana', //CHANGER HERE
+      chooseDateofWeek: 'Escolha um dia da semana',
       gender: {
         feminine: 'Feminino',
         masculine: 'Masculino',
         nonBinary: 'Não binários',
         na: 'Não informado',
       },
-      chooseGender: 'Escolha um gênero', //CHANGE HERE
+      chooseGender: 'Escolha um gênero',
       race: {
         asian: 'Amarelo',
         black: 'Preto',
@@ -494,7 +512,7 @@ export const messages = {
         na: 'Não Informado',
         white: 'Branco',
       },
-      chooseRace: 'Escolha uma raça', //CHANGE HERE
+      chooseRace: 'Escolha uma raça',
       apply: 'Aplicar',
       selected: 'Selecionado',
       // Data type
@@ -523,7 +541,7 @@ export const messages = {
       changeAggregation: 'Agrupar dados por',
       aggregation_helper: 'Escolha uma categoria para agrupar os dados exibidos no gráfico.',
       // Map layer
-      chooseMapLayer: 'Selecione as camadas do mapa', //CHANGE HERE
+      chooseMapLayer: 'Selecione as camadas do mapa',
       selectMapLayer: 'Selecione tipos de camadas do mapa',
       removeCategory: 'Remover categoria',
       // View type

@@ -38,7 +38,7 @@ const isVisible = ref(false);
 const getTranslationForValue = (value) => {
   return t(`bikesp.aggregation.${value}`)
 }
-//CHANGE HERE
+
 const options = [
   {name: getTranslationForValue('GENDER'), value: BikeSPGenderFilter},
   {name: getTranslationForValue('RACE'), value: BikeSPRaceFilter},

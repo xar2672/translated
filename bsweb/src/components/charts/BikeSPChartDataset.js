@@ -46,7 +46,7 @@ function buildGenderDataset(data) {
         buildCustomDataset(data, 'NA', ['NA'], '808080'),
     ]
 };
-//CHANGE?
+
 function buildRaceDataset(data) {
     return [
         buildCustomDataset(data, 'Amarela', ['Amarela'], 'FFF430'),
