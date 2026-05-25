@@ -13,12 +13,12 @@ import "vue-data-ui/style.css";
 import { useStore } from 'vuex';
 import { config, aggregationConfig, dataTypeConfig } from './BikeSPChartConfig';
 import merge from 'lodash/merge';
-import { useI18n } from 'vue-i18n'
+import { useI18n } from 'vue-i18n';
 import { getDataset } from "./BikeSPChartDataset";
 
-const { t } = useI18n()
+const { t } = useI18n();
 
-const store = useStore()
+const store = useStore();
 
 const buildTitle = () => {
     return t('bikesp.chartTitle', {

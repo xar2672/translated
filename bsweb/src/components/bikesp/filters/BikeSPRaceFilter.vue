@@ -1,9 +1,9 @@
 <template>
-  <label for="race-select">t$(bikesp.aggregation.RACE):</label>
+  <label for="race-select">{{$t('bikesp.aggregation.RACE')}}:</label>
   <div class="select-button-wrapper">
     <multiselect class="fixed-width-multiselect" id="multiselect" v-model="value" :options="options" :multiple="true" :close-on-select="true" :clear-on-select="false"
-        :preserve-search="true" placeholder=$t(bikesp.chooseRace) label="name" track-by="name" :preselect-first="false"
-        :taggable="true" deselectLabel="" selectLabel="" selectedLabel=$t(bikesp.selected)>
+        :preserve-search="true" :placeholder="$t('bikesp.chooseRace')" label="name" track-by="name" :preselect-first="false"
+        :taggable="true" deselectLabel="" selectLabel="" :selectedLabel="$t('bikesp.selected')">
     </multiselect>
   </div>
 </template>
@@ -13,6 +13,9 @@ import { ref, onBeforeUnmount, watch } from 'vue';
 import { useStore } from 'vuex';
 import Multiselect from 'vue-multiselect';
 import { getValueList } from './commons';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
 
 const store = useStore();
 

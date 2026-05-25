@@ -3,7 +3,7 @@
     <div class="category-toggle" @click="toggleCategory">
       <img :src="iconArrow" :class="['arrow', { active: isActive }]">
       <h3 class="category-name">
-        {{ t(category.category_name) }}
+        {{ $t('category.category_name') }}
       </h3>
     </div>
     <div v-show="isActive" class="category-options">
@@ -20,11 +20,9 @@
 <script setup>
 import { ref, computed } from 'vue';
 import { useStore } from 'vuex';
-import { useI18n } from 'vue-i18n';
 import FilterController from './FilterController.vue';
 import iconArrow from '@/assets/svg/icon-arrow-dropdown.svg';
 
-const { t } = useI18n();
 const store = useStore();
 
 const props = defineProps({

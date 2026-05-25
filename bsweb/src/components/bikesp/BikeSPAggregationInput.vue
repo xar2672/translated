@@ -1,6 +1,6 @@
 <template>
   <div class="aggregation-selector">
-    <label for="aggregation-select">$t(bikesp.changeAggregation):</label>
+    <label for="aggregation-select">{{$t('bikesp.changeAggregation')}}:</label>
     <select
       id="aggregation-select"
       v-model="selected"
@@ -15,7 +15,7 @@
       <option value="REMUNERATION">{{ getTranslatedLabel('REMUNERATION') }}</option>
     </select>
     <p class="helper-text">
-      $t(bikesp.aggregation_helper)
+      {{$t('bikesp.aggregation_helper')}}
     </p>
   </div>
 </template>
@@ -23,9 +23,9 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from 'vue';
 import { useStore } from 'vuex';
-import { useI18n } from 'vue-i18n'
+import { useI18n } from 'vue-i18n';
 
-const { t } = useI18n()
+const { t } = useI18n();
 
 const store = useStore();
 

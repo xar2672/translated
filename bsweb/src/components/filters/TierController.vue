@@ -2,7 +2,7 @@
   <div v-show="count > 0">
     <b-checkbox v-model="isActive" :native-value="tier" type="is-info">
       <span class="tier-option" :title="hover">
-        {{ t('tier') }} {{ tier + 1 }} {{ count }} {{ t('flow', count) }}
+        {{ $t('tier') }} {{ tier + 1 }} {{ count }} {{ $t('flow', count) }}
       </span>
     </b-checkbox>
   </div>

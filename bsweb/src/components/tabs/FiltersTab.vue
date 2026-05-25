@@ -34,11 +34,9 @@
 <script setup>
 import { computed } from 'vue';
 import { useStore } from 'vuex';
-import { useI18n } from 'vue-i18n';
 import Filters from '../filters/Filters.vue';
 import CopyFilters from '@/components/buttons/copy-settings/CopyFilters.vue';
 
-const { t } = useI18n();
 const store = useStore();
 
 const secondMapIsActive = computed(() => store.getters.secondMapIsActive);

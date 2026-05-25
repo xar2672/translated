@@ -1,6 +1,6 @@
 <template>
   <div class="data-type-selector">
-    <label for="data-type-select">$t(bikesp.changeDataType):</label>
+    <label for="data-type-select">{{$t('bikesp.changeDataType')}}:</label>
     <select
       id="data-type-select"
       v-model="selected"
@@ -15,7 +15,7 @@
       </option>
     </select>
     <p class="helper-text">
-      $(bikesp.datatype_helper)
+      {{$t('bikesp.datatype_helper')}}
     </p>
   </div>
 </template>
@@ -23,9 +23,9 @@
 <script setup>
 import { ref, computed, onBeforeUnmount, onMounted, watch } from 'vue';
 import { useStore } from 'vuex';
-import { useI18n } from 'vue-i18n'
+import { useI18n } from 'vue-i18n';
 
-const { t } = useI18n()
+const { t } = useI18n();
 
 const store = useStore();
 

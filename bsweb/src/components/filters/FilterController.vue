@@ -6,7 +6,7 @@
         type="checkbox"
         :value="filter.id"
       >
-      <label class="filter-name">{{ t(filter.filter_name) }}</label>
+      <label class="filter-name">{{ $t('filter.filter_name') }}</label>
       <div v-if="isActive">
         <div class="options">
           <FilterFormField :filter="filter" :mapkey="mapkey" />
@@ -17,7 +17,7 @@
       <div class="filter-toggle" @click="toggleFilter">
         <img :src="iconArrow" :class="['arrow', { active: isActive }]">
       </div>
-      <label class="filter-name">{{ t(filter.filter_name) }}</label>
+      <label class="filter-name">{{ $t('filter.filter_name') }}</label>
       <div v-show="isActive">
         <div class="options">
           <FilterFormField :filter="filter" :mapkey="mapkey" />
@@ -30,11 +30,9 @@
 <script setup>
 import { ref, watch } from 'vue';
 import { useStore } from 'vuex';
-import { useI18n } from 'vue-i18n';
 import FilterFormField from './FilterFormField.vue';
 import iconArrow from '@/assets/svg/icon-arrow-dropdown.svg';
 
-const { t } = useI18n();
 const store = useStore();
 
 const props = defineProps({

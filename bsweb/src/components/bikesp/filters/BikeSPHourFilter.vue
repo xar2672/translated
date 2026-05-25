@@ -1,5 +1,5 @@
 <template>
-  <label>t$(bikesp.aggregation.HOUR):</label>
+  <label>{{$t('bikesp.aggregation.HOUR')}}:</label>
   <div>
     <b-slider
       v-model="value"

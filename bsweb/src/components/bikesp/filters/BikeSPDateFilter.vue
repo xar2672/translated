@@ -1,5 +1,5 @@
 <template>
-  <label>$t(bikesp.date):</label>
+  <label>{{$t('bikesp.date')}}:</label>
   <div class="date-input-row">
     <input type="date" v-model="from" @change="updateFilter" />
     <span class="separator">–</span>

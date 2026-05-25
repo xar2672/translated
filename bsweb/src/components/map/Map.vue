@@ -78,7 +78,7 @@
           @ready=initDecorator
         >
           <l-tooltip :options="{ sticky: true }">
-            {{ arrow.total_trips }} {{ $t("trips") }}
+            {{ arrow.total_trips }} {{ $t('trips') }}
             <br>
             <span v-if="developer_mode">
               {{ arrow.origin }} -> {{ arrow.destination }}

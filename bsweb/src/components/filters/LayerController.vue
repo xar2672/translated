@@ -1,7 +1,7 @@
 <template>
   <div>
     <input v-model="isActive" type="checkbox">
-    <label class="filter-name">{{ $t(filter.filter_name) }}</label>
+    <label class="filter-name">{{ $t('filter.filter_name') }}</label>
   </div>
 </template>
 

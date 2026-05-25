@@ -1,15 +1,15 @@
 <template>
   <div v-show="mapkey === 'main' || (secondMapIsActive && !hideSecondMapFlowsControl)">
     <div>
-      <span v-if="secondMapIsActive" class="label">{{ $t("baseLayer") }} ({{ $t(`baseLayerMap.${mapkey}`) }}):</span>
-      <span v-else class="label">{{ $t("baseLayer") }}:</span>
+      <span v-if="secondMapIsActive" class="label">{{ $t('baseLayer') }} ({{ $t(`baseLayerMap.${mapkey}`) }}):</span>
+      <span v-else class="label">{{ $t('baseLayer') }}:</span>
       <b-radio
         v-model="od"
         :name="mapkey"
         native-value="grid"
         type="is-info"
       >
-        <span class="view-option">{{ $t("grid") }}</span>
+        <span class="view-option">{{ $t('grid') }}</span>
       </b-radio>
       <b-radio
         v-model="od"
@@ -17,7 +17,7 @@
         native-value="zones"
         type="is-info"
       >
-        <span class="view-option">{{ $t("zones") }}</span>
+        <span class="view-option">{{ $t('zones') }}</span>
       </b-radio>
     </div>
     <div v-if="od === 'grid'">

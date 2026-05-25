@@ -18,6 +18,9 @@
 import { ref, computed, watch, onBeforeMount } from 'vue';
 import { useStore } from 'vuex';
 import Modal from '../../Modal.vue';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
 
 const store = useStore();
 const error = ref(null);
