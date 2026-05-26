@@ -25,11 +25,12 @@ Icon.Default.mergeOptions({
 });
 
 export const i18n = createI18n({ 
-  locale: 'pt-br', 
+  locale: localStorage.getItem('preferred-language') || navigator.language, // Dynamically sets initial language
   allowComposition: true,
-  legacy: false, 
+  legacy: false,
   fallbackLocale: 'en', 
-  returnObjects: true, 
+  returnObjects: true,
+  useScope: 'global',
   messages 
 });
 
