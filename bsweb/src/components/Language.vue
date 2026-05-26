@@ -1,36 +1,31 @@
 <template>
   <div>
     <button class="btn-lang center" @click="changeLanguage()">   
-      <span>{{ btn }}</span>
+      <span>{{ next_lang }}</span>
     </button>
   </div>
 </template>
 
 <script>
+import { computed, onMounted, onUnmounted } from 'vue';
 import { i18n } from '../main.js';
+import { messages } from '../plugins/i18n.js';
 
-export default {
-  data() {
-    return {
-      pt: true,
-      btn: 'en',
-    };
-      
-  },
-  methods: {
-    changeLanguage() {
-      if(this.pt) {
-        i18n.locale = 'en';
-        this.btn = 'pt-br';
-      } else {
-        i18n.locale = 'pt-br';
-        this.btn = 'en';
-      }
-      this.pt = !this.pt;
-      localStorage.pt_br = this.pt;
-    },
-  },  
-};
+const supported_langs = Object.keys(messages).sort((a, b) => a.localeCompare(b));
+
+const next_lang = computed(() => {
+  index = supported_langs.indexOf(i18n.locale.value);
+  return supported_langs[(currentIndex + 1) % supported_langs.length];
+});
+
+const changeLanguage = (lang) => {
+  const new_lang = lang || next_lang.value;
+  i18n.locale.value = new_lang;
+  localStorage.setItem('preferred-language', new_lang);
+}
+
+onMounted(() => window.addEventListener('languagechange', () => updateNextLangLabel(navigator.language)));
+onUnmounted(() => window.removeEventListener('languagechange', () => updateNextLangLabel(navigator.language)));
 </script>
 
 <style>
