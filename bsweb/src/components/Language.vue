@@ -24,8 +24,8 @@ const changeLanguage = (lang) => {
   localStorage.setItem('preferred-language', new_lang);
 }
 
-onMounted(() => window.addEventListener('languagechange', () => updateNextLangLabel(navigator.language)));
-onUnmounted(() => window.removeEventListener('languagechange', () => updateNextLangLabel(navigator.language)));
+onMounted(() => window.addEventListener('languagechange', () => changeLanguage(navigator.language)));
+onUnmounted(() => window.removeEventListener('languagechange', () => changeLanguage(navigator.language)));
 </script>
 
 <style>
