@@ -45,7 +45,7 @@ const getTranslationForValue = (value) => {
 const options = computed(() => [
   {name: getTranslationForValue('GENDER'), value: BikeSPGenderFilter},
   {name: getTranslationForValue('RACE'), value: BikeSPRaceFilter},
-  {name: t(bikesp.date), value: BikeSPDateFilter},
+  {name: t('bikesp.date'), value: BikeSPDateFilter},
   {name: getTranslationForValue('DAY_OF_WEEK'), value: BikeSPWeekDayFilter},
   {name: getTranslationForValue('PAYOUT_LEVEL'), value: BikeSPPayoutFilter},
   {name: getTranslationForValue('HOUR'), value: BikeSPHourFilter}

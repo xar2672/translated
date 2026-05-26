@@ -1,3 +1,7 @@
+import { computed } from 'vue';
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
+
 const defaultDataset = (data) => {
     return {
         name: 'BikeSP',
@@ -38,24 +42,30 @@ function buildCustomDataset(data, name, filterLabels, color, shouldIncludeLabels
     }
 }
 
+const getGenderLabel = (value) => {
+  return t(`bikesp.gender.${value}`)
+}
 function buildGenderDataset(data) {
-    return [
-        buildCustomDataset(data, 'Feminino', ['F'], 'd5a6bd'),
-        buildCustomDataset(data, 'Masculino', ['M'], '6fa8dc'),
-        buildCustomDataset(data, 'Não binários', ['NB'], 'FFF430'),
-        buildCustomDataset(data, 'NA', ['NA'], '808080'),
-    ]
+    return computed(() => [
+        buildCustomDataset(data, getGenderLabel('feminine'), ['F'], 'd5a6bd'),
+        buildCustomDataset(data, getGenderLabel('masculine'), ['M'], '6fa8dc'),
+        buildCustomDataset(data, getGenderLabel('nonBinary'), ['NB'], 'FFF430'),
+        buildCustomDataset(data, getGenderLabel('na'), ['NA'], '808080'),
+    ]);
 };
 
+const getRaceLabel = (value) => {
+  return t(`bikesp.race.${value}`)
+}
 function buildRaceDataset(data) {
-    return [
-        buildCustomDataset(data, 'Amarela', ['Amarela'], 'FFF430'),
-        buildCustomDataset(data, 'Branca', ['Branca'], 'C9DAF8'),
-        buildCustomDataset(data, 'Parda', ['Parda'], 'B97A57'),
-        buildCustomDataset(data, 'Indígena', ['Indígena'], 'FFD700'),
-        buildCustomDataset(data, 'Preta', ['Preta'], '000000'),
-        buildCustomDataset(data, 'NA', ['Prefiro nã'], 'A9A9A9'),
-    ]
+    return computed(() => [
+        buildCustomDataset(data, getRaceLabel('asian'), ['Amarela'], 'FFF430'),
+        buildCustomDataset(data, getRaceLabel('white'), ['Branca'], 'C9DAF8'),
+        buildCustomDataset(data, getRaceLabel('brown'), ['Parda'], 'B97A57'),
+        buildCustomDataset(data, getRaceLabel('indigenous'), ['Indígena'], 'FFD700'),
+        buildCustomDataset(data, getRaceLabel('black'), ['Preta'], '000000'),
+        buildCustomDataset(data, getRaceLabel('na'), ['Prefiro nã'], 'A9A9A9'),
+    ]);
 };
 
 function colorForValue(value) {
@@ -78,28 +88,27 @@ function buildHourDataset(data) {
     return [{
         ...defaultDataset(data, true),
         series: filledSeries,
-        name: 'Hora do dia'
+        name: t('bikesp.aggregation.HOUR')
     }]
 };
 
 function buildDayOfWeekDataset(data) {
-    const days = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado']
+    const days = [t('sun'), t('mon'), t('tue'), t('wed'), t('thu'), t('fri'), t('sat')];
     return days.map( (dayName, index) => 
         buildCustomDataset(data, dayName, [index], colorForValue(index/days.length)));
 };
 
 function buildRemunerationDataSet(data) {
     const remuneration = [
-        "até R$ 820",
-        "entre R$ 821 e R$ 1.640",
-        "entre R$ 1.641 e R$ 3.280",
-        "entre R$ 3.281 e R$ 4.920",
-        "entre R$ 4.921 e R$ 8.200",
-        "entre R$ 8.201 e R$ 16.400",
-        "entre R$ 16.401 e R$ 32.800",
-        "mais de R$ 32.800"
+        `${t('max')} R$ 820`,
+        `${t('from')} R$ 821 ${t('max')} R$ 1.640`,
+        `${t('from')} R$ 1.641 ${t('max')} R$ 3.280`,
+        `${t('from')} R$ 3.281 ${t('max')} R$ 4.920`,
+        `${t('from')} R$ 4.921 ${t('max')} R$ 8.200`,
+        `${t('from')} R$ 8.201 ${t('max')} R$ 16.400`,
+        `${t('from')} R$ 16.401 ${t('max')} R$ 32.800`,
+        `${t('more_than')} R$ 32.800`
     ];
-
 
     return remuneration.map( (rem, index) => 
         buildCustomDataset(data, rem, [rem], colorForValue(Math.random())));

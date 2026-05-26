@@ -127,7 +127,7 @@ const openModal = (modalName) => {
   padding-top: 3px;
 }
 .custom-tabs {
-  height: 74%;
+  height: calc(74% - 2.5rem);
 }
 .manage-footer > div {
   padding: 0 10px;

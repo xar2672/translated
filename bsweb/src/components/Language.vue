@@ -21,7 +21,7 @@ export default {
     changeLanguage() {
       if(this.pt) {
         i18n.locale = 'en';
-        this.btn = 'pt';
+        this.btn = 'pt-br';
       } else {
         i18n.locale = 'pt-br';
         this.btn = 'en';
