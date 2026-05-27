@@ -242,7 +242,7 @@ export const messages = {
         SAMPLE_MEAN_SPEED: 'Average sample speed (Km/h)',
       },
       changeDataType: 'Select data type',
-      datatype_helper: 'Choose which metric you would prefer to view on the grapth',
+      datatype_helper: 'Choose which metric you would prefer to view on the graph.',
       // Aggregation
       chartTitle: '{dataType} per {aggregation}',
       aggregation: {
@@ -255,7 +255,7 @@ export const messages = {
         REMUNERATION: 'Level of income'
       },
       changeAggregation: 'Group data by',
-      aggregation_helper: 'Choose one category to group the shown data on the graph.',
+      aggregation_helper: 'Choose one category to group the data shown on the graph.',
       // Map layer
       chooseMapLayer: 'Select map layers',
       selectMapLayer: 'Select map layer type',
@@ -339,7 +339,7 @@ export const messages = {
       mirroredChanges: 'Espelhar alterações',
       hideRightControls: 'Ocultar controles da direita',
       independentControl: 'Mover os mapas separadamente',
-      sameControl: 'Mover os mapas simultaneament',
+      sameControl: 'Mover os mapas simultaneamente',
       copy: {
         flows: {
           main: {
