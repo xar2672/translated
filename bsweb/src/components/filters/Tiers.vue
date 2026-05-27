@@ -1,7 +1,7 @@
 <template>
   <div>
     <p class="label">
-      {{ $t('selectTiers') }}
+      {{ $t('selectTiers') }}:
     </p>
     <div v-for="(count, index) in tierList" v-show="!flowsNotFound" :key="index">
       <TierController

@@ -53,7 +53,7 @@ export const messages = {
     twoMaps: {
       leftMap: 'Left Map',
       rightMap: 'Right Map',
-      mirroredChanges: 'Mirrored actions',
+      mirroredChanges: 'Synchronize actions',
       hideRightControls: 'Hide right controls',
       independentControl: 'Move maps individually',
       sameControl: 'Move maps together',
@@ -111,10 +111,10 @@ export const messages = {
     spRailwayStations: 'SP Railway Stations',
     spSubwayStations: 'SP Subway Stations',
     spBikelanes: 'SP Bikelanes',
-    sp_bikelane_ciclovia: 'Ciclovias',
-    sp_bikelane_ciclofaixa: 'Ciclofaixas',
-    sp_bikelane_ciclorrota: 'Ciclorrotas',
-    sp_bikelane_ciclopassarela: 'Ciclopassarela',
+    sp_bikelane_ciclovia: 'Bike paths',
+    sp_bikelane_ciclofaixa: 'Bike lanes',
+    sp_bikelane_ciclorrota: 'Bike routes',
+    sp_bikelane_ciclopassarela: 'Bike footbridge',
     sp_accidents: 'Bike accidents',
     // Filters (time)
     start_time: 'Start time',
@@ -130,7 +130,7 @@ export const messages = {
     sex: 'Cyclist sex',
     age: 'Cyclist age',
     income: 'Family income',
-    attractors_emitters: 'Trip-attractor/emitters locations',
+    attractors_emitters: 'Trip attractors/generators region',
     // Miscellaneous
     ageField: 'Age of cyclists',
     years: 'years old',
@@ -150,7 +150,7 @@ export const messages = {
     sat: 'Saturday',
     sun: 'Sunday',
     filterBtn: 'Filter',
-    selectTiers: 'Show flows:',
+    selectTiers: 'Show flows',
     tier: 'Tier',
     notFoundTiers: 'No results found',
     flow: 'flow | flows',
@@ -216,7 +216,7 @@ export const messages = {
       gender: {
         feminine: 'Feminine',
         masculine: 'Masculine',
-        nonBinary: 'Non binary',
+        nonBinary: 'Non-binary',
         na: 'Not informed',
       },
       chooseGender: 'Choose a gender',
@@ -262,7 +262,7 @@ export const messages = {
       removeCategory: 'Remove category',
       // View type
       changeViewType: 'Select view type',
-      viewtype_helper: 'Choose the preferable way to view the data.',
+      viewtype_helper: 'Choose the preferred way to view the data.',
       map: 'Map',
       chart: 'Chart',
 
@@ -436,7 +436,7 @@ export const messages = {
     sat: 'Sábado',
     sun: 'Domingo',
     filterBtn: 'Filtrar',
-    selectTiers: 'Mostrar fluxos:',
+    selectTiers: 'Mostrar fluxos',
     tier: 'Quartil',
     notFoundTiers: 'Nenhum resultado encontrado',
     flow: 'fluxo | fluxos',
