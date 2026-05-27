@@ -36,7 +36,7 @@ const computedConfig = computed(() => {
     return newConfig;
 });
 
-const dataset = computed(() => getDataset(store.state.bikesp));
+const dataset = computed(() => getDataset(store.state.bikesp, t));
 
 onMounted(() => {
     store.dispatch('bikesp/updateData');

@@ -24,8 +24,9 @@ Icon.Default.mergeOptions({
   shadowUrl: require('leaflet/dist/images/marker-shadow.png'),
 });
 
+const saved_language = localStorage.getItem('preferred-language');
 export const i18n = createI18n({ 
-  locale: localStorage.getItem('preferred-language') || navigator.language, // Dynamically sets initial language
+  locale: (saved_language != null) ? saved_language : navigator.language, // Dynamically sets initial language
   allowComposition: true,
   legacy: false,
   fallbackLocale: 'en', 
