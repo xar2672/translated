@@ -242,7 +242,7 @@ export const messages = {
         SAMPLE_MEAN_SPEED: 'Average sample speed (Km/h)',
       },
       changeDataType: 'Select data type',
-      datatype_helper: 'Choose which metric you would prefer to view on the grapth',
+      datatype_helper: 'Choose which metric you would prefer to view on the graph.',
       // Aggregation
       chartTitle: '{dataType} per {aggregation}',
       aggregation: {
