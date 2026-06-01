@@ -5,9 +5,7 @@
     </p>
     <div v-for="(count, index) in tierList" v-show="!flowsNotFound" :key="index">
       <TierController
-        :tier="index"
-        :count="count"
-        :mapkey="mapkey"
+        :tier="index" :count="count" :mapkey="mapkey"
       />
     </div>
     <span v-if="flowsNotFound" class="not-found">{{ $t('notFoundTiers') }}</span>

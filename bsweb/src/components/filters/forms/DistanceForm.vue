@@ -1,16 +1,12 @@
 <template>
   <div>
     <b-field>
-      {{ distanceRange[0] }} km {{ $t('to') }} {{ distanceRange[1] }} km
+      {{ $t('distanceForm', {start: distanceRange[0], end: distanceRange[1]}) }}
     </b-field>
     <b-slider
       v-model="distanceRange"
       lazy
-      :min="0"
-      :max="51"
-      :step="0.5"
-      :custom-formatter="value => `${value} km`"
-      type="is-info"
+      :min="0" :max="51" :step="0.5" :custom-formatter="value => `${value} km`" type="is-info"
     />
   </div>
 </template>

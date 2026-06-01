@@ -2,9 +2,7 @@
   <div>
     <div v-if="filter.has_checkbox">
       <input
-        v-model="isActive"
-        type="checkbox"
-        :value="filter.id"
+        v-model="isActive" type="checkbox" :value="filter.id"
       >
       <label class="filter-name">{{ $t('filter.filter_name') }}</label>
       <div v-if="isActive">

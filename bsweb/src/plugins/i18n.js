@@ -1,5 +1,8 @@
 export const messages = {
   'en': {
+    LANGUAGE_NAME: 'English',
+    FLAG_LINK: 'https://upload.wikimedia.org/wikipedia/commons/0/0b/English_language.svg',
+
     appName: 'BikeScienceWeb',
     data: 'Data',
     filters: 'Filters',
@@ -133,6 +136,7 @@ export const messages = {
     attractors_emitters: 'Trip attractors/generators region',
     // Miscellaneous
     ageField: 'Age of cyclists',
+    ageForm: '{start} to {end} years old',
     years: 'years old',
     minutes: 'minutes',
     from: 'from',
@@ -151,13 +155,13 @@ export const messages = {
     sun: 'Sunday',
     filterBtn: 'Filter',
     selectTiers: 'Show flows',
-    tier: 'Tier',
+    tierOptions: 'Tier {tier_prop} {tier_count} flow | Tier {tier_prop} {tier_count} flows',
     notFoundTiers: 'No results found',
-    flow: 'flow | flows',
     flows: 'Flows',
     months: 'By months',
     charts: 'Charts',
     durationField: 'Trip duration',
+    durationForm: '{start} to {end} minutes',
     male: 'Men',
     female: 'Women',
     intervals: 'Intervals',
@@ -166,6 +170,8 @@ export const messages = {
     attractor_info: 'The heat map indicates the neighborhoods in which bicycle trips begin or end most, for the selected filters',
     max: 'up to',
     tripSpeed: 'Trip speed',
+    speedForm: '{start} km/h to {end} km/h',
+    distanceForm: '{start} km to {end} km',
     smallDistance: 'Short distance',
     expensiveTransport: 'Public transport too expensive',
     publicTransportStationDistance: 'Distant access to public transport',
@@ -207,6 +213,7 @@ export const messages = {
       },
     },
     bikesp: {
+      appName: 'Bike SP Pilot - Analytics Dashboard',
       date: 'Date',
       layers: 'Layers',
       filters: 'Filters',
@@ -278,7 +285,10 @@ export const messages = {
       button: 'Send',
     },
   },
-  'pt-br': {
+  'pt': {
+    LANGUAGE_NAME: 'Português',
+    FLAG_LINK: 'https://upload.wikimedia.org/wikipedia/commons/0/05/Flag_of_Brazil.svg',
+
     appName: 'BikeScienceWeb',
     data: 'Dados',
     filters: 'Filtros',
@@ -417,7 +427,7 @@ export const messages = {
     attractors_emitters: 'Regiões atratores e emissoras de viagens',
     // Miscellaneous
     ageField: 'Faixa etária dos ciclistas',
-    years: 'anos',
+    ageForm: '{start} até {end} anos',
     minutes: 'minutos',
     from: 'de',
     to: 'a',
@@ -444,12 +454,15 @@ export const messages = {
     months: 'Meses',
     charts: 'Gráficos',
     durationField: 'Duração da viagem',
+    durationForm: '{start} até {end} minutos',
     male: 'Homens',
     female: 'Mulheres',
     trips: 'viagens',
     attractor_info: 'O mapa de calor indica as vizinhanças nas quais as viagens de bicicletas mais começam ou terminam, dados os filtros selecionados',
     max: 'até',
     tripSpeed: 'Velocidade da viagem',
+    speedForm: '{start} km/h até {end} km/h',
+    distanceForm: '{start} km até {end} km',
     smallDistance: 'Curta distância',
     expensiveTransport: 'Preço alto do transporte público',
     publicTransportStationDistance: 'Difícil acesso ao transporte público',
@@ -491,6 +504,7 @@ export const messages = {
       },
     },
     bikesp: {
+      appName: 'Piloto Bike SP - Painel Analítico',
       date: 'Data',
       layers: 'Camadas',
       filters: 'Filtros',

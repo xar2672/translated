@@ -36,7 +36,7 @@ const options = [
 
 watch(value, () => {
   store.commit('bikesp/updateFilters', { races: getValueList(value) })
-}, {deep: true})
+}, {deep: true});
 
 onBeforeUnmount(() => {
   store.commit('bikesp/updateFilters', { races: undefined });

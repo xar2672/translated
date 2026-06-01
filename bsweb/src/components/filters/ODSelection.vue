@@ -4,18 +4,12 @@
       <span v-if="secondMapIsActive" class="label">{{ $t(`tabs.maps.tripsSource`) }} ({{ $t(`baseLayerMap.${mapkey}`) }}):</span>
       <span v-else class="label">{{ $t(`tabs.maps.tripsSource`) }}:</span>
       <b-radio
-        v-model="year"
-        :name="`od-year-${mapkey}`"
-        :native-value="2017"
-        type="is-info"
+        v-model="year" :name="`od-year-${mapkey}`" :native-value="2017" type="is-info"
       >
         <span class="view-option">OD 2017</span>
       </b-radio>
       <b-radio
-        v-model="year"
-        :name="`od-year-${mapkey}`"
-        :native-value="2007"
-        type="is-info"
+        v-model="year" :name="`od-year-${mapkey}`" :native-value="2007" type="is-info"
       >
         <span class="view-option">OD 2007</span>
       </b-radio>

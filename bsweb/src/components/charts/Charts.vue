@@ -1,9 +1,7 @@
 <template>
   <div>
     <img 
-      v-for="chart in charts" 
-      :key="chart" 
-      :src="`${api_url}/chart?ut=${ut}&chart=${chart}`"
+      v-for="chart in charts" :key="chart" :src="`${api_url}/chart?ut=${ut}&chart=${chart}`"
     >
   </div>
 </template>

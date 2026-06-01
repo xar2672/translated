@@ -2,12 +2,7 @@
   <label>{{$t('bikesp.aggregation.PAYOUT_LEVEL')}}:</label>
   <div>
     <b-slider
-      v-model="value"
-      type="is-info"
-      :min="0"
-      :step="0.01"
-      :max="1"
-      :tooltip="true"
+      v-model="value" type="is-info" :min="0" :step="0.01" :max="1" :tooltip="true"
     >
       <b-slider-tick :value="0">
         {{ 0 }}
@@ -32,7 +27,7 @@ const commitValue = (min, max) => {
     min_payout: min,
     max_payout: max
   });
-}
+};
 
 watch(value, () => {
   commitValue(value.value[0], value.value[1]);

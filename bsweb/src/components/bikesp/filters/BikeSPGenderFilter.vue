@@ -22,7 +22,7 @@ const store = useStore();
 const value = ref([]);
 
 const getTranslationForValue = (value) => {
-  return t(`bikesp.gender.${value}`)
+  return t(`bikesp.gender.${value}`);
 }
 
 const options = [
@@ -34,7 +34,7 @@ const options = [
 
 watch(value, () => {
   store.commit('bikesp/updateFilters', { genders: getValueList(value) });
-}, {deep: true})
+}, {deep: true});
 
 onBeforeUnmount(() => {
   store.commit('bikesp/updateFilters', { genders: undefined });

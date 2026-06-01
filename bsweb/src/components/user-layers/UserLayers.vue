@@ -13,9 +13,7 @@
           :key="index"
         >
           <UserLayerController
-            :index="index"
-            :layer-name="layer.name"
-            :mapkey="mapkey"
+            :index="index" :layer-name="layer.name" :mapkey="mapkey"
           />
         </div>
       </div>
@@ -53,27 +51,27 @@ export default {
 </script>
 
 <style scoped>
- .category-name {
-    font-size: 12px;
-    font-weight: bold;
-  }
-  .category-wrapper{
-    margin-bottom: 10px;
-  }
-  .category-toggle {
-    cursor: pointer;
-    display: flex;
-  }
-  .category-options {
-    margin-left: 8px;
-  }
-  .arrow {
-    transition: all ease-in-out 0.2s;
-    transform: rotate(-90deg);
-    width: 12px;
-    margin-right: 4px;
-  }
-  .arrow.active {
-    transform: none
-  }
+.category-name {
+  font-size: 12px;
+  font-weight: bold;
+}
+.category-wrapper{
+  margin-bottom: 10px;
+}
+.category-toggle {
+  cursor: pointer;
+  display: flex;
+}
+.category-options {
+  margin-left: 8px;
+}
+.arrow {
+  transition: all ease-in-out 0.2s;
+  transform: rotate(-90deg);
+  width: 12px;
+  margin-right: 4px;
+}
+.arrow.active {
+  transform: none
+}
 </style>

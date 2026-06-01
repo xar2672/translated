@@ -1,10 +1,7 @@
 <template>
   <div>
     <FilterCategory
-      v-for="category in computedAllFilters"
-      :key="category.id"
-      :category="category"
-      :mapkey="mapkey"
+      v-for="category in computedAllFilters" :key="category.id" :category="category" :mapkey="mapkey"
     />
   </div>
 </template>
@@ -23,5 +20,4 @@ const props = defineProps({
 const computedAllFilters = computed(() => {
   return store.getters.allFilters;
 });
-
 </script>

@@ -25,8 +25,9 @@ Icon.Default.mergeOptions({
 });
 
 const saved_language = localStorage.getItem('preferred-language');
+
 export const i18n = createI18n({ 
-  locale: (saved_language != null) ? saved_language : navigator.language, // Dynamically sets initial language
+  locale: (saved_language) ? saved_language : navigator.language, // Dynamically sets initial language
   allowComposition: true,
   legacy: false,
   fallbackLocale: 'en', 

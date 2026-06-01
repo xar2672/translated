@@ -63,7 +63,6 @@
           >
           <label for="dev-mode">{{ $t('footer.devMode') }}</label>
         </div>
-        <Language />
       </div>
     </div>
   </div>
@@ -73,7 +72,6 @@
 import { ref, computed } from 'vue';
 import { useStore } from 'vuex';
 import logoInterSCity from '@/assets/logos/interscity.svg';
-import Language from './Language.vue';
 import FiltersTab from './tabs/FiltersTab.vue';
 import FlowsTab from './tabs/FlowsTab.vue';
 import LayersTab from './tabs/LayersTab.vue';
@@ -106,9 +104,8 @@ const openModal = (modalName) => {
   align-items: center;
   justify-content: center;
   margin-bottom: 10px;
-  padding: 10px 0;
+  padding: 20px 0;
   flex-wrap: wrap;
-  height: 13%;
 }
 .title {
   text-align: center;
@@ -127,7 +124,7 @@ const openModal = (modalName) => {
   padding-top: 3px;
 }
 .custom-tabs {
-  height: calc(74% - 2.5rem);
+  flex-grow: 1;
 }
 .manage-footer > div {
   padding: 0 10px;
@@ -155,8 +152,11 @@ const openModal = (modalName) => {
   padding: 4px;
 }
 #filter-container {
-  border-right: 1px solid #bbb;
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
-  height: 100%;
+  border-right: 1px solid #bbb;
+  height: calc(100% - 42px);
+  padding: 0 0 30px;
 }
 </style>

@@ -2,15 +2,12 @@
   <div>
     <b-field>
       {{ $t('ageField') }}
-      ({{ ageRange[0] }} {{ $t('to') }} {{ ageRange[1] }} {{ $t('years') }})
+      ({{ $t('ageForm', {start: ageRange[0], end: ageRange[1]}) }})
     </b-field>
     <b-slider
       v-model="ageRange"
       lazy
-      :min="1"
-      :max="71"
-      :step="1"
-      type="is-info"
+      :min="1" :max="71" :step="1" type="is-info"
     />
   </div>
 </template>

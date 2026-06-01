@@ -51,23 +51,23 @@ export default {
 </script>
 
 <style scoped>
-  .wrapper {
-    z-index: 2000;
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    padding: 5px;
-    background-color: #fff;
-    border-radius: 15px;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  }
+.wrapper {
+  z-index: 2000;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  padding: 5px;
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
 
-  .content {
-    margin: 10px;
-  }
+.content {
+  margin: 10px;
+}
 
-  .label {
-    font-size: 12px;
-    font-weight: normal;
-  }
+.label {
+  font-size: 12px;
+  font-weight: normal;
+}
 </style>

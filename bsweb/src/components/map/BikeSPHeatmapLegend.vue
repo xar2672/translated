@@ -18,8 +18,8 @@ import { useStore } from 'vuex';
 
 const store = useStore();
 
-const gradient = computed(() => getHeatmapConfig(store.state.bikesp.activeDataConfig.data_type).gradient)
-const title =  computed(() => getHeatmapConfig(store.state.bikesp.activeDataConfig.data_type).title)
+const gradient = computed(() => getHeatmapConfig(store.state.bikesp.activeDataConfig.data_type).gradient);
+const title =  computed(() => getHeatmapConfig(store.state.bikesp.activeDataConfig.data_type).title);
 
 const props = defineProps({
   min: { type: Number, required: true },
@@ -38,7 +38,7 @@ const compact = (number) => {
     notation: "compact",
     maximumFractionDigits: 1
   }).format(Math.round(number))
-}
+};
 </script>
 
 <style scoped>

@@ -46,10 +46,10 @@ export default {
 
 <style scoped>
 .title-options {
-    font-size: 12px;
-    font-weight: bold;
-  }
-  .view-option {
-    font-size: 12px;
-  }
+  font-size: 12px;
+  font-weight: bold;
+}
+.view-option {
+  font-size: 12px;
+}
 </style>

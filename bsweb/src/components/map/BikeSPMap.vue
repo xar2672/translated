@@ -27,8 +27,7 @@
     />
     <BikeSPHeatmapLegend
       v-if="legendMin !== null && legendMax !== null"
-      :min="legendMin"
-      :max="legendMax"
+      :min="legendMin" :max="legendMax"
     />
     <BikeLayer :mapkey="props.mapkey"/>
     <BaseLayers :mapkey="props.mapkey"/>
@@ -73,13 +72,13 @@ const throttledUpdateData = throttle(() => {
 }, 500, { trailing: true, leading: false });
 
 const zoomUpdated = (newZoom) => {
-  zoom.value = newZoom
+  zoom.value = newZoom;
   throttledUpdateData();
 };
 
 const onMapReady = (map) => {
   mapRef.value = map;
-  addHeatLayer()
+  addHeatLayer();
   throttledUpdateData();
 };
 
@@ -101,7 +100,7 @@ const getMaxVisibleDistance = (center) => {
 
 const updateMap = (data) => {
   if (mapRef.value && data) {
-    heatmapLayer.value.setData(data, legendMax.value)
+    heatmapLayer.value.setData(data, legendMax.value);
   }
 }
 
@@ -125,7 +124,7 @@ const addHeatLayer = () => {
 
 watch(() => store.state.bikesp.data, () => {
   // sorting is needed to ensure that the data is drawed in correct order, with higher values on top
-  const data = structuredClone(store.state.bikesp.data)
+  const data = structuredClone(store.state.bikesp.data);
   data.sort(function(a, b){
     return a[2] - b[2];
   });

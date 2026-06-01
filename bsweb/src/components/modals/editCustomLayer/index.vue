@@ -37,7 +37,7 @@ const uploadedLayers = computed(() => store.getters['user_shapefiles/uploadedLay
 const layer = computed(() => uploadedLayers.value[editLayerIndex.value]);
 
 const getTranslationForValue = (value) => {
-  return t(`editModal.validadeModal.${value}`)
+  return t(`editModal.validadeModal.${value}`);
 }
 
 // Initialize form when layer changes

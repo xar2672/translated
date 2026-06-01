@@ -9,9 +9,7 @@
     <div v-show="isActive" class="category-options">
       <div v-for="filter in category.filters" :key="filter.id">
         <LayerController
-          :filter="filter"
-          :type="'layer'"
-          :mapkey="mapkey"
+          :filter="filter" :type="'layer'" :mapkey="mapkey"
         />
       </div>
       <div v-if="category.category_name == 'layers_bikelanes'">
@@ -22,8 +20,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
-import { useStore } from 'vuex';
+import { ref } from 'vue';
 import iconArrow from '@/assets/svg/icon-arrow-dropdown.svg';
 import LayerController from './LayerController.vue';
 import BikelaneSlider from './bikelanes/BikelaneSlider.vue';
@@ -33,11 +30,7 @@ const props = defineProps({
   mapkey: { type: String, required: true },
 });
 
-const store = useStore();
 const isActive = ref(false);
-const checkboxes = ref([]);
-
-const allFilters = computed(() => store.getters.allFilters);
 
 const toggleCategory = () => {
   isActive.value = !isActive.value;

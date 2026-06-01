@@ -2,14 +2,10 @@
   <div class="data-type-selector">
     <label for="data-type-select">{{$t('bikesp.changeDataType')}}:</label>
     <select
-      id="data-type-select"
-      v-model="selected"
-      @change="onChange"
+      id="data-type-select" v-model="selected" @change="onChange"
     >
       <option
-        v-for="option in currentOptions"
-        :key="option"
-        :value="option"
+        v-for="option in currentOptions" :key="option" :value="option"
       >
         {{ getTranslationForValue(option) }}
       </option>
@@ -52,9 +48,9 @@ const currentOptions = computed(() =>
 
 const getTranslationForValue = (value) => {
   return t(`bikesp.dataType.${value}`)
-}
+};
 
-const onChange = (e) => {
+const onChange = () => {
   store.commit('bikesp/updateDataType', selected.value);
 };
 

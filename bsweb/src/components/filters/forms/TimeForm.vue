@@ -61,7 +61,7 @@ export default {
     },
   },
   watch: {
-    filterData: function(value) {
+    filterData: function() {
       this.updateFilterParams({ filter, mapkey: this.mapkey });
     },
   },

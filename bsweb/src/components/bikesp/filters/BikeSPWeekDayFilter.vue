@@ -31,7 +31,7 @@ const options = computed(() => [
   { name: t('sat'), value: 6 }
 ]);
 
-watch(value, ()=> store.commit('bikesp/updateFilters', { week_days: getValueList(value) }), {deep: true})
+watch(value, () => store.commit('bikesp/updateFilters', { week_days: getValueList(value) }), {deep: true});
 
 onBeforeUnmount(() => {
   store.commit('bikesp/updateFilters', { week_days: undefined });

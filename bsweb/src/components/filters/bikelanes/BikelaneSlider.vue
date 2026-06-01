@@ -1,8 +1,7 @@
 <template>
   <div id="tmp" class="wrapper">
     <b-slider
-      v-model="bikelaneRange"
-      type="is-info"
+      v-model="bikelaneRange" type="is-info"
       :min="Math.min(...bikelaneYears)"
       :max="Math.max(...bikelaneYears)"
       :tooltip="true"

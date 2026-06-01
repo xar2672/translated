@@ -8,10 +8,7 @@
     </div>
     <div v-show="isActive" class="category-options">
       <div v-for="filter in category.filters" :key="filter.id">
-        <FilterController
-          :filter="filter"
-          :mapkey="mapkey"
-        />
+        <FilterController :filter="filter" :mapkey="mapkey"/>
       </div>
     </div>
   </div>

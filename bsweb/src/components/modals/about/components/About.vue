@@ -45,7 +45,6 @@
 </template>
 
 <script setup>
-//Mudanças ABOUT
 import logoCapes from '@/assets/logos/capes.jpg';
 import logoCnpq from '@/assets/logos/cnpq.png';
 import logoFapesp from '@/assets/logos/fapesp.png';

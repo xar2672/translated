@@ -40,7 +40,7 @@ const isVisible = ref(false);
 
 const getTranslationForValue = (value) => {
   return t(`bikesp.aggregation.${value}`)
-}
+};
 
 const options = computed(() => [
   {name: getTranslationForValue('GENDER'), value: BikeSPGenderFilter},
@@ -53,7 +53,7 @@ const options = computed(() => [
 
 const removeFilter = (filter) => {
   value.value = value.value.filter(f => f !== filter)
-}
+};
 
 const toggleCategory = () => {
   isVisible.value = !isVisible.value;

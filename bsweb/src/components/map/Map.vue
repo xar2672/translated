@@ -273,6 +273,7 @@ const loadBaseLayers = async () => {
 
 <style scoped>
 #map {
+  font-size: .9rem;
   height: 100vh;
   margin-left: auto;
   margin-right: auto;

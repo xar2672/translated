@@ -4,18 +4,12 @@
       <span v-if="secondMapIsActive" class="label">{{ $t('baseLayer') }} ({{ $t(`baseLayerMap.${mapkey}`) }}):</span>
       <span v-else class="label">{{ $t('baseLayer') }}:</span>
       <b-radio
-        v-model="od"
-        :name="mapkey"
-        native-value="grid"
-        type="is-info"
+        v-model="od" :name="mapkey" native-value="grid" type="is-info"
       >
         <span class="view-option">{{ $t('grid') }}</span>
       </b-radio>
       <b-radio
-        v-model="od"
-        :name="mapkey"
-        native-value="zones"
-        type="is-info"
+        v-model="od" :name="mapkey" native-value="zones" type="is-info"
       >
         <span class="view-option">{{ $t('zones') }}</span>
       </b-radio>
@@ -23,8 +17,7 @@
     <div v-if="od === 'grid'">
       <div v-if="!gridEditMode">
         <Button
-          :text="$t('buttons.gridEditMode')"
-          :title="$t('onHover.gridEditMode')"
+          :text="$t('buttons.gridEditMode')" :title="$t('onHover.gridEditMode')"
           :handle-click="() => setGridEditModeOn(mapkey)"
         />
       </div>

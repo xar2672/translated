@@ -29,8 +29,8 @@ const apply = () => {
 };
 
 onMounted(() => {
-    store.dispatch('bikesp/updateData');
-})
+  store.dispatch('bikesp/updateData');
+});
 </script>
 
 <style>
@@ -113,7 +113,7 @@ onMounted(() => {
   font-weight: bold;
   margin-right: auto;
   margin-top: auto;
-  margin-bottom: auto;
+  margin-bottom: .2rem;
   color: #333;
   text-align: left;
 }

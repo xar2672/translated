@@ -7,9 +7,7 @@
     <div class="modal-wrapper">
       <div class="close-modal-wrapper">
         <img
-          class="close-modal"
-          :src="iconClose"
-          @click="close"
+          class="close-modal" :src="iconClose" @click="close"
         >
       </div>
       <slot :close="close" />

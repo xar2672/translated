@@ -2,7 +2,7 @@
   <div>
     <b-field>
       {{ $t('durationField') }}
-      ({{ durationRange[0] }} {{ $t('to') }} {{ durationRange[1] }} {{ $t('minutes') }})
+      ({{ $t('durationForm', {start: durationRange[0], end: durationRange[1]}) }})
     </b-field>
     <b-slider
       v-model="durationRange"

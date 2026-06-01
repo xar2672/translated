@@ -2,13 +2,7 @@
   <label>{{$t('bikesp.aggregation.HOUR')}}:</label>
   <div>
     <b-slider
-      v-model="value"
-      type="is-info"
-      :min="0"
-      :max="23.99"
-      :step="0.25"
-      :tooltip="true"
-      :custom-formatter="formatHour"
+      v-model="value" type="is-info" :min="0" :max="23.99" :step="0.25" :tooltip="true" :custom-formatter="formatHour"
     >
       <b-slider-tick v-for="h in [0, 12, 23]" :key="h" :value="h">
         {{ formatHour(h) }}
@@ -25,7 +19,7 @@ const store = useStore();
 const value = ref([0, 23.99]);
 
 const formatHour = (val) => {
-  if (val >= 24) val = 23.99
+  if (val >= 24) val = 23.99;
   const hours = Math.floor(val);
   const minutes = Math.floor((val - hours) * 60);
   return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;

@@ -31,13 +31,13 @@ const store = useStore();
 
 const selected = ref('HOUR');
 
-const onChange = (e) => {
+const onChange = () => {
   store.commit('bikesp/updateAggregation', selected.value);
 };
 
 const getTranslatedLabel = (value) => {
   return t(`bikesp.aggregation.${value}`)
-} 
+};
 
 onMounted(() => {
   store.commit('bikesp/updateAggregation', selected.value);

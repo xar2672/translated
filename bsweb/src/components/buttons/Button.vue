@@ -1,8 +1,6 @@
 <template>
   <div
-    class="custom-btn"
-    :title="title"
-    @click="handleClick"
+    class="custom-btn" :title="title" @click="handleClick"
   >
     <span>{{ text }}</span>
   </div>

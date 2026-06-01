@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-field>
-      {{ speedRange[0] }} km/h {{ $t('to') }} {{ speedRange[1] }} km/h
+      {{ $t('speedForm', {start: speedRange[0], end: speedRange[1]}) }}
     </b-field>
     <b-slider
       v-model="speedRange"

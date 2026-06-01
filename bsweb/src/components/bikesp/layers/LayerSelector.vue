@@ -22,11 +22,11 @@ const props = defineProps({
   category: { type: Object, required: true }
 });
 
-const value = ref([])
+const value = ref([]);
 
 const options = props.category.filters.map(
   (filter) => { return {name: filter.filter_key, value: false, label: t(filter.filter_key)} }
-)
+);
 
 watch(value, (newValue) => {
   const selectedNames = new Set(newValue.map(item => item.name));
@@ -35,7 +35,7 @@ watch(value, (newValue) => {
     value: selectedNames.has(option.name)
   }));
   store.commit('bikesp/updateActiveLayers', updatedLayers)
-}, {deep: true})
+}, {deep: true});
 
 onBeforeUnmount(() => {
   store.commit('bikesp/updateActiveLayers', options);

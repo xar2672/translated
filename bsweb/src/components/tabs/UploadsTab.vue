@@ -12,8 +12,7 @@
     <form @submit.prevent="submitFiles">
       <div class="file-btn-wrapper">
         <input
-          id="files"
-          type="file"
+          id="files" type="file"
           multiple
           @change="onFileChange"
         >
@@ -25,9 +24,7 @@
         </div>
         <div class="column is-two-thirds is-flex is-align-items-center">
           <input
-            v-model="name"
-            type="text"
-            class="input is-info is-small"
+            v-model="name" type="text" class="input is-info is-small"
           >
         </div>
       </div>
@@ -38,11 +35,8 @@
         </div>
         <div class="column is-two-thirds is-flex is-align-items-center">
           <input
-            v-model="weight"
-            type="number"
-            class="input is-info is-small"
-            min="0"
-            step="0.1"
+            v-model="weight" type="number" class="input is-info is-small"
+            min="0" step="0.1"
           >
         </div>
       </div>
@@ -53,12 +47,9 @@
         </div>
         <div class="column is-two-thirds is-flex is-align-items-center">
           <input
-            v-model="opacity"
-            type="number"
+            v-model="opacity" type="number"
             class="input is-info is-small"
-            min="0"
-            max="1"
-            step="0.01"
+            min="0" max="1"step="0.01"
           >
         </div>
       </div>
@@ -69,8 +60,7 @@
         </div>
         <div class="column is-two-thirds is-flex is-align-items-center">
           <input
-            v-model="color"
-            type="text"
+            v-model="color" type="text"
             class="input is-info is-small"
           >
         </div>
@@ -88,12 +78,11 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
+import { ref } from 'vue';
 import { useStore } from 'vuex';
 
 const store = useStore();
 
-const type = ref('layer');
 const name = ref('');
 const weight = ref(3);
 const opacity = ref(0.9);
@@ -102,18 +91,6 @@ const files = ref(null);
 const error = ref(null);
 const fileType = ref(null);
 
-const secondMapIsActive = computed(() => store.getters['map/secondMapIsActive']);
-const mirrorControl = computed({
-  get: () => store.state.layers.mirrorControl,
-  set: () => toggleMirrorLayerControl(),
-});
-
-const toggleMirrorLayerControl = () => {
-  store.dispatch('layers/toggleMirrorLayerControl');
-};
-const setHideSecondMapLayerControl = () => {
-  store.dispatch('layers/setHideSecondMapLayerControl');
-};
 const shapefileToGeoJson = (payload) => {
   store.dispatch('user_shapefiles/shapefileToGeoJson', payload);
 };
