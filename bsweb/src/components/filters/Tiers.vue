@@ -1,14 +1,14 @@
 <template>
   <div>
     <p class="label">
-      {{ $t('selectTiers') }}:
+      {{ $t('BIKESCIENCEWEB.tabs.filters.forms.tiers.selectTiers') }}:
     </p>
     <div v-for="(count, index) in tierList" v-show="!flowsNotFound" :key="index">
       <TierController
         :tier="index" :count="count" :mapkey="mapkey"
       />
     </div>
-    <span v-if="flowsNotFound" class="not-found">{{ $t('notFoundTiers') }}</span>
+    <span v-if="flowsNotFound" class="not-found">{{ $t('BIKESCIENCEWEB.tabs.filters.forms.tiers.notFoundTiers') }}</span>
   </div>
 </template>
 
@@ -31,7 +31,7 @@ const tierList = computed(() => tripsPerTier.value[props.mapkey]);
 
 watch(flowsNotFound, (val) => {
   if (val) {
-    toast.warning(props.$t('toastr.emptyFlows'));
+    toast.warning(props.$t('BIKESCIENCEWEB.tabs.filters.forms.tiers.emptyFlows'));
   } else {
     toast.clear();
   }
@@ -40,9 +40,9 @@ watch(flowsNotFound, (val) => {
 
 <style scoped>
 .label {
-  font-size: 12px;
+  font-size: .85rem;
 }
 .not-found {
-  font-size: 12px;
+  font-size: .85rem;
 }
 </style>

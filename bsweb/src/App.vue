@@ -1,10 +1,10 @@
 <template>
   <div id="app">
     <nav>
-      <router-link to="/">{{ $t('appName') }}</router-link> |
+      <router-link to="/">{{ $t('BIKESCIENCEWEB.appName') }}</router-link> |
       <router-link to="/bikesp">
         <img src="https://ecosustain.cc/assets/img/logo-ecosustain.svg" alt="icon" style="width:20px; height:20px; vertical-align: text-bottom;" />
-        {{ $t('bikesp.appName') }}
+        {{ $t('BIKESP.appName') }}
       </router-link>
       <LanguageSelector />
     </nav>

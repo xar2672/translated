@@ -1,7 +1,7 @@
 <template>
   <div>
     <input v-model="isActive" type="checkbox">
-    <label class="filter-name">{{ $t('filter.filter_name') }}</label>
+    <label class="filter-name">{{ $t(`COMMONS.layers_filter.${filter.filter_key}`) }}</label>
   </div>
 </template>
 
@@ -34,7 +34,7 @@ const isActive = computed({
 <style scoped>
 .filter-name {
   margin: 0 5px;
-  font-size: 12px;
+  font-size: .8rem;
 }
 
 input {

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="$i18n.locale == 'pt-br'">
+    <div v-if="$i18n.locale == 'pt'">
       <h2>Funcionalidades</h2>
       <p>As funcionalidades da ferramenta estão organizadas em três grupos:</p>
       <ol>
@@ -58,7 +58,7 @@ export default {};
 
 <style scoped>
 h2 {
-  font-size: 24px;
+  font-size: 1.5rem;
   color: #363636;
   font-weight: 600;
   line-height: 1.125;

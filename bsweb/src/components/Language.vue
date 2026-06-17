@@ -12,28 +12,38 @@
       class="language-multiselect"
       @select="selectedLanguage"
     >
-
-    <template #singleLabel="{ option }">
-      <img :src="option.flag" class="flag-icon" style="margin-right: 10px;"/> 
-      <span class="lang-text">{{ option.label }}</span>
-    </template>
-
-    <template #option="{ option }">
-      <div class="dropdown-item-content">
-        <img :src="option.flag" class="flag-icon"/>
+      <template #singleLabel="{ option }">
+        <img :src="option.flag" class="flag-icon" style="margin-right: 10px;"/> 
         <span class="lang-text">{{ option.label }}</span>
-      </div>
-    </template>
-      
+      </template>
+
+      <template #option="{ option }">
+        <div class="dropdown-item-content">
+          <img :src="option.flag" class="flag-icon"/>
+          <span class="lang-text">{{ option.label }}</span>
+        </div>
+      </template>
     </multiselect>
   </div>
 </template>
 
 <script>
-import { toRaw } from 'vue';
+import { toRaw, nextTick } from 'vue';
 import Multiselect from 'vue-multiselect';
-import { messages } from '../plugins/i18n.js';
 import 'vue-multiselect/dist/vue-multiselect.min.css';
+import { supportedLanguages } from '../plugins/i18n/manifest.js';
+import { createI18n } from 'vue-i18n';
+import { i18n } from '../main.js';
+
+const i18n_newLang = createI18n({
+  allowComposition: false,
+  legacy: false,
+  fallbackLocale: 'en', 
+  returnObjects: true,
+  useScope: 'global',
+  isGlobal: true,
+  messages: supportedLanguages
+});
 
 export default {
   name: 'LanguageSelector',
@@ -41,8 +51,8 @@ export default {
   data() {
     return {
       currentLanguage: null,
-      languages: Object.keys(messages).sort((a, b) => a.localeCompare(b)).map(key => 
-({value: key, label: messages[key].LANGUAGE_NAME, flag: messages[key].FLAG_LINK}))
+      languages: Object.keys(supportedLanguages).sort((a, b) => a.localeCompare(b)).map(key => 
+({value: key, label: supportedLanguages[key].LANGUAGE_NAME, flag: supportedLanguages[key].FLAG_LINK}))
     };
   },
   mounted() {
@@ -53,14 +63,21 @@ export default {
     window.removeEventListener('languagechange', () => this.changeLanguage(navigator.language));
   },
   methods: {
-    changeLanguage(lang) {
+    async changeLanguage(lang) {
       if (typeof(lang) !== 'string') lang = "";
-      lang = Object.entries(messages).find(([_, value]) => value['LANGUAGE_NAME'] == this.$t('LANGUAGE_NAME', '', {locale: lang}))[0];
+      lang = Object.entries(supportedLanguages).find(([_, value]) => value.LANGUAGE_NAME == i18n_newLang.global.t('LANGUAGE_NAME', '', {locale: lang}))[0];
+
       console.log(`Changed language to: ${lang}`);
       
+      if (!this.$i18n.availableLocales.includes(lang)) {
+        const messages = await import(`../plugins/i18n/locales/${lang}.json`, {with: { type: 'json' }});
+        i18n.global.mergeLocaleMessage(lang, messages.default);
+      }
+
+      await nextTick();
       this.$i18n.locale = lang;
-      
-      lang = this.$i18n.locale;
+
+      document.querySelector('html').setAttribute('lang', lang);
       this.currentLanguage = this.languages.find(obje => obje.value === lang);
       localStorage.setItem('preferred-language', lang);
     },
@@ -79,7 +96,9 @@ export default {
 }
 .dropdown-menu {
   z-index: 500 !important;
+  width: max-content;
 }
+
 .language-selector {
   display: inline-block;
   margin: 0 2% 0 auto;
@@ -97,6 +116,7 @@ export default {
   display: flex;
   padding: 0 40px 0 0;
 }
+
 .language-multiselect .multiselect__single {
   display: inline-flex;
   column-gap: 5px;
@@ -116,7 +136,9 @@ export default {
   transform: translateY(-50%);
   width: 20px;
 }
+
 .language-multiselect .multiselect__content-wrapper {
+  overflow: hidden auto;
   border: 1px solid #e5e5e5;
   border-top: none;
   border-radius: 0 0 6px 6px;
@@ -126,19 +148,20 @@ export default {
 .language-multiselect .multiselect__content {
   padding: 8px 0;
 }
+
 .language-multiselect .multiselect__option {
   padding: 10px 15px;
   display: flex;
   align-items: center;
   justify-content: flex-start;
   color: #333;
-  font-size: 15px;
+  font-size: 1rem;
   background: transparent;
   min-height: 40px;
 }
 .language-multiselect .multiselect__option--highlight {
   background: #f5f7fa;
-  color: #333;
+  color: #2b303a;
 }
 .language-multiselect .multiselect__option--selected {
   background: #fff;
@@ -150,6 +173,7 @@ export default {
   color: #000;
   font-weight: 600;
 }
+
 .flag-icon {
   width: 24px;
   height: auto;

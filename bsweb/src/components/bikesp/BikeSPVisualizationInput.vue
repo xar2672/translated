@@ -1,14 +1,14 @@
 <template>
   <div class="data-type-selector">
-    <label for="data-type-select">{{$t('bikesp.changeViewType')}}:</label>
+    <label for="data-type-select">{{$t('BIKESP.mapView.changeViewType')}}:</label>
     <select
       id="data-type-select" v-model="selected" @change="onChange"
     >
-      <option value="MAP">{{$t('bikesp.map')}}</option>
-      <option value="CHART">{{$t('bikesp.chart')}}</option>
+      <option value="MAP">{{$t('COMMONS.maps', 1)}}</option>
+      <option value="CHART">{{$t('COMMONS.charts', 1)}}</option>
     </select>
     <p class="helper-text">
-      {{$t('bikesp.viewtype_helper')}}
+      {{$t('BIKESP.mapView.viewtype_helper')}}
     </p>
   </div>
 </template>

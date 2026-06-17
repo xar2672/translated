@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="$i18n.locale === 'pt-br'">
+    <div v-if="$i18n.locale === 'pt'">
       <h2>Sobre</h2>
       <p>
         A BikeScienceWeb é uma ferramenta desenvolvida pelo INCT da Internet do
@@ -52,7 +52,7 @@ import logoFapesp from '@/assets/logos/fapesp.png';
 
 <style scoped>
 h2 {
-  font-size: 24px;
+  font-size: 1.5rem;
   color: #363636;
   font-weight: 600;
   line-height: 1.125;

@@ -1,6 +1,6 @@
 <template>
   <div class="heatmap-legend leaflet-control leaflet-control-custom">
-    <div class="legend-title">{{ title }}</div>
+    <div class="legend-title">{{ $t(title) }}</div>
     <div class="gradient-bar" :style="barStyle"></div>
     <div class="legend-labels">
       <span>{{ compact(Math.round(min)) }}</span>
@@ -44,13 +44,14 @@ const compact = (number) => {
 <style scoped>
 .heatmap-legend {
   background: white;
-  padding: 8px 10px;
-  font-size: 12px;
+  padding: 10px 20px;
+  font-size: .85rem;
   color: #333;
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
   border-radius: 4px;
   margin: 10px;
-  width: 160px;
+  width: max-content;
+  min-width: 160px;
   position: absolute;
   bottom: 10px;
   right: 10px;
@@ -73,6 +74,6 @@ const compact = (number) => {
   display: flex;
   justify-content: space-between;
   margin-top: 4px;
-  font-size: 10px;
+  font-size: .8rem;
 }
 </style>

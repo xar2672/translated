@@ -40,10 +40,6 @@ body{
   z-index: 0;
 }
 
-.manage {
-  width: 25%;
-}
-
 .column {
   padding-right: 0;
 }
@@ -100,14 +96,47 @@ body{
   cursor: pointer;
 }
 
+div:has(> .b-slider) {
+  text-align: center;
+  margin: 10px 40px 35px 20px;
+}
 .b-checkbox.checkbox + .checkbox {
   margin: 0;
   width: 100%;
 }
 
+.b-radio.radio:not(.button) {
+  margin: .125em 2.5em 1em 0;
+}
+.b-slider .b-slider-tick-label {
+  top: calc(.25rem + 5px);
+}
+
 .tabs li.is-active a {
   color: #167df0;
   border-bottom-color:#167df0;
+}
+.tag:not(body) {
+  margin-left: .5em;
+}
+
+.leaflet-control-layers-list {
+  padding: 5px;
+  text-align: start;
+}
+.leaflet-control-layers-selector {
+  margin-right: 5px;
+}
+.leaflet-popup-content {
+  white-space: nowrap;
+}
+
+.vue-ui-user-options-drawer {
+  padding: 10px 15px !important;
+  gap: 7px;
+}
+.vue-ui-xy-title > div.atom-title {
+  padding-bottom: 1.5rem;
 }
 
 .flex {

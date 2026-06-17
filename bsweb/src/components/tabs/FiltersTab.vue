@@ -1,13 +1,13 @@
 <template>
   <div class="wrapper">
     <div v-if="secondMapIsActive" class="map-title">
-      {{ $t('twoMaps.leftMap') }}
+      {{ $t('BIKESCIENCEWEB.twoMaps.leftMap') }}
     </div>
     <Filters mapkey="main" />
     <div v-show="secondMapIsActive && !hideSecondMapControl">
       <hr>
       <div class="map-title">
-        {{ $t('twoMaps.rightMap') }}
+        {{ $t('BIKESCIENCEWEB.twoMaps.rightMap') }}
       </div>
       <Filters mapkey="second" />
     </div>
@@ -17,14 +17,14 @@
         type="is-info"
         size="is-small"
       >
-        <span>{{ $t('twoMaps.mirroredChanges') }}</span>
+        <span>{{ $t('BIKESCIENCEWEB.twoMaps.mirroredChanges') }}</span>
       </b-checkbox>
       <b-checkbox
         v-model="hideSecondMapControl"
         type="is-info"
         size="is-small"
       >
-        <span>{{ $t('twoMaps.hideRightControls') }}</span>
+        <span>{{ $t('BIKESCIENCEWEB.twoMaps.hideRightControls') }}</span>
       </b-checkbox>
     </div>
     <CopyFilters />
@@ -53,8 +53,12 @@ const hideSecondMapControl = computed({
 </script>
 
 <style scoped>
+.wrapper {
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
 .map-title {
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: bold;
   margin-bottom: 10px;
 }
@@ -62,6 +66,6 @@ const hideSecondMapControl = computed({
   margin: 20px;
 }
 .options span {
-  font-size: 12px;
+  font-size: .9rem;
 }
 </style>

@@ -5,10 +5,10 @@
       <label class="filter-name">{{ layerName }}</label>
     </div>
     <div>
-      <div class="icon" title="Editar camada" @click="openEditModal">
+      <div class="icon" :title="$t('BIKESCIENCEWEB.tabs.layers.editModal.editLayer')" @click="openEditModal">
         <img :src="iconEdit">
       </div>
-      <div class="icon" title="Remover camada" @click="() => removeCustomLayer(index)">
+      <div class="icon" :title="$t('BIKESCIENCEWEB.tabs.layers.editModal.removeLayer')" @click="() => removeCustomLayer(index)">
         <img :src="iconDelete">
       </div>
     </div>
@@ -55,7 +55,7 @@ const removeCustomLayer = (index) => {
 <style scoped>
 .filter-name {
   margin: 0 5px;
-  font-size: 12px;
+  font-size: .8rem;
 }
 
 input {

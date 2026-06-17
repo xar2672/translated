@@ -1,6 +1,6 @@
 <template>
   <div class="aggregation-selector">
-    <label for="aggregation-select">{{$t('bikesp.changeAggregation')}}:</label>
+    <label for="aggregation-select">{{$t('BIKESP.filters.changeAggregation')}}:</label>
     <select
       id="aggregation-select"
       v-model="selected"
@@ -15,7 +15,7 @@
       <option value="REMUNERATION">{{ getTranslatedLabel('REMUNERATION') }}</option>
     </select>
     <p class="helper-text">
-      {{$t('bikesp.aggregation_helper')}}
+      {{$t('BIKESP.filters.aggregation_helper')}}
     </p>
   </div>
 </template>
@@ -36,7 +36,7 @@ const onChange = () => {
 };
 
 const getTranslatedLabel = (value) => {
-  return t(`bikesp.aggregation.${value}`)
+  return t(`BIKESP.filters.aggregation.${value}`);
 };
 
 onMounted(() => {

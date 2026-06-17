@@ -1,14 +1,14 @@
 <template>
   <div class="wrapper">
     <div v-if="secondMapIsActive" class="map-title">
-      {{ $t('twoMaps.leftMap') }}
+      {{ $t('BIKESCIENCEWEB.twoMaps.leftMap') }}
     </div>
     <Layers mapkey="main" />
     <UserLayers mapkey="main" />
     <div v-show="secondMapIsActive && !hideSecondMapControl">
       <hr>
       <div class="map-title">
-        {{ $t('twoMaps.rightMap') }}
+        {{ $t('BIKESCIENCEWEB.twoMaps.rightMap') }}
       </div>
       <Layers mapkey="second" />
       <UserLayers mapkey="second" />
@@ -19,14 +19,14 @@
         type="is-info"
         size="is-small"
       >
-        <span>{{ $t('twoMaps.mirroredChanges') }}</span>
+        <span>{{ $t('BIKESCIENCEWEB.twoMaps.mirroredChanges') }}</span>
       </b-checkbox>
       <b-checkbox
         v-model="hideSecondMapControl"
         type="is-info"
         size="is-small"
       >
-        <span>{{ $t('twoMaps.hideRightControls') }}</span>
+        <span>{{ $t('BIKESCIENCEWEB.twoMaps.hideRightControls') }}</span>
       </b-checkbox>
     </div>
     <CopyLayers />
@@ -73,6 +73,6 @@ const hideSecondMapControl = computed({
   margin: 20px;
 }
 .options span {
-  font-size: 12px;
+  font-size: .9rem;
 }
 </style>

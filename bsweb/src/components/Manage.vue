@@ -3,7 +3,7 @@
     <div class="app-name-container bg-interscity">
       <img :src="logoInterSCity" class="dark-bg" style="height: 35px">
       <span class="title is-5 font1" style="color: #fff">
-        {{ $t('appName') }}
+        {{ $t('BIKESCIENCEWEB.appName') }}
       </span>
     </div>
     <b-tabs
@@ -15,45 +15,45 @@
     >
       <b-tab-item>
         <template #header>
-          <span class="custom-size">{{ $t('flows') }}</span>
+          <span class="custom-size">{{ $t('COMMONS.flows', 2) }}</span>
         </template>
         <FlowsTab />
         <hr>
       </b-tab-item>
       <b-tab-item>
         <template #header>
-          <span>{{ $t('filters') }}<b-tag rounded>{{ activeFilters.length }}</b-tag></span>
+          <span>{{ $t('COMMONS.filters', 2) }}<b-tag rounded>{{ activeFilters.length }}</b-tag></span>
         </template>
         <FiltersTab />
       </b-tab-item>
       <b-tab-item>
         <template #header>
-          <span>{{ $t('layers') }}<b-tag rounded>{{ activeLayersCount }}</b-tag></span>
+          <span>{{ $t('COMMONS.layers') }}<b-tag rounded>{{ activeLayersCount }}</b-tag></span>
         </template>
         <LayersTab />
       </b-tab-item>
       <b-tab-item>
         <template #header>
-          <span class="custom-size2">{{ $t('maps') }}</span>
+          <span class="custom-size2">{{ $t('COMMONS.maps', 2) }}</span>
         </template>
         <MapsTab />
       </b-tab-item>
       <b-tab-item>
         <template #header>
-          <span class="custom-size2">Upload</span>
+          <span class="custom-size2">{{ $t('BIKESCIENCEWEB.nav.upload') }}</span>
         </template>
         <UploadsTab />
       </b-tab-item>
       <b-tab-item v-if="false">
         <template #header>
-          <span>{{ $t('charts') }}<b-tag rounded>{{ chartList.length }}</b-tag></span>
+          <span>{{ $t('COMMONS.charts', 2) }}<b-tag rounded>{{ chartList.length }}</b-tag></span>
         </template>
         <Charts />
       </b-tab-item>
     </b-tabs>
     <div class="manage-footer">
       <div class="about-button bg-interscity font1" @click="openModal('about')">
-        {{ $t('footer.about') }}
+        {{ $t('BIKESCIENCEWEB.footer.about') }}
       </div>
       <div>
         <div class="dev-mode">
@@ -61,7 +61,7 @@
             v-model="developerMode"
             type="checkbox"
           >
-          <label for="dev-mode">{{ $t('footer.devMode') }}</label>
+          <label for="dev-mode">{{ $t('BIKESCIENCEWEB.footer.devMode') }}</label>
         </div>
       </div>
     </div>
@@ -124,13 +124,21 @@ const openModal = (modalName) => {
   padding-top: 3px;
 }
 .custom-tabs {
+  display: flex;
+  flex-direction: column;
   flex-grow: 1;
+  min-height: 0;
+  margin-bottom: 0rem !important;
+}
+.custom-tabs :deep(.tab-content) {
+  overflow-y: auto;
+  scroll-behavior: smooth;
 }
 .manage-footer > div {
   padding: 0 10px;
   display: flex;
   justify-content: center;
-  font-size: 12px;
+  font-size: .8rem;
 }
 .about-button {
   cursor: pointer;
@@ -144,7 +152,7 @@ const openModal = (modalName) => {
   color: #167df0;
 }
 .dev-mode {
-  font-size: 12px;
+  font-size: .75rem;
   align-items: center;
   margin: 0 20px;
 }
@@ -156,7 +164,7 @@ const openModal = (modalName) => {
   flex-direction: column;
   overflow: hidden;
   border-right: 1px solid #bbb;
-  height: calc(100% - 42px);
-  padding: 0 0 30px;
+  height: calc(100vh - 42px);
+  padding: 0 0 25px;
 }
 </style>

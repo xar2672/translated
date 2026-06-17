@@ -19,7 +19,9 @@ const actions = {
 };
 
 const mutations = {
-  open: (state, name) => state.open.unshift(name),
+  open: (state, name) => {
+    state.open.unshift(name);
+  },
   close: (state, name) => (state.open = state.open.filter(e => e !== name)),
   setEditLayerIndex: (state, index) => {
     state.data.editLayerIndex = index;

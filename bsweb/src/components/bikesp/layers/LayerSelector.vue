@@ -1,9 +1,10 @@
 <template>
-  <label for="filter-select">{{$t('bikesp.layers')}}</label>
+  <label for="filter-select">{{$t('COMMONS.layers')}}</label>
   <div class="select-button-wrapper">
-    <multiselect class="fixed-width-multiselect" id="multiselect" v-model="value" :options="options" :multiple="true" :close-on-select="true" :clear-on-select="false"
-        :preserve-search="true" :placeholder="$t('bikesp.chooseLayer')" label="label" track-by="name" :preselect-first="false"
-        :taggable="true" deselectLabel="" selectLabel="" :selectedLabel="$t('bikesp.selected')">
+    <multiselect class="fixed-width-multiselect" id="multiselect" v-model="value" :options="options" :custom-label="translateLabels"
+        :multiple="true" :close-on-select="true" :clear-on-select="false"
+        :preserve-search="true" :placeholder="$t('BIKESP.layers.chooseMapLayer')" label="name" track-by="key" :preselect-first="false"
+        :taggable="true" deselectLabel="" selectLabel="" :selectedLabel="$t('BIKESP.selected')">
     </multiselect>
   </div>
 </template>
@@ -24,15 +25,16 @@ const props = defineProps({
 
 const value = ref([]);
 
+const translateLabels = (option) => t(`COMMONS.layers_filter.${option.key}`);
 const options = props.category.filters.map(
-  (filter) => { return {name: filter.filter_key, value: false, label: t(filter.filter_key)} }
+  (filter) => { return {key: filter.filter_key, name: translateLabels(filter.filter_key), value: false} }
 );
 
 watch(value, (newValue) => {
-  const selectedNames = new Set(newValue.map(item => item.name));
+  const selectedNames = new Set(newValue.map(item => item.key));
   const updatedLayers = options.map(option => ({
-    name: option.name,
-    value: selectedNames.has(option.name)
+    key: option.key,
+    value: selectedNames.has(option.key)
   }));
   store.commit('bikesp/updateActiveLayers', updatedLayers)
 }, {deep: true});

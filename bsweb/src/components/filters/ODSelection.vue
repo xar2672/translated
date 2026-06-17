@@ -1,8 +1,8 @@
 <template>
   <div v-show="mapkey === 'main' || secondMapIsActive">
     <div>
-      <span v-if="secondMapIsActive" class="label">{{ $t(`tabs.maps.tripsSource`) }} ({{ $t(`baseLayerMap.${mapkey}`) }}):</span>
-      <span v-else class="label">{{ $t(`tabs.maps.tripsSource`) }}:</span>
+      <span v-if="secondMapIsActive" class="label">{{ $t(`BIKESCIENCEWEB.tabs.maps.tripsSource`) }} ({{ $t(`BIKESCIENCEWEB.tabs.filters.baseLayerMap.${mapkey}`) }}):</span>
+      <span v-else class="label">{{ $t(`BIKESCIENCEWEB.tabs.maps.tripsSource`) }}:</span>
       <b-radio
         v-model="year" :name="`od-year-${mapkey}`" :native-value="2017" type="is-info"
       >
@@ -52,9 +52,9 @@ watch(year, () => {
 
 <style scoped>
 .label {
-  font-size: 12px;
+  font-size: .85rem;
 }
 .view-option {
-  font-size: 12px;
+  font-size: .85rem;
 }
 </style>

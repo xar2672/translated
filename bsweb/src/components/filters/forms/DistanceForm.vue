@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-field>
-      {{ $t('distanceForm', {start: distanceRange[0], end: distanceRange[1]}) }}
+      {{ $t('BIKESCIENCEWEB.tabs.filters.forms.distance.form', {start: distanceRange[0], end: distanceRange[1]}, distanceRange[1] - distanceRange[0] + 1) }}
     </b-field>
     <b-slider
       v-model="distanceRange"
@@ -13,6 +13,7 @@
 
 <script>
 import { mapActions } from 'vuex';
+
 export default {
   props: {
     fid: { type: Number, required: true },
@@ -24,9 +25,6 @@ export default {
     };
   },
   computed: {
-    ageLabel() {
-      return `${$t(ageField)} ${this.distanceRange[0]} - ${this.distanceRange[1]}`;
-    },
     setFilterParams() {
       return {
         id: this.fid,

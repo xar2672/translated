@@ -43,7 +43,7 @@ onMounted(() => {
   display: flex;
   gap: 4px;
   align-items: flex-start;
-  padding: 16px;
+  padding: 4px 16px 16px 12px;
   height: 80vh;
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -63,10 +63,10 @@ onMounted(() => {
   flex: 1;
   min-width: 0;
   height: 80vh;
+  padding: 1.5rem 0 1.5rem 1.5rem;
   display: flex;
   flex-direction: column;
 }
-
 .chart-panel > * {
   flex-grow: 1;
   width: 100%;

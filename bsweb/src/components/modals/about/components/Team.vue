@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2 v-if="$i18n.locale == 'pt-br'">
+    <h2 v-if="$i18n.locale == 'pt'">
       Equipe BikeScience
     </h2>
     <h2 v-else-if="$i18n.locale == 'en'">
@@ -59,7 +59,7 @@ export default {};
 
 <style scoped>
 h2 {
-  font-size: 24px;
+  font-size: 1.5rem;
   color: #363636;
   font-weight: 600;
   line-height: 1.125;

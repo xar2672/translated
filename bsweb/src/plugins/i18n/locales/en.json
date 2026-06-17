@@ -1,0 +1,462 @@
+{
+    "COMMONS": {
+        "charts": "Chart | Charts",
+        "filters": "Filter | Filters",
+        "flows": "Flow | Flows",
+        "layers": "Layers",
+        "maps": "Map | Maps",
+
+        "income_base": {
+            "max": "up to R$ {value}",
+            "range": "from R$ {min} to R$ {max}",
+            "more_than": "more than R$ {value}"
+        },
+        "layers_filter": {
+            "spRailwayLines": "SP Railway Lines",
+            "spSubwayLines": "SP Subway Lines",
+            "spRailwayStations": "SP Railway Stations",
+            "spSubwayStations": "SP Subway Stations",
+
+            "sp_bikelane_ciclovia": "Bike paths",
+            "sp_bikelane_ciclofaixa": "Bike lanes",
+            "sp_bikelane_ciclorrota": "Bike routes",
+            "sp_bikelane_ciclopassarela": "Bike footbridge",
+
+            "sp_accidents": "Bike accidents",
+
+            "cptm_lines": "Railway lines",
+            "cptm_stations": "Railway stations",
+            "subway_lines": "Subway lines",
+            "subway_stations": "Subway stations"
+        }
+    },
+
+    "BIKESCIENCEWEB": {
+        "appName": "BikeScienceWeb",
+
+        "nav": {
+            "upload": "Upload"
+        },
+
+        "aboutPage": {
+            "buttons": {
+                "about": "About",
+                "features": "Features",
+                "team": "Team",
+                "guide": "User Guide"
+            }
+        },
+        "footer": {
+            "about": "About",
+            "devMode": "Developer Mode"
+        },
+        
+        "maps": {
+            "total_trips": "{total} trip | {total} trips",
+            "DEVELOPER_MODE_TRIPS": "{origin} -> {destination}\nids: {id}",
+            
+            "toolTips": {
+                "numberZone": "NumberZone: {numberZone}",
+                "nameZone": "NameZone: {nameZone}",
+                "nameBorough": "NameBorough: {nameBorough}",
+                
+                "helpers": {
+                    "bikeLane": "{name}<br>Extension: {extension} meter<br>Implementation date: {date} | {name}<br>Extension: {extension} meters<br>Implementation date: {date}",
+
+                    "railway_line": "Line {num} — {name}",
+                    "railwayLines": {
+                        "RUBI": "Ruby",
+                        "DIAMANTE": "Diamond",
+                        "ESMERALDA": "Emerald",
+                        "TURQUESA": "Turquoise",
+                        "CORAL": "Coral",
+                        "SAFIRA": "Sapphire",
+                        "JADE": "Jade"
+                    },
+                    "railway_station": "Line {line} — {name} Station",
+
+                    "subway_line": "Line {num} — {name}",
+                    "subwayLines": {
+                        "AZUL": "Blue",
+                        "VERDE": "Green",
+                        "VERMELHA": "Red",
+                        "AMARELA": "Yellow",
+                        "LILAS": "Lilac",
+                        "PRATA": "Silver",
+
+                        "LARANJA": "Orange",
+                        "OURO": "Gold"
+                    },
+                    "subway_station": "Line {line} — {name} Station",
+                    
+                    "accidents": "Date of the Accident: {date}<br>Transportation mode involved: {modal} | Date of the Accident: {date}<br>Transportation modes involved: {modal}",
+                    "accidentModals": {
+                        "automobile": "automobile",
+                        "bicycle": "bicycle",
+                        "bus": "bus",
+                        "motorcycle": "motorcycle",
+                        "pedestrian": "pedestrian",
+                        "truck": "truck"
+                    }
+                }
+            }
+        },
+        "tabs": {
+            "filters": {
+                "baseLayer": "Base layer",
+                "baseLayerMap": {
+                    "main": "left map",
+                    "second": "right map",
+
+                    "grid": "Grid",
+                    "zones": "2017 OD Zones",
+
+                    "buttons": {
+                        "getFlows": "Recalculate flows",
+                        "gridEditMode": "Edit grid",
+                        "onHover": {
+                            "gridEditMode": "Change grid settings"
+                        },
+                        "gridOptions": {
+                            "size": "Size",
+                            "west": "West",
+                            "east": "East",
+                            "north": "North",
+                            "south": "South"
+                        }
+                    }
+                },
+
+                "bikelane": {
+                    "slider": {
+                        "field": "Sort by Year Implemented | Sort by Implementation Period",
+                        "form": "{end} | {start} to {end}"
+                    }
+                },
+                
+                "forms": {
+                    "aggregation": {
+                        "category": {
+                            "timeFilters": "Time filters",
+                            "populationFilters": "Demographic filters",
+                            "geographicFilters": "Geographic filters",
+                            "tripFilters": "Trip filters"
+                        },
+                        "filter": {
+                            "months": "By months",
+                            "start_time": "Start time",
+                            "finish_time": "Finish time",
+                            "weekday": "Day of the week",
+                            "holidays": "Holidays",
+
+                            "avgSpeed": "Average speed",
+                            "distance": "Trip distance",
+                            "duration": "Trip duration",
+                            "reason": "Reasons for choosing bike",
+
+                            "sex": "Cyclist sex",
+                            "age": "Cyclist age",
+                            "income": "Family income",
+                            "attractors_emitters": "Trip attractors/generators region"
+                        }
+                    },
+                    
+                    "age": {
+                        "field": "Age of cyclists",
+                        "form": "{end} year old | {end} years old | {start} to {end} years old"
+                    },
+                    "attractor": {
+                        "info":  "The heat map indicates the neighborhoods in which bicycle trips begin or end most, for the selected filters"
+                    },
+                    "time": {
+                        "morning": "Morning (6:00 to 12:00)",
+                        "afternoon": "Afternoon (12:00 to 18:00)",
+                        "evening": "Evening (18:00 to 23:00)",
+                        "specificTime": "Specific time range",
+
+                        "from": "from",
+                        "to": "to",
+
+                        "months": {
+                            "jan": "jan",
+                            "feb": "feb",
+                            "mar": "mar",
+                            "apr": "apr",
+                            "may": "may",
+                            "jun": "jun",
+                            "jul": "jul",
+                            "aug": "aug",
+                            "sep": "sep",
+                            "oct": "oct",
+                            "nov": "nov",
+                            "dec": "dec"
+                        }
+                    },
+                    "distance": {
+                        "form": "{end} km | {start} km to {end} km"
+                    },
+                    "duration": {
+                        "minutes": "{value} min | {value} mins",
+                        "field": "Trip duration",
+                        "form": "{end} minute | {end} minutes | {start} to {end} minutes"
+                    },
+                    "income": {
+                        "field": "Family income",
+                        "form": "R$ {end} | R$ {start} up to R$ {end}",
+                        "intervals": "Intervals",
+                        "brackets": "Income brackets"
+                    },
+                    "reason": {
+                        "smallDistance": "Short distance",
+                        "expensiveTransport": "Public transport too expensive",
+                        "publicTransportStationDistance": "Distant access to public transport",
+                        "publicTransportSlow": "Slow public transport",
+                        "publicTransportDistance": "Long trip in public transport",
+                        "crowdedPublicTransport": "Crowded public transport",
+                        "fitness": "Fitness",
+                        "others": "Others"
+                    },
+                    "sex": {
+                        "male": "Men",
+                        "female": "Women"
+                    },
+                    "speed": {
+                        "form": "{end} km/h | {start} km/h to {end} km/h"
+                    },
+                    "tiers": {
+                        "selectTiers": "Show flows",
+                        "notFoundTiers": "No results found",
+                        "emptyFlows": "Flows not found. Try selecting different filters"
+                    }
+                }
+            },
+            "layers": {
+                "category": {
+                    "layers_highCapacityTransport": "High capacity transports",
+                    "layers_bikelanes": "Bikelanes",
+                    "layers_accidents": "Accidents"
+                },
+                "userLayers": "User layers",
+                "editModal": {
+                    "editLayer": "Edit layer", 
+                    "removeLayer": "Remove layer",
+                    "layerEditMode": "Editing layer {layer_name}"
+                }
+            },
+            "maps": {
+                "title": "Multiple maps action",
+                "action": "Activate additional map",
+                "tripsSource": "Trips data source"
+            },
+            "upload": {
+                "title": "Upload your shapefiles here",
+                "text": "Accepted file extensions",
+                "extensions": [
+                    "shapefile in a .zip file",
+                    "shapefiles (4 files: .cpg, .dbf, .shp and .shx)",
+                    ".kmz"
+                ],
+
+                "inputs": {
+                    "name": "Name",
+                    "width": "Width (px)",
+                    "opacity": "Opacity",
+                    "color": "Color",
+                    "colorToolTip": "In hexadecimal form"
+                },
+                "validateInputs": {
+                    "name": "Name is required.",
+                    "width": "Width is required.",
+                    "opacity": "Opacity is required.",
+                    "emptyColor": "Color is required.",
+                    "invalidColor": "Color must be in hexadecimal form (for example: #ffffff).",
+
+                    "noShapeFiles": "No Shapefile was properly inserted.",
+                    "invalidFileFormat": "File format is invalid.",
+                    "notSameFilesName": "The shapefiles must have the same name.",
+                    "cpgMissingFiles": "It is required to add 4 files to complete the shapefile format: .cpg, .dbf, .shp e .shx."
+                },
+
+                "button": "Send"
+            },
+            "flows": {
+                "hoverText": "Flows with trip count between {min} and {max} trips",
+                "tierOptions": "Tier {tier_prop}: {tier_count} flow | Tier {tier_prop}: {tier_count} flows"
+            }
+        },
+        "twoMaps": {
+            "leftMap": "Left Map",
+            "rightMap": "Right Map",
+
+            "mirroredChanges": "Synchronize actions",
+            "hideRightControls": "Hide right controls",
+
+            "independentControl": "Move maps individually",
+            "sameControl": "Move maps together",
+
+            "copy": {
+                "flows": {
+                    "main": {
+                        "button": "Copy selected flows",
+                        "title": "Copy selected flows between maps"
+                    },
+                    "option1": {
+                        "button": "From left to right",
+                        "title": "Copy selected flows from left map to right map"
+                    },
+                    "option2": {
+                        "button": "From right to left",
+                        "title": "Copy selected flows from right map to left map"
+                    }
+                },
+                "filters": {
+                    "main": {
+                        "button": "Copy selected filters",
+                        "title": "Copy selected filters between maps"
+                    },
+                    "option1": {
+                        "button": "From left to right",
+                        "title": "Copy selected filters from left map to right map"
+                    },
+                    "option2": {
+                        "button": "From right to left",
+                        "title": "Copy selected filters from right map to left map"
+                    }
+                },
+                "layers": {
+                    "main": {
+                        "button": "Copy selected layers",
+                        "title": "Copy selected layers between maps"
+                    },
+                    "option1": {
+                        "button": "From left to right",
+                        "title": "Copy selected layers from left map to right map"
+                    },
+                    "option2": {
+                        "button": "From right to left",
+                        "title": "Copy selected layers from right map to left map"
+                    }
+                }
+            }
+        }
+    },
+
+    "BIKESP": {
+        "appName": "Bike SP Pilot - Analytics Dashboard",
+
+        "apply": "Apply",
+        "selected": "Selected",
+
+        "charts": {
+            "title": "{dataType} per {aggregation}",
+            "buttons": {
+                "open": "Show options",
+                "close": "Close options",
+                "tooltip": "Toggle tooltip",
+                "pdf": "Download PDF",
+                "csv": "Download CSV",
+                "img": "Download PNG",
+                "table": "Toggle table",
+                "labels": "Toggle labels",
+                "fullscreen": "Toggle fullscreen",
+                "stack": "Toggle stack mode",
+                "annotator": "Toggle annotator"
+            },
+            "table": {
+                "period": "Period",
+                "total": "Total"
+            }
+        },
+
+        "dataType": {
+            "changeDataType": "Select data type",
+            "datatype_helper": "Choose which metric you would prefer to view on the graph.",
+            "typeList": {
+                "TRIP_COUNT": "Number of trips",
+                "TRIP_DURATION": "Average trip length (in minutes)",
+                "TRIP_DISTANCE": "Average distance traveled (km)",
+                "MEAN_SPEED": "Average speed (km/h)",
+                "TOTAL_SAMPLES": "Total of samples",
+                "TOTAL_TRIPS": "Total of trips",
+                "SAMPLE_MEAN_SPEED": "Average sample speed (km/h)"
+            }
+        },
+        "layers": {
+            "chooseMapLayer": "Select map layers",
+            "selectMapLayer": "Select map layer type",
+            "removeCategory": "Remove category",
+            "category": {
+                "layers_highCapacityTransport": "High-capacity public transport",
+                "layers_bikelanes": "Cycling infrastructure",
+                "layers_accidents": "Traffic accidents"
+            }
+        },
+        "filters": {
+            "chooseFilter": "Choose a filter",
+            "removeFilter": "Remove filter",
+            
+            "changeAggregation": "Group data by",
+            "aggregation_helper": "Choose one category to group the data shown on the graph.",
+            "aggregation": {
+                "GENDER": "Gender",
+                "RACE": "Race/skin color",
+                "WEEK": "Week",
+                "HOUR": "Day hour",
+                "DAY_OF_WEEK": "Weekdays",
+                "PAYOUT_LEVEL": "Payout (R$/km)",
+                "REMUNERATION": "Level of income"
+            },
+
+            "money_value": "R$ {value}",
+            "day_week": {
+                "date": "Date",
+                "chooseDateofWeek": "Choose a day of the week",
+                "weekDays": {
+                    "sun": "Sunday",
+                    "mon": "Monday",
+                    "tue": "Tuesday",
+                    "wed": "Wednesday",
+                    "thu": "Thursday",
+                    "fri": "Friday",
+                    "sat": "Saturday"
+                }
+            },
+            "gender": {
+                "chooseGender": "Choose a gender",
+                "genderList": {
+                    "feminine": "Feminine",
+                    "masculine": "Masculine",
+                    "nonBinary": "Non-binary",
+                    "na": "Not informed"
+                }
+            },
+            "race": {
+                "chooseRace": "Choose a race",
+                "raceList": {
+                    "asian": "Asian",
+                    "black": "Black",
+                    "brown": "Brown",
+                    "indigenous": "Indigenous",
+                    "na": "Not informed",
+                    "white": "White"
+                }
+            }
+        },
+        "mapView": {
+            "changeViewType": "Select view type",
+            "viewtype_helper": "Choose the preferred way to view the data.",
+            "viewList": {
+                "voyager": "Voyager",
+                "basic": "Basic",
+                "bright": "Bright",
+                "sat1x": "Satellite Hybrid",
+                "sat2x": "Satellite Hybrid 2x",
+                "streets": "Streets",
+                "outdoor": "Outdoor",
+                "toner": "Toner",
+                "topo": "Topo",
+                "topographique": "Topographique"
+            }
+        }
+    }
+}

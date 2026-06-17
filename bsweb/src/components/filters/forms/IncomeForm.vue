@@ -6,7 +6,7 @@
       native-value="brackets"
       type="is-info"
     >
-      {{ $t('income_brackets') }}
+      {{ $t('BIKESCIENCEWEB.tabs.filters.forms.income.brackets') }}
     </b-radio>
     <b-radio
       v-model="mode"
@@ -14,8 +14,12 @@
       native-value="interval"
       type="is-info"
     >
-      {{ $t('intervals') }}
+      {{ $t('BIKESCIENCEWEB.tabs.filters.forms.income.intervals') }}
     </b-radio>
+    <b-field v-if="mode == 'interval'">
+      {{ $t('BIKESCIENCEWEB.tabs.filters.forms.income.field') }}<br>
+      ({{ $t('BIKESCIENCEWEB.tabs.filters.forms.income.form', {start: formatNumber(incomeInterval[0]), end: formatNumber(incomeInterval[1])}, incomeInterval[1] - incomeInterval[0] + 1) }})
+    </b-field>
     <b-slider
       v-if="mode == 'interval'"
       v-model="incomeInterval"
@@ -23,9 +27,16 @@
       :min="0"
       :max="42916"
       :step="1000"
-      :custom-formatter="val => `R$ ${val}`"
+      :custom-formatter="val => `R$ ${formatNumber(val)}`"
       type="is-info"
-    />
+    >
+      <b-slider-tick :value="0">
+        0
+      </b-slider-tick>
+      <b-slider-tick :value="42916">
+        {{formatNumber(42916)}}
+      </b-slider-tick>
+    </b-slider>
     <div v-if="mode == 'brackets'">
       <div>
         <input
@@ -33,7 +44,7 @@
           type="checkbox"
           value="1"
         >
-        <label>1 ({{ $t('max') }} R$ 1908)</label>
+        <label>1 {{ $t('COMMONS.income_base.max', {value: 1908}) }}</label>
       </div>
       <div>
         <input
@@ -41,7 +52,7 @@
           type="checkbox"
           value="2"
         >
-        <label>2 ({{ $t('from') }} R$ 1908 {{ $t('max') }} R$ 3816)</label>
+        <label>2 {{ $t('COMMONS.income_base.range', {min: 1908, max: 3816})}}</label>
       </div>
       <div>
         <input
@@ -49,7 +60,7 @@
           type="checkbox"
           value="3"
         >
-        <label>3 ({{ $t('from') }} R$ 3816 {{ $t('max') }} R$ 7632)</label>
+        <label>3 {{ $t('COMMONS.income_base.range', {min: 3816, max: 7632})}}</label>
       </div>
       <div>
         <input
@@ -57,7 +68,7 @@
           type="checkbox"
           value="4"
         >
-        <label>4 ({{ $t('from') }} R$ 7632 {{ $t('max') }} R$ 11448)</label>
+        <label>4 {{ $t('COMMONS.income_base.range', {min: 7632, max: 11448})}}</label>
       </div>
       <div>
         <input
@@ -65,13 +76,14 @@
           type="checkbox"
           value="5"
         >
-        <label>5 ({{ $t('more_than') }} R$ 11488)</label>
+        <label>5 {{ $t('COMMONS.income_base.more_than', {value: 11448} )}}</label>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { computed } from 'vue';
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
@@ -114,7 +126,6 @@ export default {
         this.selectors[this.mapkey][this.fid].incomeBracketBounds = value;
       },
     },
-
 
     interval() {
       return this.mode === 'interval';
@@ -162,16 +173,20 @@ export default {
       'removeActiveFilter',
       'updateFilterParams',
     ]),
+    formatNumber(num) {
+      if (num === undefined || num === null || isNaN(num)) return '';
+      return new Intl.NumberFormat(this.$i18n.locale).format(num);
+    },
   },
 }; 
 </script>
 
 <style scoped>
-  label {
-    margin: 0 5px;
-  }
+label {
+  margin: 0 5px;
+}
 
-  input {
-    cursor: pointer;
-  }
+input {
+  cursor: pointer;
+}
 </style>

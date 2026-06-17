@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="slider-container">
-      <span class="label">{{ $t('gridOptions.size') }}</span>
+      <span class="label">{{ $t('BIKESCIENCEWEB.tabs.filters.baseLayerMap.buttons.gridOptions.size') }}</span>
       <b-slider
         v-model="gridSize"
         type="is-success"
@@ -17,7 +17,7 @@
       </div>
     </div>
     <div class="slider-container">
-      <span class="label">{{ $t('gridOptions.west') }}</span>
+      <span class="label">{{ $t('BIKESCIENCEWEB.tabs.filters.baseLayerMap.buttons.gridOptions.west') }}</span>
       <b-slider
         v-model="grid_west"
         type="is-info"
@@ -33,7 +33,7 @@
       </div>
     </div>
     <div class="slider-container">
-      <span class="label">{{ $t('gridOptions.east') }}</span>
+      <span class="label">{{ $t('BIKESCIENCEWEB.tabs.filters.baseLayerMap.buttons.gridOptions.east') }}</span>
       <b-slider
         v-model="grid_east"
         type="is-info"
@@ -49,7 +49,7 @@
       </div>
     </div>
     <div class="slider-container">
-      <span class="label">{{ $t('gridOptions.north') }}</span>
+      <span class="label">{{ $t('BIKESCIENCEWEB.tabs.filters.baseLayerMap.buttons.gridOptions.north') }}</span>
       <b-slider
         v-model="grid_north"
         type="is-info"
@@ -65,7 +65,7 @@
       </div>
     </div>
     <div class="slider-container">
-      <span class="label">{{ $t('gridOptions.south') }}</span>
+      <span class="label">{{ $t('BIKESCIENCEWEB.tabs.filters.baseLayerMap.buttons.gridOptions.south') }}</span>
       <b-slider
         v-model="grid_south"
         type="is-info"
@@ -80,8 +80,10 @@
         {{ grid_south }}
       </div>
     </div>
-    <div class="get-flows-button" @click="getFlows()">
-      <span>{{ $t('buttons.getFlows' ) }}</span>
+    <div class="center">
+      <div class="get-flows-button" @click="getFlows()">
+        <span>{{ $t('BIKESCIENCEWEB.tabs.filters.baseLayerMap.buttons.getFlows' ) }}</span>
+      </div>
     </div>
   </div>
 </template>
@@ -181,40 +183,42 @@ export default {
 </script>
 
 <style scoped>
-  .value {
-    min-width: 46px;
-    padding-left: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: right;
-    font-size: 12px;
-  }
-  .slider-container {
-    display: flex;
-    align-items: center;
-    height: 28px;
-  }
+.value {
+  min-width: 46px;
+  padding-left: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  font-size: .85rem;
+}
+.slider-container {
+  display: flex;
+  margin: 0px 40px 0px 30px;
+  align-items: center;
+  height: 28px;
+}
 
-  .label {
-    min-width: 72px;
-    font-weight: normal;
-    font-size: 12px;
-  }
+.label {
+  min-width: 72px;
+  font-weight: normal;
+  font-size: .85rem;
+}
 
-  .get-flows-button {
-    cursor: pointer;
-    border: 1px solid #167df0;
-    border-radius: 5px;
-    width: 115px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 20px 0;
-    font-size: 12px;
-    color: #167df0;
-  }
-  .get-flows-button:hover {
-    color: #363636;
-    background-color: #ddd;
-  }
+.get-flows-button {
+  cursor: pointer;
+  border: 1px solid #167df0;
+  border-radius: 5px;
+  width: 115px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 15px 0 20px;
+  padding: 2px 10px;
+  font-size: .9rem;
+  color: #167df0;
+}
+.get-flows-button:hover {
+  color: #363636;
+  background-color: #ddd;
+}
 </style>

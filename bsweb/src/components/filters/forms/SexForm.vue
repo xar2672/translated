@@ -2,7 +2,7 @@
   <div>
     <div v-for="(sex, index) in sexes" :key="index">
       <input v-model="selectedSexes" type="checkbox" :value="index+1">
-      <label>{{ $t(sex) }}</label>
+      <label>{{ $t(`BIKESCIENCEWEB.tabs.filters.forms.sex.${sex}`) }}</label>
     </div>
   </div>
 </template>

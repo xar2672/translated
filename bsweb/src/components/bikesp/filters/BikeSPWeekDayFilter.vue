@@ -1,9 +1,10 @@
 <template>
-  <label for="race-select">{{$t('bikesp.aggregation.DAY_OF_WEEK')}}:</label>
+  <label for="race-select">{{$t('BIKESP.filters.aggregation.DAY_OF_WEEK')}}:</label>
   <div class="select-button-wrapper">
-    <multiselect class="fixed-width-multiselect" id="multiselect" v-model="value" :options="options" :multiple="true" :close-on-select="true" :clear-on-select="false"
-        :preserve-search="true" :placeholder="$t('bikesp.chooseDateofWeek')" label="name" track-by="name" :preselect-first="false"
-        :taggable="true" deselectLabel="" selectLabel="" :selectedLabel="$t('bikesp.selected')">
+    <multiselect class="fixed-width-multiselect" id="multiselect" v-model="value" :options="options" :custom-label="translateLabels"
+        :multiple="true" :close-on-select="true" :clear-on-select="false"
+        :preserve-search="true" :placeholder="$t('BIKESP.filters.day_week.chooseDateofWeek')" label="name" track-by="key" :preselect-first="false"
+        :taggable="true" deselectLabel="" selectLabel="" :selectedLabel="$t('BIKESP.selected')">
     </multiselect>
   </div>
 </template>
@@ -21,15 +22,27 @@ const store = useStore();
 
 const value = ref([])
 
-const options = computed(() => [
-  { name: t('sun'), value: 0 },
-  { name: t('mon'), value: 1 },
-  { name: t('tue'), value: 2 },
-  { name: t('wed'), value: 3 },
-  { name: t('thu'), value: 4 },
-  { name: t('fri'), value: 5 },
-  { name: t('sat'), value: 6 }
-]);
+const getTranslationForValue = (value) => t(`BIKESP.filters.day_week.weekDays.${value}`);
+const translateLabels = (option) => {
+  return getTranslationForValue(option.key);
+};
+
+const options = computed(() => {
+  const baseOptions = [
+    { key: 'sun', value: 0 },
+    { key: 'mon', value: 1 },
+    { key: 'tue', value: 2 },
+    { key: 'wed', value: 3 },
+    { key: 'thu', value: 4 },
+    { key: 'fri', value: 5 },
+    { key: 'sat', value: 6 }
+  ];
+
+  return baseOptions.map(entry => ({
+    ...entry,
+    name: getTranslationForValue(entry.key)
+  }));
+});
 
 watch(value, () => store.commit('bikesp/updateFilters', { week_days: getValueList(value) }), {deep: true});
 

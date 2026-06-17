@@ -8,7 +8,7 @@
         :native-value="index"
         type="is-info"
       >
-        {{ $t(day) }}
+        {{ $t(`BIKESP.filters.day_week.weekDays.${day}`) }}
       </b-checkbox>
     </div>
   </div>

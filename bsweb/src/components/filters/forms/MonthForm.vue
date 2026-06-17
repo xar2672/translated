@@ -8,9 +8,9 @@
         :native-value="index+1"
         type="is-info"
       >
-        {{ $t(month) }}
+        {{ $t(`BIKESCIENCEWEB.tabs.filters.months.${month}`) }}
       </b-checkbox>
-      {{ months }}
+      {{ $t(`BIKESCIENCEWEB.tabs.filters.months.${month}`) }}
     </div>
   </div>
 </template>
@@ -24,7 +24,6 @@ export default {
   },
   data() {
     return {
-      //?
       yearmonths: [
         'jan',
         'feb',

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="$i18n.locale == 'pt-br'">
+    <div v-if="$i18n.locale == 'pt'">
       <h2>Guia do usuário</h2>
       <article>
         <h3>Fluxos</h3>
@@ -154,7 +154,7 @@
       <article>
         <h3>Base layer</h3>
         <span>Defines the geometric shape of the areas in the map:</span>
-        <ul>////
+        <ul>
           <li><strong>Grid: </strong> customizable rectangular area;</li>
           <li>
             <strong>OD Zones: </strong>geographic areas that were used in the
@@ -286,7 +286,7 @@ export default {
 
 <style scoped>
 h2 {
-  font-size: 24px;
+  font-size: 1.5rem;
   color: #363636;
   font-weight: 600;
   line-height: 1.125;
@@ -294,7 +294,7 @@ h2 {
   text-align: left;
 }
 h3 {
-  font-size: 18px;
+  font-size: 1.2rem;
   color: #363636;
   font-weight: 600;
   line-height: 1.125;
@@ -342,7 +342,7 @@ ol {
 }
 
 .img-title {
-  font-size: 12px;
+  font-size: .9rem;
   color: #000;
 }
 </style>

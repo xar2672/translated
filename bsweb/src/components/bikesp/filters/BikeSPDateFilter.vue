@@ -1,5 +1,5 @@
 <template>
-  <label>{{$t('bikesp.date')}}:</label>
+  <label>{{$t('BIKESP.filters.day_week.date')}}:</label>
   <div class="date-input-row">
     <input type="date" v-model="from" @change="updateFilter" />
     <span class="separator">–</span>
@@ -40,14 +40,14 @@ onBeforeUnmount(() => {
 
 input[type="date"] {
   padding: 4px 6px;
-  font-size: 13px;
+  font-size: .7rem;
   border: 1px solid #ccc;
   width: 45%;
   border-radius: 4px;
 }
 
 .separator {
-  font-size: 16px;
+  font-size: 1rem;
   color: #666;
 }
 </style>

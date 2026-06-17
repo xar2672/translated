@@ -25,9 +25,9 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 20px 0;
+  margin: 0 0 25px;
   padding: 0 5px;
-  font-size: 12px;
+  font-size: .85rem;
   color: #167df0;
 }
 .custom-btn:hover {

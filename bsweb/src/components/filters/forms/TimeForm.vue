@@ -2,29 +2,29 @@
   <div>
     <div class="field">
       <b-checkbox v-model="periods" native-value="morning" type="is-info">
-        {{ $t('morning') }}
+        {{ $t('BIKESCIENCEWEB.tabs.filters.forms.time.morning') }}
       </b-checkbox>
     </div>
     <div class="field">
       <b-checkbox v-model="periods" native-value="afternoon" type="is-info">
-        {{ $t('afternoon') }}
+        {{ $t('BIKESCIENCEWEB.tabs.filters.forms.time.afternoon') }}
       </b-checkbox>
     </div>
     <div class="field">
       <b-checkbox v-model="periods" native-value="evening" type="is-info">
-        {{ $t('evening') }}
+        {{ $t('BIKESCIENCEWEB.tabs.filters.forms.time.evening') }}
       </b-checkbox>
     </div>
     <div class="field">
       <b-checkbox v-model="specific" type="is-info">
-        {{ $t('specificTime') }}
+        {{ $t('BIKESCIENCEWEB.tabs.filters.forms.time.specificTime') }}
       </b-checkbox>
     </div>
     <div v-if="specific">
-      <b-field :label="$t('from')">
+      <b-field :label="$t('BIKESCIENCEWEB.tabs.filters.forms.time.from')">
         <b-timepicker v-model="minTime" :increment-minutes="60" icon="clock" />
       </b-field>
-      <b-field :label="$t('to')">
+      <b-field :label="$t('BIKESCIENCEWEB.tabs.filters.forms.time.to')">
         <b-timepicker v-model="maxTime" :default-minutes="0" icon="clock" />
       </b-field>
     </div>

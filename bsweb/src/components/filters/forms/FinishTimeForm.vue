@@ -2,23 +2,23 @@
   <div>
     <div>
       <input v-model="periods" type="checkbox" value="morning">
-      <label>{{ $t('morning') }}</label>
+      <label>{{ $t('BIKESCIENCEWEB.tabs.filters.forms.time.morning') }}</label>
     </div>
     <div>
       <input v-model="periods" type="checkbox" value="afternoon">
-      <label>{{ $t('afternoon') }}</label>
+      <label>{{ $t('BIKESCIENCEWEB.tabs.filters.forms.time.afternoon') }}</label>
     </div>
     <div>
       <input v-model="periods" type="checkbox" value="evening">
-      <label>{{ $t('evening') }}</label>
+      <label>{{ $t('BIKESCIENCEWEB.tabs.filters.forms.time.evening') }}</label>
     </div>
     <div>
       <input v-model="specific" type="checkbox">
-      <label>{{ $t('specificTime') }}</label>
+      <label>{{ $t('BIKESCIENCEWEB.tabs.filters.forms.time.specificTime') }}</label>
     </div>
     <div v-if="specific">
       <div class="flex">
-        <span class="timepicker-label center">{{ $t('from') }}</span>
+        <span class="timepicker-label center">{{ $t('BIKESCIENCEWEB.tabs.filters.forms.time.from') }}</span>
         <b-timepicker
           v-model="minTime"
           :increment-minutes="60"
@@ -30,7 +30,7 @@
         />
       </div>
       <div class="flex">
-        <span class="timepicker-label center">{{ $t('to') }}</span>
+        <span class="timepicker-label center">{{ $t('BIKESCIENCEWEB.tabs.filters.forms.time.to') }}</span>
         <b-timepicker
           v-model="maxTime"
           :default-minutes="0"

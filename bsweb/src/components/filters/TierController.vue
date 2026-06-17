@@ -2,7 +2,7 @@
   <div v-show="count > 0">
     <b-checkbox v-model="isActive" :native-value="tier" type="is-info">
       <span class="tier-option" :title="hover">
-        {{ $t('tierOptions', {tier_prop : tier + 1, tier_count: count}, count) }}
+        {{ $t('BIKESCIENCEWEB.tabs.flows.tierOptions', {tier_prop : tier + 1, tier_count: count}, count) }}
       </span>
     </b-checkbox>
   </div>
@@ -43,7 +43,7 @@ const hover = computed(() => {
   if (limit) {
     const min = Math.round(limit.min);
     const max = Math.round(limit.max);
-    return `${t('tabs.flows.hoverText1')} ${min} ${t('tabs.flows.hoverText2')} ${max} ${t('tabs.flows.hoverText3')}`;
+    return t('BIKESCIENCEWEB.tabs.flows.hoverText', {min: min, max: max});
   }
   return null;
 });
@@ -76,6 +76,6 @@ watch(flow, () => {
 
 <style scoped>
 .tier-option {
-  font-size: 12px;
+  font-size: .85rem;
 }
 </style>

@@ -14,7 +14,7 @@
     <l-tile-layer
         v-for="tile in properties.tile_layers"
         :key="`tile-${tile.id}`"
-        :name="tile.name"
+        :name="$t(tile.name)"
         :url="tile.url"
         :visible="tile.visible"
         :attribution="tile.attribution"

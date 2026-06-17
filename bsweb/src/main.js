@@ -6,7 +6,7 @@ import './assets/styles/index.css';
 import 'buefy/dist/buefy.css';
 import 'vue-multiselect/dist/vue-multiselect.min.css';
 import { createI18n } from 'vue-i18n';
-import { messages } from './plugins/i18n';
+import en from './plugins/i18n/locales/en.json' with { type: 'json' };
 import { store } from './store/store.js';
 import LoadScript from 'vue-plugin-load-script';
 import UUID from 'vue-uuid';
@@ -33,16 +33,18 @@ export const i18n = createI18n({
   fallbackLocale: 'en', 
   returnObjects: true,
   useScope: 'global',
-  messages 
+  isGlobal: true,
+  messages: {en}
 });
 
+
 const app = createApp(App)
- .use(UUID)
- .use(LoadScript)
- .use(i18n)
- .use(Buefy)
- .use(ToastPlugin)
- .use(Oruga)
- .use(store)
- .use(router)
- .mount('#app');
+    .use(UUID)
+    .use(LoadScript)
+    .use(i18n)
+    .use(Buefy)
+    .use(ToastPlugin)
+    .use(Oruga)
+    .use(store)
+    .use(router)
+    .mount('#app');

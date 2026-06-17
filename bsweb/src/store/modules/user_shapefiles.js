@@ -29,7 +29,7 @@ const actions = {
       });
     } else {
       // eslint-disable-next-line no-console
-      console.error('ERRO no upload de shapefile!');
+      console.error('Error while uploading shapefile');
     }
   },
   loadSavedLayers: ({ commit }) => {

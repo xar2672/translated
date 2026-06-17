@@ -1,23 +1,23 @@
 <template>
   <div v-show="mapkey === 'main' || (secondMapIsActive && !hideSecondMapFlowsControl)">
     <div>
-      <span v-if="secondMapIsActive" class="label">{{ $t('baseLayer') }} ({{ $t(`baseLayerMap.${mapkey}`) }}):</span>
-      <span v-else class="label">{{ $t('baseLayer') }}:</span>
+      <span v-if="secondMapIsActive" class="label">{{ $t('BIKESCIENCEWEB.tabs.filters.baseLayer') }} ({{ $t(`BIKESCIENCEWEB.tabs.filters.baseLayerMap.${mapkey}`) }}):</span>
+      <span v-else class="label">{{ $t('BIKESCIENCEWEB.tabs.filters.baseLayer') }}:</span>
       <b-radio
         v-model="od" :name="mapkey" native-value="grid" type="is-info"
       >
-        <span class="view-option">{{ $t('grid') }}</span>
+        <span class="view-option">{{ $t('BIKESCIENCEWEB.tabs.filters.baseLayerMap.grid') }}</span>
       </b-radio>
       <b-radio
         v-model="od" :name="mapkey" native-value="zones" type="is-info"
       >
-        <span class="view-option">{{ $t('zones') }}</span>
+        <span class="view-option">{{ $t('BIKESCIENCEWEB.tabs.filters.baseLayerMap.zones') }}</span>
       </b-radio>
     </div>
     <div v-if="od === 'grid'">
       <div v-if="!gridEditMode">
         <Button
-          :text="$t('buttons.gridEditMode')" :title="$t('onHover.gridEditMode')"
+          :text="$t('BIKESCIENCEWEB.tabs.filters.baseLayerMap.buttons.gridEditMode')" :title="$t('BIKESCIENCEWEB.tabs.filters.baseLayerMap.buttons.onHover.gridEditMode')"
           :handle-click="() => setGridEditModeOn(mapkey)"
         />
       </div>
@@ -72,9 +72,9 @@ const setGridEditModeOn = (mapkey) => {
 
 <style scoped>
 .label {
-  font-size: 12px;
+  font-size: .85rem;
 }
 .view-option {
-  font-size: 12px;
+  font-size: .85rem;
 }
 </style>

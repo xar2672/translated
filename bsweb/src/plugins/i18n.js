@@ -3,302 +3,713 @@ export const messages = {
     LANGUAGE_NAME: 'English',
     FLAG_LINK: 'https://upload.wikimedia.org/wikipedia/commons/0/0b/English_language.svg',
 
-    appName: 'BikeScienceWeb',
-    data: 'Data',
-    filters: 'Filters',
-    layers: 'Layers',
-    maps: 'Maps',
-    zones: '2017 OD Zones',
-    grid: 'Grid',
-    language: 'Language',
-    english: 'en',
-    portuguese: 'pt',
-    baseLayer: 'Base layer',
-    noFilters: 'No filters added yet.',
-    noLayers: 'No layers added yet.',
-    timeFilters: 'Time filters',
-    populationFilters: 'Demographic filters',
-    tripFilters: 'Trip filters',
-    geographicFilters: 'Geographic filters',
-    tabs: {
-      filters: 'Filters',
+    // CHECAR COMENTÁRIOS ANTES
+    //data: 'Data', //???
+
+    COMMONS: {
+      charts: 'Chart | Charts',
+      filters: 'Filter | Filters',
+      flows: 'Flow | Flows',
       layers: 'Layers',
-      layersTab: {
-        userLayers: 'User layers',
+      maps: 'Map | Maps',
+
+      income_base: {
+        'max': 'up to R$ {value}',
+        'range': 'from R$ {min} to R$ {max}',
+        'more_than': 'more than R$ {value}'
       },
-      maps: {
-        title: 'Multiple maps action',
-        action: 'Activate additional map',
-        tripsSource: 'Trips data source',
-      },
-      upload: {
-        title: 'Upload your shapefiles here',
-        text: 'Accepted file extensions',
-        extensions: [
-          'shapefile in a .zip file',
-          'shapefiles (4 files: .cpg, .dbf, .shp and .shx)',
-          '.kmz',
-        ],
-        inputs: {
-          name: 'Name',
-          width: 'Width (px)',
-          opacity: 'Opacity',
-          color: 'Color',
-        },
-        button: 'Send',
-      },
-      flows: {
-        hoverText1: 'Flows with trip count between',
-        hoverText2: 'and',
-        hoverText3: '',
+      layers_filter: {
+        spRailwayLines: 'SP Railway Lines',
+        spSubwayLines: 'SP Subway Lines',
+        spRailwayStations: 'SP Railway Stations',
+        spSubwayStations: 'SP Subway Stations',
+
+        sp_bikelane_ciclovia: 'Bike paths',
+        sp_bikelane_ciclofaixa: 'Bike lanes',
+        sp_bikelane_ciclorrota: 'Bike routes',
+        sp_bikelane_ciclopassarela: 'Bike footbridge',
+
+        sp_accidents: 'Bike accidents',
+
+        cptm_lines: 'Railway lines',
+        cptm_stations: 'Railway stations',
+        subway_lines: 'Subway lines',
+        subway_stations: 'Subway stations',
       },
     },
-    twoMaps: {
-      leftMap: 'Left Map',
-      rightMap: 'Right Map',
-      mirroredChanges: 'Synchronize actions',
-      hideRightControls: 'Hide right controls',
-      independentControl: 'Move maps individually',
-      sameControl: 'Move maps together',
-      copy: {
-        flows: {
-          main: {
-            button: 'Copy selected flows',
-            title: 'Copy selected flows between maps',
-          },
-          option1: {
-            button: 'From left to right',
-            title: 'Copy selected flows from left map to right map',
-          },
-          option2: {
-            button: 'From right to left',
-            title: 'Copy selected flows from right map to left map',
+
+    BIKESCIENCEWEB: {
+      appName: 'BikeScienceWeb',
+
+      nav: {
+        upload: 'Upload',
+      },
+
+      aboutPage: {
+        buttons: {
+          about: 'About',
+          features: 'Features',
+          team: 'Team',
+          guide: 'User Guide',
+        },
+      },
+      footer: {
+        about: 'About',
+        devMode: 'Developer Mode',
+      },
+      
+      maps: {
+        total_trips: '{total} trip | {total} trips',
+        DEVELOPER_MODE_TRIPS: '{origin} -> {destination}\nids: {id}',
+        
+        toolTips: {
+          numberZone: 'NumberZone: {numberZone}',
+          nameZone: 'NameZone: {nameZone}',
+          nameBorough: 'NameBorough: {nameBorough}',
+          /**
+           * numberRoute: 'NumeroZona: {feature.properties.NumeroZona}',
+             nameZone: 'NomeZona: {feature.properties.NomeZona}',
+             nameBorough: 'NomeMunici: ${feature.properties.NomeMunici}',
+           */
+
+          helpers: {
+            bikeLane: '{name}<br>Extension: {extension} meter<br>Implementation date: {date} | {name}<br>Extension: {extension} meters<br>Implementation date: {date}',
+
+            railway_line: 'Line {num} — {name}',
+            railwayLines: {
+              RUBI: 'Ruby',
+              DIAMANTE: 'Diamond',
+              ESMERALDA: 'Emerald',
+              TURQUESA: 'Turquoise',
+              CORAL: 'Coral',
+              SAFIRA: 'Sapphire',
+              JADE: 'Jade',
+            },
+            railway_station: 'Line {line} — {name} Station',
+
+            subway_line: 'Line {num} — {name}',
+            subwayLines: {
+              AZUL: 'Blue',
+              VERDE: 'Green',
+              VERMELHA: 'Red',
+              AMARELA: 'Yellow',
+              LILAS: 'Lilac',
+              PRATA: 'Silver',
+
+              LARANJA: 'Orange',
+              OURO: 'Gold',
+            },
+            subway_station: 'Line {line} — {name} Station',
+            
+            /**
+             * bikeLane: '{name}<br>Extensão: {extension} metro<br>Data de implementação: {date} | {name}<br>Extensão: {extension} metros<br>Data de implementação: {date}',
+             * 
+             * railway_line: 'Linha {ltr_num} — {ltr_name}',
+             * railwayLines: {
+                RUBI: 'Rubi',
+                DIAMANTE: 'Diamante',
+                ESMERALDA: 'Esmeralda',
+                TURQUESA: 'Turquesa',
+                CORAL: 'Coral',
+                SAFIRA: 'Safira',
+                JADE: 'Jade',
+              },
+             * railway_station: 'Linha {etr_line} — {etr_name}',
+              
+             * subway_line: 'Linha {lmt_line} — {lmt_name}',
+               subwayLines: {
+                AZUL: 'Azul',
+                VERDE: 'Verde',
+                VERMELHA: 'Vermelha',
+                AMARELA: 'Amarela',
+                LILAS: 'Lilás',
+                PRATA: 'Prata',
+
+                LARANJA: 'Laranja',
+                OURO: 'Ouro',
+               },
+             * subway_station: 'Linha {emt_line} — {emt_name}',
+             * 
+             * accidents: 'Data do acidente: {date}<br>Modal envolvido: {modal} | Data do acidente: {date}<br>Modais envolvidos: {modal}',
+             * 
+             * 
+             */
+
+            accidents: 'Date of the Accident: {date}<br>Transportation mode involved: {modal} | Date of the Accident: {date}<br>Transportation modes involved: {modal}',
+            accidentModals: {
+              automobile: 'automobile',
+              bicycle: 'bicycle',
+              bus: 'bus',
+              motorcycle: 'motorcycle',
+              pedestrian: 'pedestrian',
+              truck: 'truck',
+
+              /**
+               * accidentModal: {
+                  automobile: 'automóvel',
+                  bicycle: 'bicicleta',
+                  bus: 'ônibus',
+                  motorcycle: 'caminhão',
+                  pedestrian: 'pedestre',
+                  truck: 'caminhão',
+                }
+               * 
+               */
+
+            },
           },
         },
+      },
+      tabs: {
         filters: {
-          main: {
-            button: 'Copy selected filters',
-            title: 'Copy selected filters between maps',
+          baseLayer: 'Base layer',
+          baseLayerMap: {
+            main: 'left map',
+            second: 'right map',
+
+            grid: 'Grid',
+            zones: '2017 OD Zones',
+
+            buttons: {
+              getFlows: 'Recalculate flows',
+              gridEditMode: 'Edit grid',
+              onHover: {
+                gridEditMode: 'Change grid settings',
+              },
+              gridOptions: {
+                size: 'Size',
+                west: 'West',
+                east: 'East',
+                north: 'North',
+                south: 'South',
+              },
+            },
           },
-          option1: {
-            button: 'From left to right',
-            title: 'Copy selected filters from left map to right map',
+
+          bikelane: {
+            slider: {
+              field: 'Sort by Year Implemented | Sort by Implementation Period',
+              form: '{end} | {start} to {end}',
+            }
           },
-          option2: {
-            button: 'From right to left',
-            title: 'Copy selected filters from right map to left map',
+          
+          forms: {
+            aggregation: {
+              category: {
+                timeFilters: 'Time filters',
+                populationFilters: 'Demographic filters',
+                geographicFilters: 'Geographic filters',
+                tripFilters: 'Trip filters',
+              },
+              filter: {
+                months: 'By months',
+                start_time: 'Start time',
+                finish_time: 'Finish time',
+                weekday: 'Day of the week',
+                holidays: 'Holidays',
+
+                avgSpeed: 'Average speed',
+                distance: 'Trip distance',
+                duration: 'Trip duration',
+                reason: 'Reasons for choosing bike',
+
+                sex: 'Cyclist sex',
+                age: 'Cyclist age',
+                income: 'Family income',
+                attractors_emitters: 'Trip attractors/generators region',
+              },
+            },
+            
+            age: {
+              field: 'Age of cyclists',
+              form: '{end} year old | {end} years old | {start} to {end} years old',
+            },
+            attractor: {
+              info:  'The heat map indicates the neighborhoods in which bicycle trips begin or end most, for the selected filters',
+            },
+            time: {
+              morning: 'Morning (6:00 to 12:00)',
+              afternoon: 'Afternoon (12:00 to 18:00)',
+              evening: 'Evening (18:00 to 23:00)',
+              specificTime: 'Specific time range',
+
+              from: 'from',
+              to: 'to',
+
+              months: {
+                jan: 'jan',
+                feb: 'feb',
+                mar: 'mar',
+                apr: 'apr',
+                may: 'may',
+                jun: 'jun',
+                jul: 'jul',
+                aug: 'aug',
+                sep: 'sep',
+                oct: 'oct',
+                nov: 'nov',
+                dec: 'dec'
+              },
+            },
+            distance: {
+              form: '{end} km | {start} km to {end} km',
+            },
+            duration: {
+              minutes: '{value} min | {value} mins',
+              field: 'Trip duration',
+              form: '{end} minute | {end} minutes | {start} to {end} minutes',
+            },
+            income: {
+              field: 'Family income',
+              form: 'R$ {end} | R$ {start} up to R$ {end}',
+              intervals: 'Intervals',
+              brackets: 'Income brackets',
+            },
+            reason: {
+              smallDistance: 'Short distance',
+              expensiveTransport: 'Public transport too expensive',
+              publicTransportStationDistance: 'Distant access to public transport',
+              publicTransportSlow: 'Slow public transport',
+              publicTransportDistance: 'Long trip in public transport',
+              crowdedPublicTransport: 'Crowded public transport',
+              fitness: 'Fitness',
+              others: 'Others',
+            },
+            sex: {
+              male: 'Men',
+              female: 'Women',
+            },
+            speed: {
+              form: '{end} km/h | {start} km/h to {end} km/h',
+            },
+            tiers: {
+              selectTiers: 'Show flows',
+              notFoundTiers: 'No results found',
+              emptyFlows: 'Flows not found. Try selecting different filters.',
+            },
           },
         },
         layers: {
-          main: {
-            button: 'Copy selected layers',
-            title: 'Copy selected layers between maps',
+          category: {
+            layers_highCapacityTransport: 'High capacity transports',
+            layers_bikelanes: 'Bikelanes',
+            layers_accidents: 'Accidents',
           },
-          option1: {
-            button: 'From left to right',
-            title: 'Copy selected layers from left map to right map',
+          userLayers: 'User layers',
+          editModal: {
+            editLayer: 'Edit layer', //Editar camada
+            removeLayer: 'Remove layer',
+            layerEditMode: 'Editing layer {layer_name}',
           },
-          option2: {
-            button: 'From right to left',
-            title: 'Copy selected layers from right map to left map',
+        },
+        maps: {
+          title: 'Multiple maps action',
+          action: 'Activate additional map',
+          tripsSource: 'Trips data source',
+        },
+        upload: {
+          title: 'Upload your shapefiles here',
+          text: 'Accepted file extensions',
+          extensions: [
+            'shapefile in a .zip file',
+            'shapefiles (4 files: .cpg, .dbf, .shp and .shx)',
+            '.kmz',
+          ],
+
+          inputs: {
+            name: 'Name',
+            width: 'Width (px)',
+            opacity: 'Opacity',
+            color: 'Color',
+            colorToolTip: 'In hexadecimal form', //Cor em hexadecimal
+          },
+          validateInputs: {
+            name: 'Name is required.',
+            width: 'Width is required.',
+            opacity: 'Opacity is required.',
+            emptyColor: 'Color is required.',
+            invalidColor: 'Color must be in hexadecimal form (for example: #ffffff).',
+
+            noShapeFiles: 'Shapefiles não foram inseridos.',
+            invalidFileFormat: 'Formato de arquivo inválido.',
+            notSameFilesName: 'Os arquivos de um shapefile devem ter o mesmo nome.',
+            cpgMissingFiles: 'Você deve adicionar 4 arquivos de um shapefile: .cpg, .dbf, .shp e .shx.',
+
+
+            /**
+             * 
+              name: 'Nome é obrigatório',
+              width: 'Espessura é obrigatória.',
+              opacity: 'Opacidade é obrigatória.',
+              emptyColor: 'Cor é obrigatória.',
+              invalidColor: 'Cor deve ser informada em hexadecimal (#ffffff, por exemplo).', 
+
+
+
+             * 
+             */
+
+          },
+
+          button: 'Send',
+        },
+        flows: {
+          hoverText: 'Flows with trip count between {min} and {max} trips',
+          tierOptions: 'Tier {tier_prop}: {tier_count} flow | Tier {tier_prop}: {tier_count} flows',
+        },
+      },
+      twoMaps: {
+        leftMap: 'Left Map',
+        rightMap: 'Right Map',
+
+        mirroredChanges: 'Synchronize actions',
+        hideRightControls: 'Hide right controls',
+
+        independentControl: 'Move maps individually',
+        sameControl: 'Move maps together',
+
+        copy: {
+          flows: {
+            main: {
+              button: 'Copy selected flows',
+              title: 'Copy selected flows between maps',
+            },
+            option1: {
+              button: 'From left to right',
+              title: 'Copy selected flows from left map to right map',
+            },
+            option2: {
+              button: 'From right to left',
+              title: 'Copy selected flows from right map to left map',
+            },
+          },
+          filters: {
+            main: {
+              button: 'Copy selected filters',
+              title: 'Copy selected filters between maps',
+            },
+            option1: {
+              button: 'From left to right',
+              title: 'Copy selected filters from left map to right map',
+            },
+            option2: {
+              button: 'From right to left',
+              title: 'Copy selected filters from right map to left map',
+            },
+          },
+          layers: {
+            main: {
+              button: 'Copy selected layers',
+              title: 'Copy selected layers between maps',
+            },
+            option1: {
+              button: 'From left to right',
+              title: 'Copy selected layers from left map to right map',
+            },
+            option2: {
+              button: 'From right to left',
+              title: 'Copy selected layers from right map to left map',
+            },
           },
         },
       },
     },
-    // Layers
-    layers_highCapacityTransport: 'High capacity transports',
-    layers_bikelanes: 'Bikelanes',
-    layers_accidents: 'Accidents',
-    spRailwayLines: 'SP Railway Lines',
-    spSubwayLines: 'SP Subway Lines',
-    spRailwayStations: 'SP Railway Stations',
-    spSubwayStations: 'SP Subway Stations',
-    spBikelanes: 'SP Bikelanes',
-    sp_bikelane_ciclovia: 'Bike paths',
-    sp_bikelane_ciclofaixa: 'Bike lanes',
-    sp_bikelane_ciclorrota: 'Bike routes',
-    sp_bikelane_ciclopassarela: 'Bike footbridge',
-    sp_accidents: 'Bike accidents',
-    // Filters (time)
-    start_time: 'Start time',
-    finish_time: 'Finish time',
-    weekday: 'Day of the week',
-    holidays: 'Holidays',
-    // Filters (trips)
-    tripDistance: 'Trip distance',
-    tripDuration: 'Trip duration',
-    avgSpeed: 'Average speed',
-    tripReason: 'Reasons for choosing bike',
-    // Filters (demographic)
-    sex: 'Cyclist sex',
-    age: 'Cyclist age',
-    income: 'Family income',
-    attractors_emitters: 'Trip attractors/generators region',
-    // Miscellaneous
-    ageField: 'Age of cyclists',
-    ageForm: '{start} to {end} years old',
-    years: 'years old',
-    minutes: 'minutes',
-    from: 'from',
-    to: 'to',
-    more_than: 'more than',
-    morning: 'Morning (6:00 to 12:00)',
-    afternoon: 'Afternoon (12:00 to 18:00)',
-    evening: 'Evening (18:00 to 23:00)',
-    specificTime: 'Specific time range',
-    mon: 'Monday',
-    tue: 'Tuesday',
-    wed: 'Wednesday',
-    thu: 'Thursday',
-    fri: 'Friday',
-    sat: 'Saturday',
-    sun: 'Sunday',
-    filterBtn: 'Filter',
-    selectTiers: 'Show flows',
-    tierOptions: 'Tier {tier_prop} {tier_count} flow | Tier {tier_prop} {tier_count} flows',
-    notFoundTiers: 'No results found',
-    flows: 'Flows',
-    months: 'By months',
-    charts: 'Charts',
-    durationField: 'Trip duration',
-    durationForm: '{start} to {end} minutes',
-    male: 'Men',
-    female: 'Women',
-    intervals: 'Intervals',
-    income_brackets: 'Income brackets',
-    trips: 'trips',
-    attractor_info: 'The heat map indicates the neighborhoods in which bicycle trips begin or end most, for the selected filters',
-    max: 'up to',
-    tripSpeed: 'Trip speed',
-    speedForm: '{start} km/h to {end} km/h',
-    distanceForm: '{start} km to {end} km',
-    smallDistance: 'Short distance',
-    expensiveTransport: 'Public transport too expensive',
-    publicTransportStationDistance: 'Distant access to public transport',
-    publicTransportSlow: 'Slow public transport',
-    publicTransportDistance: 'Long trip in public transport',
-    crowdedPublicTransport: 'Crowded public transport',
-    fitness: 'Fitness',
-    others: 'Others',
-    footer: {
-      about: 'About',
-      userGuide: 'User guide',
-      survey: 'Survey',
-      devMode: 'Developer Mode',
-    },
-    // Grid editor
-    gridOptions: {
-      size: 'Size',
-      west: 'West',
-      east: 'East',
-      north: 'North',
-      south: 'South',
-    },
-    toastr: {
-      emptyFlows: 'Flows not found. Try selecting different filters.',
-    },
-    buttons: {
-      getFlows: 'Recalculate flows',
-      gridEditMode: 'Edit grid',
-    },
-    onHover: {
-      gridEditMode: 'Change grid settings',
-    },
-    aboutPage: {
-      buttons: {
-        about: 'About',
-        features: 'Features',
-        team: 'Team',
-        guide: 'User Guide',
-      },
-    },
-    bikesp: {
+
+    BIKESP: {
       appName: 'Bike SP Pilot - Analytics Dashboard',
-      date: 'Date',
-      layers: 'Layers',
-      filters: 'Filters',
-      chooseFilter: 'Choose filter',
-      removeFilter: 'Remove filter',
-      chooseDateofWeek: 'Choose a day of the week',
-      gender: {
-        feminine: 'Feminine',
-        masculine: 'Masculine',
-        nonBinary: 'Non-binary',
-        na: 'Not informed',
-      },
-      chooseGender: 'Choose a gender',
-      race: {
-        asian: 'Asian',
-        black: 'Black',
-        brown: 'Brown',
-        indigenous: 'Indigenous',
-        na: 'Not informed',
-        white: 'White',
-      },
-      chooseRace: 'Choose a race',
+
       apply: 'Apply',
       selected: 'Selected',
-      // Data type
-      dataType: {
-        TRIP_COUNT: 'Number of trips',
-        TRIP_DURATION: 'Average trip length (in minutes)',
-        TRIP_DISTANCE: 'Average distance traveled (Km)',
-        MEAN_SPEED: 'Average speed (Km/h)',
-        TOTAL_SAMPLES: 'Total of samples',
-        TOTAL_TRIPS: 'Total of trips',
-        SAMPLE_MEAN_SPEED: 'Average sample speed (Km/h)',
-      },
-      changeDataType: 'Select data type',
-      datatype_helper: 'Choose which metric you would prefer to view on the graph.',
-      // Aggregation
-      chartTitle: '{dataType} per {aggregation}',
-      aggregation: {
-        GENDER: 'Gender',
-        RACE: 'Race/skin color',
-        WEEK: 'Week',
-        HOUR: 'Day hour',
-        DAY_OF_WEEK: 'Weekdays',
-        PAYOUT_LEVEL: 'Payout (R$/Km)',
-        REMUNERATION: 'Level of income'
-      },
-      changeAggregation: 'Group data by',
-      aggregation_helper: 'Choose one category to group the data shown on the graph.',
-      // Map layer
-      chooseMapLayer: 'Select map layers',
-      selectMapLayer: 'Select map layer type',
-      removeCategory: 'Remove category',
-      // View type
-      changeViewType: 'Select view type',
-      viewtype_helper: 'Choose the preferred way to view the data.',
-      map: 'Map',
-      chart: 'Chart',
 
-    },
-    editModal: {
-      title: 'Editing layer',
-      inputs: {
-        name: 'Name',
-        width: 'Width (px)',
-        opacity: 'Opacity',
-        color: 'Color',
+      charts: {
+        title: '{dataType} per {aggregation}',
+        buttons: {
+          open: 'Show options',
+          close: 'Close options',
+          tooltip: 'Toggle tooltip',
+          pdf: 'Download PDF',
+          csv: 'Download CSV',
+          img: 'Download PNG',
+          table: 'Toggle table',
+          labels: 'Toggle labels',
+          fullscreen: 'Toggle fullscreen',
+          stack: 'Toggle stack mode',
+          annotator: 'Toggle annotator'
+          
+
+
+          /**
+           * 
+              open: 'Abrir opções',
+              close: 'Fechar opções',
+              tooltip: 'Toggle tooltip',
+              pdf: 'Baixar PDF',
+              csv: 'Baixar CSV',
+              img: 'Baixar PNG',
+              table: 'Toggle table',
+              labels: 'Toggle labels',
+              fullscreen: 'Toggle fullscreen',
+              stack: 'Toggle stack mode',
+              annotator: 'Toggle annotator'
+           * 
+           * 
+           */
+
+
+        },
+        table: {
+          period: 'Period',
+          total: 'Total'
+        },
       },
-      button: 'Send',
-    },
+
+      dataType: {
+        changeDataType: 'Select data type',
+        datatype_helper: 'Choose which metric you would prefer to view on the graph.',
+        typeList: {
+          TRIP_COUNT: 'Number of trips',
+          TRIP_DURATION: 'Average trip length (in minutes)',
+          TRIP_DISTANCE: 'Average distance traveled (km)',
+          MEAN_SPEED: 'Average speed (km/h)',
+          TOTAL_SAMPLES: 'Total of samples',
+          TOTAL_TRIPS: 'Total of trips',
+          SAMPLE_MEAN_SPEED: 'Average sample speed (km/h)',
+        },
+      },
+      layers: {
+        chooseMapLayer: 'Select map layers',
+        selectMapLayer: 'Select map layer type',
+        removeCategory: 'Remove category',
+        category: {
+          layers_highCapacityTransport: 'High-capacity public transport',
+          layers_bikelanes: 'Cycling infrastructure',
+          layers_accidents: 'Traffic accidents',
+
+          /**
+           * layers_highCapacityTransport: 'Transportes de alta capacidade',
+             layers_bikelanes: 'Infraestrutura cicloviária',
+             layers_accidents: 'Ocorrências de trânsito',
+           */
+
+        },
+      },
+      filters: {
+        chooseFilter: 'Choose a filter',
+        removeFilter: 'Remove filter',
+        
+        changeAggregation: 'Group data by',
+        aggregation_helper: 'Choose one category to group the data shown on the graph.',
+        aggregation: {
+          GENDER: 'Gender',
+          RACE: 'Race/skin color',
+          WEEK: 'Week',
+          HOUR: 'Day hour',
+          DAY_OF_WEEK: 'Weekdays',
+          PAYOUT_LEVEL: 'Payout (R$/km)',
+          REMUNERATION: 'Level of income'
+        },
+
+        money_value: 'R$ {value}',
+        day_week: {
+          date: 'Date',
+          chooseDateofWeek: 'Choose a day of the week',
+          weekDays: {
+            sun: 'Sunday',
+            mon: 'Monday',
+            tue: 'Tuesday',
+            wed: 'Wednesday',
+            thu: 'Thursday',
+            fri: 'Friday',
+            sat: 'Saturday',
+          },
+        },
+        gender: {
+          chooseGender: 'Choose a gender',
+          genderList: {
+            feminine: 'Feminine',
+            masculine: 'Masculine',
+            nonBinary: 'Non-binary',
+            na: 'Not informed',
+          },
+        },
+        race: {
+          chooseRace: 'Choose a race',
+          raceList: {
+            asian: 'Asian',
+            black: 'Black',
+            brown: 'Brown',
+            indigenous: 'Indigenous',
+            na: 'Not informed',
+            white: 'White',
+          },
+        },
+      },
+      mapView: {
+        changeViewType: 'Select view type',
+        viewtype_helper: 'Choose the preferred way to view the data.',
+        viewList: {
+          voyager: 'Voyager',
+          basic: 'Basic',
+          bright: 'Bright',
+          sat1x: 'Satellite Hybrid',
+          sat2x: 'Satellite Hybrid 2x',
+          streets: 'Streets',
+          outdoor: 'Outdoor',
+          toner: 'Toner',
+          topo: 'Topo',
+          topographique: 'Topographique'
+        },
+      }
+    }
   },
   'pt': {
     LANGUAGE_NAME: 'Português',
     FLAG_LINK: 'https://upload.wikimedia.org/wikipedia/commons/0/05/Flag_of_Brazil.svg',
 
+    BIKESCIENCEWEB: {
+      nav: {
+      
+
+      },
+      maps: {
+        trips: 'trips',
+      },
+      tabs: {
+        filters: {
+          baseLayer: 'Base layer',
+          baseLayerMap: {
+            main: 'left map',
+            second: 'right map',
+
+            grid: 'Grid',
+            zones: '2017 OD Zones',
+
+            buttons: {
+              getFlows: 'Recalculate flows',
+              gridEditMode: 'Edit grid',
+              onHover: {
+                gridEditMode: 'Change grid settings',
+              },
+              gridOptions: {
+                size: 'Size',
+                west: 'West',
+                east: 'East',
+                north: 'North',
+                south: 'South',
+              },
+            },
+          },
+          
+          forms: {
+            aggregation: {
+              category: {
+                timeFilters: 'Time filters',
+                populationFilters: 'Demographic filters',
+                tripFilters: 'Trip filters',
+              },
+              filter: {
+                start_time: 'Start time',
+                finish_time: 'Finish time',
+                weekday: 'Day of the week',
+                holidays: 'Holidays',
+
+                avgSpeed: 'Average speed',
+                distance: 'Trip distance',
+                duration: 'Trip duration',
+                reason: 'Reasons for choosing bike',
+
+                sex: 'Cyclist sex',
+                age: 'Cyclist age',
+                income: 'Family income',
+                attractors_emitters: 'Trip attractors/generators region',
+              },
+            },
+            
+            age: { //tem algo com ageField (preciso testar)
+              field: 'Age of cyclists',
+              form: '{start} to {end} years old',
+            },
+            attractor: {
+              info:  'The heat map indicates the neighborhoods in which bicycle trips begin or end most, for the selected filters',
+            },
+            time: {
+              morning: 'Morning (6:00 to 12:00)',
+              afternoon: 'Afternoon (12:00 to 18:00)',
+              evening: 'Evening (18:00 to 23:00)',
+              specificTime: 'Specific time range',
+
+              from: 'from',
+              to: 'to',
+
+              months: {
+                jan: 'jan',
+                feb: 'feb',
+                mar: 'mar',
+                apr: 'apr',
+                may: 'may',
+                jun: 'jun',
+                jul: 'jul',
+                aug: 'aug',
+                sep: 'sep',
+                oct: 'oct',
+                nov: 'nov',
+                dec: 'dec'
+              }
+            },
+            distance: {
+              form: '{start} km to {end} km',
+            },
+            duration: {
+              field: 'Trip duration',
+              form: '{start} to {end} minutes',
+            },
+            income: {
+              intervals: 'Intervals',
+              brackets: 'Income brackets',
+            },
+            reason: {
+              smallDistance: 'Short distance',
+              expensiveTransport: 'Public transport too expensive',
+              publicTransportStationDistance: 'Distant access to public transport',
+              publicTransportSlow: 'Slow public transport',
+              publicTransportDistance: 'Long trip in public transport',
+              crowdedPublicTransport: 'Crowded public transport',
+              fitness: 'Fitness',
+              others: 'Others',
+            },
+            sex: {
+              male: 'Men',
+              female: 'Women',
+            },
+            speed: {
+              form: '{start} km/h to {end} km/h',
+            },
+            tiers: {
+              selectTiers: 'Show flows',
+              notFoundTiers: 'No results found',
+              emptyFlows: 'Flows not found. Try selecting different filters.',
+            },
+          },
+        },
+        layers: {
+          aggregation: {
+            category: {
+              layers_highCapacityTransport: 'High capacity transports',
+              layers_bikelanes: 'AAAAA',
+              layers_accidents: 'Accidents',
+            },
+          }
+        }
+      }
+    },
+
+
     appName: 'BikeScienceWeb',
     data: 'Dados',
     filters: 'Filtros',
     layers: 'Camadas',
-    maps: 'Mapas',
     zones: 'Zonas OD 2017',
     grid: 'Grid',
-    language: 'Idioma',
-    english: 'en',
-    portuguese: 'pt',
     baseLayer: 'Camada de visualização',
     baseLayerMap: {
       main: 'mapa da esquerda',
@@ -315,6 +726,9 @@ export const messages = {
       layers: 'Camadas',
       layersTab: {
         userLayers: 'Camadas do usuário',
+        editModal: {
+          title: 'Editando camada',
+        },
       },
       maps: {
         title: 'Opções para múltiplos mapas',
@@ -335,12 +749,18 @@ export const messages = {
           opacity: 'Opacidade',
           color: 'Cor',
         },
+        validateInputs: {
+          name: 'Nome é obrigatório.',
+          width: 'Espessura é obrigatória.',
+          opacity: 'Opacidade é obrigatória.',
+          emptyColor: 'Cor é obrigatória.',
+          invalidColor: 'Cor deve ser informada em hexadecimal, por exemplo #ffffff.',
+        },
         button: 'Enviar',
       },
       flows: {
-        hoverText1: 'Fluxos contendo entre',
-        hoverText2: 'e',
-        hoverText3: 'viagens',
+        hoverText: 'Fluxos contendo entre {min} e {max} viagens',
+        tierOptions: 'Tier {tier_prop}: {tier_count} fluxo | Tier {tier_prop}: {tier_count} fluxos',
       },
     },
     twoMaps: {
@@ -393,12 +813,34 @@ export const messages = {
             title: 'Copiar camadas selecionadas do mapa da direita para o da esquerda',
           },
         },
+        upload: {
+          title: 'Upload your shapefiles here',
+          text: 'Accepted file extensions',
+          extensions: [
+            'shapefile in a .zip file',
+            'shapefiles (4 files: .cpg, .dbf, .shp and .shx)',
+            '.kmz',
+          ],
+          inputs: {
+            name: 'Name',
+            width: 'Width (px)',
+            opacity: 'Opacity',
+            color: 'Color',
+          },
+          validateInputs: {
+            name: 'Nome é obrigatório.',
+            width: 'Espessura é obrigatória.',
+            opacity: 'Opacidade é obrigatória.',
+            emptyColor: 'Cor é obrigatória.',
+            invalidColor: 'Cor deve ser informada em hexadecimal, por exemplo #ffffff.',
+          },
+          button: 'Send',
+        },
       },
     },
     // Layers
-    layers_highCapacityTransport: 'Transportes de alta capacidade',
-    layers_bikelanes: 'Infraestrutura cicloviária',
-    layers_accidents: 'Ocorrências de trânsito',
+    chooseLayer: 'Escolha um filtro',
+    
     spRailwayLines: 'Linhas da CPTM',
     spSubwayLines: 'Linhas do Metrô',
     spRailwayStations: 'Estações da CPTM',
@@ -434,10 +876,15 @@ export const messages = {
     more_than: 'mais de',
     intervals: 'Intervalos',
     income_brackets: 'Faixas de renda',
-    morning: 'Manhã (6h a 12h)',
-    afternoon: 'Tarde (12h a 18h)',
-    evening: 'Noite (18h a 23h)',
-    specificTime: 'Horário específico',
+    income_base: {
+      'max': 'até R$ {value}',
+      'range': 'de R$ {min} até R$ {max}',
+      'more_than': 'mais de R$ {value}'
+    },
+    morning: '',
+    afternoon: '',
+    evening: '',
+    specificTime: '',
     mon: 'Segunda-feira',
     tue: 'Terça-feira',
     wed: 'Quarta-feira',
@@ -459,7 +906,6 @@ export const messages = {
     female: 'Mulheres',
     trips: 'viagens',
     attractor_info: 'O mapa de calor indica as vizinhanças nas quais as viagens de bicicletas mais começam ou terminam, dados os filtros selecionados',
-    max: 'até',
     tripSpeed: 'Velocidade da viagem',
     speedForm: '{start} km/h até {end} km/h',
     distanceForm: '{start} km até {end} km',
@@ -503,7 +949,7 @@ export const messages = {
         guide: 'Guia do Usuário',
       },
     },
-    bikesp: {
+    BIKESP: {
       appName: 'Piloto Bike SP - Painel Analítico',
       date: 'Data',
       layers: 'Camadas',
@@ -533,11 +979,11 @@ export const messages = {
       dataType: {
         TRIP_COUNT: 'Número de viagens',
         TRIP_DURATION: 'Duração média das viagens (em minutos)',
-        TRIP_DISTANCE: 'Distância média percorrida (Km)',
-        MEAN_SPEED: 'Velocidade média (Km/h)',
+        TRIP_DISTANCE: 'Distância média percorrida (km)',
+        MEAN_SPEED: 'Velocidade média (km/h)',
         TOTAL_SAMPLES: 'Total de amostras',
         TOTAL_TRIPS: 'Total de viagens',
-        SAMPLE_MEAN_SPEED: 'Velocidade média (Km/h)',
+        SAMPLE_MEAN_SPEED: 'Velocidade média (km/h)',
       },
       changeDataType: 'Selecionar tipo de dado',
       datatype_helper: 'Escolha qual métrica você deseja visualizar no gráfico.',
@@ -549,7 +995,7 @@ export const messages = {
         WEEK: 'Semana',
         HOUR: 'Hora do dia',
         DAY_OF_WEEK: 'Dia da semana',
-        PAYOUT_LEVEL: 'Recompensa (R$/Km)',
+        PAYOUT_LEVEL: 'Recompensa (R$/km)',
         REMUNERATION: 'Nível de renda'
       },
       changeAggregation: 'Agrupar dados por',
@@ -562,24 +1008,19 @@ export const messages = {
       changeViewType: 'Selecione o tipo de visualização',
       viewtype_helper: 'Escolha a forma como deseja visualizar os dados.',
       map: 'Mapa',
+      maps: {
+        voyager: 'Voyager',
+        basic: 'Basic',
+        bright: 'Bright',
+        sat1x: 'Satellite Hybrid',
+        sat2x: 'Satellite Hybrid 2x',
+        streets: 'Streets',
+        outdoor: 'Outdoor',
+        toner: 'Toner',
+        topo: 'Topo',
+        topographique: 'Topographique'
+      },
       chart: 'Gráfico',
-    },
-    editModal: {
-      title: 'Editando camada',
-      inputs: {
-        name: 'Nome',
-        width: 'Espessura (px)',
-        opacity: 'Opacidade',
-        color: 'Cor',
-      },
-      validadeModal: {
-        name: 'Nome é obrigatório.',
-        width: 'Espessura é obrigatória.',
-        opacity: 'Opacidade é obrigatória.',
-        emptyColor: 'Cor é obrigatória.',
-        invalidColor: 'Cor deve ser informada em hexadecimal, por exemplo #ffffff.',
-      },
-      button: 'Enviar',
     },
   },
 };

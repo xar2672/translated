@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-field>
-      {{ $t('attractor_info') }}
+      {{ $t('BIKESCIENCEWEB.tabs.filters.forms.attractor.info') }}
     </b-field>
   </div>
 </template>

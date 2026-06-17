@@ -3,3 +3,6 @@
 /server/*pyc
 test_new_module.py
 .env
+/server/bikesp/postgres/viagens.csv
+docker-compose.yml
+

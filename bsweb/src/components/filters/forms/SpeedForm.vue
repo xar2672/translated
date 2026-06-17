@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-field>
-      {{ $t('speedForm', {start: speedRange[0], end: speedRange[1]}) }}
+      {{ $t('BIKESCIENCEWEB.tabs.filters.forms.speed.form', {start: speedRange[0], end: speedRange[1]}, speedRange[1] - speedRange[0] + 1) }}
     </b-field>
     <b-slider
       v-model="speedRange"
@@ -17,6 +17,7 @@
 
 <script>
 import { mapActions } from 'vuex';
+
 export default {
   props: {
     fid: { type: Number, required: true },
@@ -28,9 +29,6 @@ export default {
     };
   },
   computed: {
-    ageLabel() {
-      return `${$t('ageField')} ${this.speedRange[0]} - ${this.speedRange[1]}`;
-    },
     setFilterParams() {
       return {
         id: this.fid,

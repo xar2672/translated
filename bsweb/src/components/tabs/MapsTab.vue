@@ -5,12 +5,12 @@
     <ODSelection mapkey="main" />
     <ODSelection mapkey="second" />
     <p class="title-options">
-      {{ $t('tabs.maps.title') }}
+      {{ $t('BIKESCIENCEWEB.tabs.maps.title') }}
     </p>
     <div class="my-1">
       <b-field>
         <b-checkbox v-model="secondMapIsActive" type="is-info" size="is-small">
-          <span class="view-option">{{ $t('tabs.maps.action') }}</span>
+          <span class="view-option">{{ $t('BIKESCIENCEWEB.tabs.maps.action') }}</span>
         </b-checkbox>
       </b-field>
     </div>
@@ -46,10 +46,10 @@ export default {
 
 <style scoped>
 .title-options {
-  font-size: 12px;
+  font-size: .9rem;
   font-weight: bold;
 }
 .view-option {
-  font-size: 12px;
+  font-size: .9rem;
 }
 </style>

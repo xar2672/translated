@@ -1,6 +1,6 @@
 <template>
   <div class="data-type-selector">
-    <label for="data-type-select">{{$t('bikesp.changeDataType')}}:</label>
+    <label for="data-type-select">{{$t('BIKESP.dataType.changeDataType')}}:</label>
     <select
       id="data-type-select" v-model="selected" @change="onChange"
     >
@@ -11,7 +11,7 @@
       </option>
     </select>
     <p class="helper-text">
-      {{$t('bikesp.datatype_helper')}}
+      {{$t('BIKESP.dataType.datatype_helper')}}
     </p>
   </div>
 </template>
@@ -47,7 +47,7 @@ const currentOptions = computed(() =>
 );
 
 const getTranslationForValue = (value) => {
-  return t(`bikesp.dataType.${value}`)
+  return t(`BIKESP.dataType.typeList.${value}`);
 };
 
 const onChange = () => {

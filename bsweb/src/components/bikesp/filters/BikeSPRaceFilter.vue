@@ -1,15 +1,16 @@
 <template>
-  <label for="race-select">{{$t('bikesp.aggregation.RACE')}}:</label>
+  <label for="race-select">{{$t('BIKESP.filters.aggregation.RACE')}}:</label>
   <div class="select-button-wrapper">
-    <multiselect class="fixed-width-multiselect" id="multiselect" v-model="value" :options="options" :multiple="true" :close-on-select="true" :clear-on-select="false"
-        :preserve-search="true" :placeholder="$t('bikesp.chooseRace')" label="name" track-by="name" :preselect-first="false"
-        :taggable="true" deselectLabel="" selectLabel="" :selectedLabel="$t('bikesp.selected')">
+    <multiselect class="fixed-width-multiselect" id="multiselect" v-model="value" :options="options" :custom-label="translateLabels"
+        :multiple="true" :close-on-select="true" :clear-on-select="false"
+        :preserve-search="true" :placeholder="$t('BIKESP.filters.race.chooseRace')" label="name" track-by="key" :preselect-first="false"
+        :taggable="true" deselectLabel="" selectLabel="" :selectedLabel="$t('BIKESP.selected')">
     </multiselect>
   </div>
 </template>
 
 <script setup>
-import { ref, onBeforeUnmount, watch } from 'vue';
+import { computed, ref, onBeforeUnmount, watch } from 'vue';
 import { useStore } from 'vuex';
 import Multiselect from 'vue-multiselect';
 import { getValueList } from './commons';
@@ -22,17 +23,25 @@ const store = useStore();
 const value = ref([]);
 
 const getTranslationForValue = (value) => {
-  return t(`bikesp.race.${value}`)
-}
+  return t(`BIKESP.filters.race.raceList.${value}`);
+};
+const translateLabels = (option) => getTranslationForValue(option.key);
 
-const options = [
-  {name: getTranslationForValue('asian'), value: 'Amarela'},
-  {name: getTranslationForValue('white'), value: 'Branca'},
-  {name: getTranslationForValue('brown'), value: 'Parda'},
-  {name: getTranslationForValue('indigenous'), value: 'Indígena'},
-  {name: getTranslationForValue('black'), value: 'Preta'},
-  {name: getTranslationForValue('na'), value: 'Prefiro nã'},
-]
+const options = computed(() => {
+  const baseOptions = [
+    {key: 'asian', value: 'Amarela'},
+    {key: 'white', value: 'Branca'},
+    {key: 'brown', value: 'Parda'},
+    {key: 'indigenous', value: 'Indígena'},
+    {key: 'black', value: 'Preta'},
+    {key: 'na', value: 'Prefiro nã'}
+  ];
+
+  return baseOptions.map(entry => ({
+    ...entry,
+    name: getTranslationForValue(entry.key)
+  }));
+});
 
 watch(value, () => {
   store.commit('bikesp/updateFilters', { races: getValueList(value) })

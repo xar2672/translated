@@ -4,7 +4,7 @@ import { buildFetchGeographicData, buildFetchTripDataRequest } from './requestMa
 const api_url = process.env.VUE_APP_API_URL;
 
 export async function fetchBikeSPData(dataConfig) {
-  const payload = buildFetchTripDataRequest(dataConfig)
+  const payload = buildFetchTripDataRequest(dataConfig);
   try {
     const response = await axios.post(`${api_url}/bikesp/fetch_trip_data`, payload);
     return response.data.data || [];
@@ -15,7 +15,7 @@ export async function fetchBikeSPData(dataConfig) {
 }
 
 export async function fetchGeographicBikeSPData(data) {
-  const payload = buildFetchGeographicData(data)
+  const payload = buildFetchGeographicData(data);
   try {
     const response = await axios.post(`${api_url}/bikesp/fetch_geographic_data`, payload,  { 'decompress': true });
     return response.data.data || [];

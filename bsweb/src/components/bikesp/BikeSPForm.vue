@@ -6,7 +6,7 @@
     <BikeSPLayerInput mapkey="main" v-if="isMapViewOn"/>
     <BikeSPFilter />
     <div class="button-wrapper">
-      <button @click="apply" class="apply-button" :disabled="!hasNewDataConfig">{{$t('bikesp.apply')}}</button>
+      <button @click="apply" class="apply-button" :disabled="!hasNewDataConfig">{{$t('BIKESP.apply')}}</button>
     </div>
   </div>
 </template>
@@ -51,16 +51,20 @@ onMounted(() => {
   transform: none
 }
 .controls-container {
+  border-radius: 0;
   background-color: #ffffff;
   border: 1px solid #ddd;
-  border-radius: 8px;
+  /*border-radius: 8px;*/
   max-width: 420px;
   margin: 0 auto;
-  padding: 16px;
+  /*padding: 16px;*/
   display: flex;
   flex-direction: column;
   gap: 16px;
   font-family: sans-serif;
+
+  border-width: 1px 1px 0 0;
+  padding: 16px 26px 16px 16px;
 }
 
 .button-wrapper {
@@ -72,7 +76,7 @@ onMounted(() => {
   border: none;
   color: white;
   padding: 10px 24px;
-  font-size: 16px;
+  font-size: 1rem;
   border-radius: 6px;
   cursor: pointer;
   transition: background-color 0.2s ease;
@@ -89,7 +93,7 @@ onMounted(() => {
 .controls-container select {
   width: 100%;
   padding: 8px 12px;
-  font-size: 14px;
+  font-size: .9rem;
   border: 1px solid #ccc;
   border-radius: 6px;
   background-color: #f9f9f9;
@@ -104,7 +108,7 @@ onMounted(() => {
 
 .helper-text {
   margin-top: 8px;
-  font-size: 13px;
+  font-size: .8rem;
   color: #666;
 }
 
@@ -113,7 +117,7 @@ onMounted(() => {
   font-weight: bold;
   margin-right: auto;
   margin-top: auto;
-  margin-bottom: .2rem;
+  margin-bottom: 0.2rem;
   color: #333;
   text-align: left;
 }
@@ -138,7 +142,7 @@ onMounted(() => {
   background-color: transparent;
   border: none;
   color: #aaa;
-  font-size: 16px;
+  font-size: 1rem;
   cursor: pointer;
   font-weight: bold;
   line-height: 1;
@@ -192,13 +196,13 @@ onMounted(() => {
 }
 
 .filter-wrapper select {
-  font-size: 13px;
+  font-size: .9rem;
   padding: 6px 10px;
   border: 1px solid #bbb;
   border-radius: 4px;
 }
 
 .filter-wrapper label {
-  font-size: 13px;
+  font-size: .8rem;
 }
 </style>

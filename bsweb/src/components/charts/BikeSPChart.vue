@@ -11,9 +11,9 @@ import { computed, onMounted } from "vue";
 import { VueUiXy } from "vue-data-ui";
 import "vue-data-ui/style.css";
 import { useStore } from 'vuex';
-import { config, aggregationConfig, dataTypeConfig } from './BikeSPChartConfig';
 import merge from 'lodash/merge';
 import { useI18n } from 'vue-i18n';
+import { config, aggregationConfig, dataTypeConfig } from './BikeSPChartConfig';
 import { getDataset } from "./BikeSPChartDataset";
 
 const { t } = useI18n();
@@ -21,14 +21,14 @@ const { t } = useI18n();
 const store = useStore();
 
 const buildTitle = () => {
-    return t('bikesp.chartTitle', {
-        dataType: t(`bikesp.dataType.${store.state.bikesp.activeDataConfig.data_type}`),
-        aggregation: t(`bikesp.aggregation.${store.state.bikesp.activeDataConfig.aggregation}`),
+    return t('BIKESP.charts.title', {
+        dataType: t(`BIKESP.dataType.typeList.${store.state.bikesp.activeDataConfig.data_type}`),
+        aggregation: t(`BIKESP.filters.aggregation.${store.state.bikesp.activeDataConfig.aggregation}`),
     });
 }
 
 const computedConfig = computed(() => {
-    let newConfig = structuredClone(config);
+    let newConfig = structuredClone(config(t));
     newConfig.chart.grid.labels.xAxisLabels.values = store.getters['bikesp/getBikespLabels'];
     newConfig.chart.title.text = buildTitle();
     newConfig = merge(newConfig, aggregationConfig[store.state.bikesp.activeDataConfig.aggregation]);
@@ -36,7 +36,7 @@ const computedConfig = computed(() => {
     return newConfig;
 });
 
-const dataset = computed(() => getDataset(store.state.bikesp, t));
+const dataset = computed(() => getDataset(store.state.bikesp));
 
 onMounted(() => {
     store.dispatch('bikesp/updateData');

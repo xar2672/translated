@@ -13,7 +13,7 @@
       <l-tile-layer
         v-for="tile in properties.tile_layers"
         :key="`tile-${tile.id}`"
-        :name="tile.name"
+        :name="$t(tile.name)"
         :url="tile.url"
         :visible="tile.visible"
         :attribution="tile.attribution"
@@ -25,7 +25,7 @@
           :geojson="zones.geometry"
           :options-style="zones.style"
           :visible="showZones"
-          :options="zonesOptions()"
+          :options="zonesOptions"
         />
       </template>
 
@@ -78,13 +78,11 @@
           @ready=initDecorator
         >
           <l-tooltip :options="{ sticky: true }">
-            {{ arrow.total_trips }} {{ $t('trips') }}
+            {{ $t('BIKESCIENCEWEB.maps.total_trips', {total: arrow.total_trips}, arrow.total_trips) }}
             <br>
             <span v-if="developer_mode">
-              {{ arrow.origin }} -> {{ arrow.destination }}
-              <br>
-              ids: {{ arrow.trips_ids }}
-            </span>
+              {{ $t('BIKESCIENCEWEB.maps.DEVELOPER_MODE_TRIPS', {origin: arrow.origin, destination: arrow.destination, id: arrow.trips_ids}) }}
+            </span>>
           </l-tooltip>
         </l-polyline>
       </l-feature-group>
@@ -93,7 +91,7 @@
 </template>
 
 <script setup>
-import { ref, computed, watch, onMounted, nextTick } from 'vue';
+import { ref, computed, watch, onMounted } from 'vue';
 import { useStore } from 'vuex';
 import L from 'leaflet';
 import 'leaflet-polylinedecorator';
@@ -106,6 +104,9 @@ import {
   LTooltip,
   LControlLayers,
 } from '@vue-leaflet/vue-leaflet';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
 
 const props = defineProps({
   mapkey: { type: String, required: true }
@@ -222,15 +223,15 @@ const centerUpdated = (newCenter) => {
 };
 
 const gridOptions = () => ({});
-const zonesOptions = () => ({
+const zonesOptions = computed(() => ({
   onEachFeature(feature, layer) {
     let tooltipMsg = '';
-    tooltipMsg += `NumeroZona: ${feature.properties.NumeroZona}<br>`;
-    tooltipMsg += `NomeZona: ${feature.properties.NomeZona}<br>`;
-    tooltipMsg += `NomeMunici: ${feature.properties.NomeMunici}<br>`;
+    tooltipMsg += `${t('BIKESCIENCEWEB.maps.toolTips.numberZone', {numberZone: feature.properties.NumeroZona})}<br>`;
+    tooltipMsg += `${t('BIKESCIENCEWEB.maps.toolTips.nameZone', {nameZone: feature.properties.NomeZona})}<br>`;
+    tooltipMsg += `${t('BIKESCIENCEWEB.maps.toolTips.nameBorough', {nameBorough: feature.properties.NomeMunici})}<br>`;
     layer.bindTooltip(tooltipMsg, { permanent: false, sticky: true });
   },
-});
+}));
 
 const markerOptions = (style) => ({
   pointToLayer(feature, latlng) {
@@ -254,6 +255,7 @@ onMounted(async () => {
   if (props.mapkey === 'second') {
     await store.dispatch('updateCenter', { mapkey: 'second', center: centerMain.value });
   }
+
   await loadBaseLayers();
   await store.dispatch('user_shapefiles/loadSavedLayers');
 });
@@ -268,7 +270,6 @@ const loadBaseLayers = async () => {
   await store.dispatch('fetchZones', store.state.http);
   renderZones.value = true;
 };
-
 </script>
 
 <style scoped>

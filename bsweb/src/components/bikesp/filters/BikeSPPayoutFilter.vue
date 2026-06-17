@@ -1,5 +1,5 @@
 <template>
-  <label>{{$t('bikesp.aggregation.PAYOUT_LEVEL')}}:</label>
+  <label>{{$t('BIKESP.filters.aggregation.PAYOUT_LEVEL')}}:</label>
   <div>
     <b-slider
       v-model="value" type="is-info" :min="0" :step="0.01" :max="1" :tooltip="true"

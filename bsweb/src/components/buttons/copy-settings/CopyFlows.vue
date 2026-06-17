@@ -2,20 +2,20 @@
   <div v-if="secondMapIsActive">
     <div v-if="!copying">
       <Button
-        :text="$t('twoMaps.copy.flows.main.button')"
-        :title="$t('twoMaps.copy.flows.main.title')"
+        :text="$t('BIKESCIENCEWEB.twoMaps.copy.flows.main.button')"
+        :title="$t('BIKESCIENCEWEB.twoMaps.copy.flows.main.title')"
         :handle-click="activate"
       />
     </div>
     <div v-if="copying">
       <Button
-        :text="$t('twoMaps.copy.flows.option1.button')"
-        :title="$t('twoMaps.copy.flows.option1.title')"
+        :text="$t('BIKESCIENCEWEB.twoMaps.copy.flows.option1.button')"
+        :title="$t('BIKESCIENCEWEB.twoMaps.copy.flows.option1.title')"
         :handle-click="() => copyTo('second')"
       />
       <Button
-        :text="$t('twoMaps.copy.flows.option2.button')"
-        :title="$t('twoMaps.copy.flows.option2.title')"
+        :text="$t('BIKESCIENCEWEB.twoMaps.copy.flows.option2.button')"
+        :title="$t('BIKESCIENCEWEB.twoMaps.copy.flows.option2.title')"
         :handle-click="() => copyTo('main')"
       />
     </div>

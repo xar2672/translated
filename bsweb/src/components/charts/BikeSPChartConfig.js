@@ -1,4 +1,5 @@
-const config = {
+const config = (t) => {
+    return {
         theme: '',
         responsive: true,
         customPalette: ['1f77b4'],
@@ -151,7 +152,7 @@ const config = {
             title: {
                 text: 'BikeSP Data',
                 color: '#1A1A1Aff',
-                fontSize: 20,
+                fontSize: 25,
                 bold: true,
                 textAlign: 'center',
                 paddingLeft: 0,
@@ -201,17 +202,17 @@ const config = {
                     annotator: true
                 },
                 buttonTitles: {
-                    open: 'Abrir opções',
-                    close: 'Fechar opções',
-                    tooltip: 'Toggle tooltip',
-                    pdf: 'Baixar PDF',
-                    csv: 'Baixar CSV',
-                    img: 'Baixar PNG',
-                    table: 'Toggle table',
-                    labels: 'Toggle labels',
-                    fullscreen: 'Toggle fullscreen',
-                    stack: 'Toggle stack mode',
-                    annotator: 'Toggle annotator'
+                    open: t('BIKESP.charts.buttons.open'),
+                    close: t('BIKESP.charts.close'),
+                    tooltip: t('BIKESP.charts.buttons.tooltip'),
+                    pdf: t('BIKESP.charts.buttons.pdf'),
+                    csv: t('BIKESP.charts.buttons.csv'),
+                    img: t('BIKESP.charts.buttons.img'),
+                    table: t('BIKESP.charts.buttons.table'),
+                    labels: t('BIKESP.charts.buttons.labels'),
+                    fullscreen: t('BIKESP.charts.buttons.fullscreen'),
+                    stack: t('BIKESP.charts.buttons.stack'),
+                    annotator: t('BIKESP.charts.buttons.annotator')
                 },
                 print: {
                     allowTaint: false,
@@ -304,8 +305,8 @@ const config = {
             sparkline: true,
             showSum: true,
             columnNames: {
-                period: 'Period',
-                total: 'Total'
+                period: t('BIKESP.charts.table.period'),
+                total: t('BIKESP.charts.table.total')
             },
             th: {
                 backgroundColor: '#FAFAFAff',
@@ -320,6 +321,7 @@ const config = {
         },
         showTable: false
     }
+}
 
 const noLabelsConfig = {
     chart: {
@@ -335,7 +337,7 @@ const noLabelsConfig = {
 }
 
 const hourLabels = () => {
-    return [...Array(24).keys()].map(hour => `${hour}h`)
+    return [...Array(24).keys()].map(hour => `${hour} h`)
 }
 
 const aggregationConfig = {

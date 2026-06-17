@@ -2,35 +2,35 @@
   <div>
     <div>
       <input v-model="reasons" type="checkbox" value="1">
-      <label>{{ $t('smallDistance') }}</label>
+      <label>{{ $t('BIKESCIENCEWEB.tabs.filters.forms.reason.smallDistance') }}</label>
     </div>
     <div>
       <input v-model="reasons" type="checkbox" value="2">
-      <label>{{ $t('expensiveTransport') }}</label>
+      <label>{{ $t('BIKESCIENCEWEB.tabs.filters.forms.reason.expensiveTransport') }}</label>
     </div>
     <div>
       <input v-model="reasons" type="checkbox" value="3">
-      <label>{{ $t('publicTransportStationDistance') }}</label>
+      <label>{{ $t('BIKESCIENCEWEB.tabs.filters.forms.reason.publicTransportStationDistance') }}</label>
     </div>
     <div>
       <input v-model="reasons" type="checkbox" value="4">
-      <label>{{ $t('publicTransportSlow') }}</label>
+      <label>{{ $t('BIKESCIENCEWEB.tabs.filters.forms.reason.publicTransportSlow') }}</label>
     </div>
     <div>
       <input v-model="reasons" type="checkbox" value="5">
-      <label>{{ $t('publicTransportDistance') }}</label>
+      <label>{{ $t('BIKESCIENCEWEB.tabs.filters.forms.reason.publicTransportDistance') }}</label>
     </div>
     <div>
       <input v-model="reasons" type="checkbox" value="6">
-      <label>{{ $t('crowdedPublicTransport') }}</label>
+      <label>{{ $t('BIKESCIENCEWEB.tabs.filters.forms.reason.crowdedPublicTransport') }}</label>
     </div>
     <div>
       <input v-model="reasons" type="checkbox" value="7">
-      <label>{{ $t('fitness') }}</label>
+      <label>{{ $t('BIKESCIENCEWEB.tabs.filters.forms.reason.fitness') }}</label>
     </div>
     <div>
       <input v-model="reasons" type="checkbox" value="8">
-      <label>{{ $t('others') }}</label>
+      <label>{{ $t('BIKESCIENCEWEB.tabs.filters.forms.reason.others') }}</label>
     </div>
   </div>
 </template>

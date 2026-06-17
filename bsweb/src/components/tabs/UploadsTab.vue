@@ -1,10 +1,10 @@
 <template>
   <div class="wrapper">
-    <p>{{ $t('tabs.upload.title') }}</p>
+    <p>{{ $t('BIKESCIENCEWEB.tabs.upload.title') }}</p>
     <p class="text">
-      {{ $t('tabs.upload.text') }}:
+      {{ $t('BIKESCIENCEWEB.tabs.upload.text') }}:
       <ul>
-        <li v-for="extension in $tm('tabs.upload.extensions')" :key="extension">
+        <li v-for="extension in $tm('BIKESCIENCEWEB.tabs.upload.extensions')" :key="extension">
           {{ extension }}
         </li>
       </ul>
@@ -18,9 +18,9 @@
         >
       </div>
 
-      <div class="columns">
+      <div class="columns option-container">
         <div class="column label-wrapper">
-          <label class="custom-label">{{ $t('tabs.upload.inputs.name') }}</label>
+          <label class="custom-label">{{ $t('BIKESCIENCEWEB.tabs.upload.inputs.name') }}</label>
         </div>
         <div class="column is-two-thirds is-flex is-align-items-center">
           <input
@@ -29,9 +29,9 @@
         </div>
       </div>
 
-      <div class="columns">
+      <div class="columns option-container">
         <div class="column label-wrapper">
-          <label class="custom-label">{{ $t('tabs.upload.inputs.width') }}</label>
+          <label class="custom-label">{{ $t('BIKESCIENCEWEB.tabs.upload.inputs.width') }}</label>
         </div>
         <div class="column is-two-thirds is-flex is-align-items-center">
           <input
@@ -41,9 +41,9 @@
         </div>
       </div>
 
-      <div class="columns">
+      <div class="columns option-container">
         <div class="column label-wrapper">
-          <label class="custom-label">{{ $t('tabs.upload.inputs.opacity') }}</label>
+          <label class="custom-label">{{ $t('BIKESCIENCEWEB.tabs.upload.inputs.opacity') }}</label>
         </div>
         <div class="column is-two-thirds is-flex is-align-items-center">
           <input
@@ -54,9 +54,9 @@
         </div>
       </div>
 
-      <div class="columns">
+      <div class="columns option-container">
         <div class="column label-wrapper">
-          <label class="custom-label" title="Cor em hexadecimal">{{ $t('tabs.upload.inputs.color') }}</label>
+          <label class="custom-label" :title="$t('BIKESCIENCEWEB.tabs.upload.inputs.colorToolTip')">{{ $t('BIKESCIENCEWEB.tabs.upload.inputs.color') }}</label>
         </div>
         <div class="column is-two-thirds is-flex is-align-items-center">
           <input
@@ -67,21 +67,23 @@
       </div>
       <div class="center">
         <button type="submit" class="custom-btn">
-          {{ $t('tabs.upload.button') }}
+          {{ $t('BIKESCIENCEWEB.tabs.upload.button') }}
         </button>
       </div>
       <div v-if="error" class="error">
-        {{ error }}
+        {{ $t(`BIKESCIENCEWEB.tabs.upload.inputs.validateInputs.${error.value}`) }}
       </div>
     </form>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { useStore } from 'vuex';
 
 const store = useStore();
+
+const type = ref('layer');
 
 const name = ref('');
 const weight = ref(3);
@@ -91,6 +93,19 @@ const files = ref(null);
 const error = ref(null);
 const fileType = ref(null);
 
+const secondMapIsActive = computed(() => store.getters['map/secondMapIsActive']);
+const mirrorControl = computed({
+  get: () => store.state.layers.mirrorControl,
+  set: () => toggleMirrorLayerControl(),
+});
+
+const toggleMirrorLayerControl = () => {
+  store.dispatch('layers/toggleMirrorLayerControl');
+};
+const setHideSecondMapLayerControl = () => {
+  store.dispatch('layers/setHideSecondMapLayerControl');
+};
+
 const shapefileToGeoJson = (payload) => {
   store.dispatch('user_shapefiles/shapefileToGeoJson', payload);
 };
@@ -99,7 +114,7 @@ const onFileChange = (e) => {
   error.value = null;
   const selectedFiles = e.target.files || e.dataTransfer.files;
   if (selectedFiles && !selectedFiles.length) {
-    error.value = 'Você deve adicionar @@@';
+    error.value = 'noShapeFiles';
     // error.value = 'Você deve adicionar 4 arquivos de um shapefile: .cpg, .dbf, .shp e .shx';
     return;
   }
@@ -147,7 +162,7 @@ const submitFiles = () => {
 // Erros
 const validateFiles = () => {
   if (!files.value || ![1, 4].includes(files.value.length)) {
-    error.value = 'Você deve adicionar @@@';
+    error.value = 'noShapeFiles';
     // error.value = 'Você deve adicionar 4 arquivos de um shapefile: .cpg, .dbf, .shp e .shx.';
     files.value = null;
     return false;
@@ -155,7 +170,7 @@ const validateFiles = () => {
 
   if (files.value.length == 1) {
     if (!['.kmz', '.zip'].some(n => files.value[0].name.includes(n))) {
-      error.value = 'Formato de arquivo inválido';
+      error.value = 'invalidFileFormat';
       files.value = null;
       return false;
     }
@@ -167,7 +182,7 @@ const validateFiles = () => {
     [...files.value].forEach(file => {
       const name = file.name.match('(.*)\\.')[1];
       if (name !== fileName) {
-        error.value = 'Os arquivos de um shapefile devem ter o mesmo nome.';
+        error.value = 'notSameFilesName';
         files.value = null;
         return false;
       }
@@ -177,7 +192,7 @@ const validateFiles = () => {
     for (const file of files.value) {
       const found = extensions.some(ext => file.name.includes(ext));
       if (!found) {
-        error.value = 'Você deve adicionar 4 arquivos de um shapefile: .cpg, .dbf, .shp e .shx.';
+        error.value = 'cpgMissingFiles';
         files.value = null;
         return false;
       }
@@ -191,23 +206,23 @@ const validateFiles = () => {
 
 const validateFields = () => {
   if (name.value.length === 0) {
-    error.value = 'Nome é obrigatório.';
+    error.value = 'name';
     return false;
   }
   if (weight.value.length === 0) {
-    error.value = 'Espessura é obrigatória.';
+    error.value = 'width';
     return false;
   }
   if (opacity.value.length === 0) {
-    error.value = 'Opacidade é obrigatória.';
+    error.value = 'opacity';
     return false;
   }
   if (color.value.length === 0) {
-    error.value = 'Cor é obrigatória.';
+    error.value = 'emptyColor';
     return false;
   }
   if (!/^#([0-9a-f]{3}|[0-9a-f]{6})$/gi.test(color.value)) {
-    error.value = 'Cor deve ser informada em hexadecimal, por exemplo #ffffff.';
+    error.value = 'invalidColor';
     return false;
   }
   return true;
@@ -215,6 +230,13 @@ const validateFields = () => {
 </script>
 
 <style scoped>
+.option-container {
+  margin: 0;
+}
+.option-container > div:not(.label-wrapper) {
+  padding: 0 0 0 .75rem;
+}
+
 .label-wrapper {
   display: flex;
   justify-content: right;
@@ -222,7 +244,7 @@ const validateFields = () => {
   align-items: center;
 }
 .custom-label {
-  font-size: 12px;
+  font-size: .8rem;
   width: fit-content;
   text-align: right !important;
 }
@@ -232,7 +254,7 @@ const validateFields = () => {
   width: 300px;
 }
 .view-option {
-  font-size: 12px;
+  font-size: .9rem;
 }
 .file-btn-wrapper {
   margin: 20px 0;
@@ -249,24 +271,24 @@ const validateFields = () => {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 20px 0;
-  padding: 0 5px;
-  font-size: 12px;
-  color: #167df0;
-  height: 18px;
-  background-color: #fff
+  margin: 10px 0 15px;
+  padding: 5px 20px;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #167df0;
 }
 .custom-btn:hover {
-  color: #363636;
-  background-color: #ddd;
+  border-color: #0056b3;
+  background-color: #0056b3;
 }
 .error {
   color: red;
-  font-size: 12px;
+  text-align: center;
+  font-size: .9rem;
 }
 
 p.text {
-  font-size: 12px;
+  font-size: .85rem;
 }
 
 ul {

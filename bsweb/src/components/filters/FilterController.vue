@@ -4,7 +4,7 @@
       <input
         v-model="isActive" type="checkbox" :value="filter.id"
       >
-      <label class="filter-name">{{ $t('filter.filter_name') }}</label>
+      <label class="filter-name">{{ $t(`BIKESCIENCEWEB.tabs.filters.forms.aggregation.filter.${filter.filter_key}`) }}</label>
       <div v-if="isActive">
         <div class="options">
           <FilterFormField :filter="filter" :mapkey="mapkey" />
@@ -15,7 +15,7 @@
       <div class="filter-toggle" @click="toggleFilter">
         <img :src="iconArrow" :class="['arrow', { active: isActive }]">
       </div>
-      <label class="filter-name">{{ $t('filter.filter_name') }}</label>
+      <label class="filter-name">{{ $t(`BIKESCIENCEWEB.tabs.filters.forms.aggregation.filter.${filter.filter_key}`) }}</label>
       <div v-show="isActive">
         <div class="options">
           <FilterFormField :filter="filter" :mapkey="mapkey" />
@@ -58,7 +58,7 @@ const toggleFilter = () => {
 <style scoped>
 .filter-name {
   margin: 0 5px;
-  font-size: 12px;
+  font-size: .85rem;
 }
 .filter-toggle {
   cursor: pointer;
@@ -69,7 +69,7 @@ input {
 }
 .options {
   margin: 0 0 10px 20px;
-  font-size: 12px;
+  font-size: .8rem;
 }
 .arrow {
   transition: all ease-in-out 0.2s;

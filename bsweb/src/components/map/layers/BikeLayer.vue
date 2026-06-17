@@ -10,6 +10,9 @@
 </template>
 
 <script setup>
+
+import { LGeoJson } from '@vue-leaflet/vue-leaflet';
+
 import { useStore } from 'vuex';
 import { computed } from 'vue';
 

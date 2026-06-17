@@ -3,7 +3,7 @@
     <TwoMapsManager />
     <div id="main-content">
       <div id="columns-content" class="columns is-mobile">
-        <div class="column left manage">
+        <div class="column rest-column left manage">
           <Manage id="filter-container" />
         </div>
         <div id="main-column" class="column is-full is-flex">
@@ -46,6 +46,7 @@ import TwoMapsManager from '../components/twomapsmanager/TwoMapsManager.vue';
 const store = useStore();
 const isImageModalActive = ref(false);
 
+const opened = computed(() => store.getters['modals/open']);
 const active = computed(() => store.getters['loading/active']);
 const activeModal = computed(() => store.getters['modals/activeModal']);
 const loading_filters = computed(() => store.getters.loading_filters);
@@ -73,16 +74,11 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.main-map.is-half {
-  padding-top: 0;
-  padding-left: 0;
+.rest-column {
+  max-width: 20%;
+}
+.main-map.is-half, .second-map {
   padding-bottom: 0;
   padding-right: 10px;
-}
-.second-map {
-  padding-top: 0;
-  padding-right: 0;
-  padding-bottom: 0;
-  padding-left: 10px;
 }
 </style>

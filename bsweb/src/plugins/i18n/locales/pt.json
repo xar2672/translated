@@ -1,0 +1,462 @@
+{
+    "COMMONS": {
+        "charts": "Gráfico | Gráficos",
+        "filters": "Filtro | Filtros",
+        "flows": "Fluxo | Fluxos",
+        "layers": "Camadas",
+        "maps": "Mapa | Mapas",
+
+        "income_base": {
+            "max": "até R$ {value}",
+            "range": "entre R$ {min} e R$ {max}",
+            "more_than": "mais de R$ {value}"
+        },
+        "layers_filter": {
+            "spRailwayLines": "Linhas de Trem",
+            "spSubwayLines": "Linhas de Metrô",
+            "spRailwayStations": "Estações de Trem",
+            "spSubwayStations": "Estações de Metrô",
+
+            "sp_bikelane_ciclovia": "Ciclovia",
+            "sp_bikelane_ciclofaixa": "Ciclofaixa",
+            "sp_bikelane_ciclorrota": "Ciclorrota",
+            "sp_bikelane_ciclopassarela": "Ciclopassarela",
+
+            "sp_accidents": "Ocorrências com bicicletas",
+
+            "cptm_lines": "Linhas da CPTM",
+            "cptm_stations": "Estações da CPTM",
+            "subway_lines": "Linhas do Metrô-SP",
+            "subway_stations": "Estações do Metrô-SP"
+        }
+    },
+
+    "BIKESCIENCEWEB": {
+        "appName": "BikeScienceWeb",
+
+        "nav": {
+            "upload": "Upload"
+        },
+
+        "aboutPage": {
+            "buttons": {
+                "about": "Sobre",
+                "features": "Funcionalidades",
+                "team": "Equipe",
+                "guide": "Guia do Usuário"
+            }
+        },
+        "footer": {
+            "about": "Sobre",
+            "devMode": "Modo de Desenvolvedor"
+        },
+        
+        "maps": {
+            "total_trips": "{total} viagem | {total} viagens",
+            "DEVELOPER_MODE_TRIPS": "{origin} -> {destination}\nids: {id}",
+            
+            "toolTips": {
+                "numberZone": "NumeroZona: {numberZone}",
+                "nameZone": "NomeZona: {nameZone}",
+                "nameBorough": "NomeMunicípio: {nameBorough}",
+                
+                "helpers": {
+                    "bikeLane": "{name}<br>Extensão: {extension} metro<br>Data de implementação: {date} | {name}<br>Extensão: {extension} metros<br>Data de implementação: {date}",
+                
+                    "railway_line": "Linha {num} — {name}",
+                    "railwayLines": {
+                        "RUBI": "Rubi",
+                        "DIAMANTE": "Diamante",
+                        "ESMERALDA": "Esmeralda",
+                        "TURQUESA": "Turquesa",
+                        "CORAL": "Coral",
+                        "SAFIRA": "Safira",
+                        "JADE": "Jade"
+                    },
+                    "railway_station": "Linha {line} — Estação {name}",
+                    
+                    "subway_line": "Linha {num} — {name}",
+                    "subwayLines": {
+                        "AZUL": "Azul",
+                        "VERDE": "Verde",
+                        "VERMELHA": "Vermelha",
+                        "AMARELA": "Amarela",
+                        "LILAS": "Lilás",
+                        "PRATA": "Prata",
+
+                        "LARANJA": "Laranja",
+                        "OURO": "Ouro"
+                    },
+                    "subway_station": "Linha {line} — Estação {name}",
+
+                    "accidents": "Dia do Acidente: {date}<br>Modal de transporte envolvido: {modal} | Dia do Acidente: {date}<br>Modais de transporte envolvidos: {modal}",
+                    "accidentModal": {
+                        "automobile": "automóvel",
+                        "bicycle": "bicicleta",
+                        "bus": "ônibus",
+                        "motorcycle": "caminhão",
+                        "pedestrian": "pedestre",
+                        "truck": "caminhão"
+                    }
+                }
+            }
+        },
+        "tabs": {
+            "filters": {
+                "baseLayer": "Camada de visualização",
+                "baseLayerMap": {
+                    "main": "mapa da esquerda",
+                    "second": "mapa da direita",
+
+                    "grid": "Grid",
+                    "zones": "Zonas OD 2017",
+
+                    "buttons": {
+                        "getFlows": "Recalcular fluxos",
+                        "gridEditMode": "Editar grid",
+                        "onHover": {
+                            "gridEditMode": "Alterar configurações do grid"
+                        },
+                        "gridOptions": {
+                            "size": "Tamanho",
+                            "west": "Oeste",
+                            "east": "Leste",
+                            "north": "Norte",
+                            "south": "Sul"
+                        }
+                    }
+                },
+
+                "bikelane": {
+                    "slider": {
+                        "field": "Ordenar por ano implementado | Ordenar pelos anos implementados",
+                        "form": "{end} | {start} até {end}"
+                    }
+                },
+                
+                "forms": {
+                    "aggregation": {
+                        "category": {
+                            "timeFilters": "Filtros temporais",
+                            "populationFilters": "Filtros demográficos",
+                            "geographicFilters": "Filtros geográficos",
+                            "tripFilters": "Filtros de viagem"
+                        },
+                        "filter": {
+                            "months": "Meses",
+                            "start_time": "Horário de início",
+                            "finish_time": "Horário de término",
+                            "weekday": "Dia da semana",
+                            "holidays": "Feriados",
+
+                            "avgSpeed": "Velocidade média",
+                            "distance": "Distância da viagem",
+                            "duration": "Duração da viagem",
+                            "reason": "Motivos para escolher bicicleta",
+
+                            "sex": "Sexo ciclista",
+                            "age": "Idade ciclista",
+                            "income": "Renda da família",
+                            "attractors_emitters": "Regiões atratores e emissoras de viagens"
+                        }
+                    },
+                    
+                    "age": {
+                        "field": "Idade dos ciclistas",
+                        "form": "{end} ano | {end} anos | {start} até {end} anos"
+                    },
+                    "attractor": {
+                        "info":  "O mapa de calor indica as vizinhanças nas quais as viagens de bicicletas mais começam ou terminam, dados os filtros selecionados"
+                    },
+                    "time": {
+                        "morning": "Manhã (6h a 12h)",
+                        "afternoon": "Tarde (12h a 18h)",
+                        "evening": "Noite (18h a 23h)",
+                        "specificTime": "Horário específico",
+
+                        "from": "de",
+                        "to": "até",
+
+                        "months": {
+                            "jan": "jan",
+                            "feb": "fev",
+                            "mar": "mar",
+                            "apr": "abr",
+                            "may": "mai",
+                            "jun": "jun",
+                            "jul": "jul",
+                            "aug": "ago",
+                            "sep": "set",
+                            "oct": "out",
+                            "nov": "nov",
+                            "dec": "dec"
+                        }
+                    },
+                    "distance": {
+                        "form": "{end} km | {start} km até {end} km"
+                    },
+                    "duration": {
+                        "minutes": "{value} min | {value} mins",
+                        "field": "Duração da viagem",
+                        "form": "{end} minuto | {end} minutos | {start} até {end} minutos"
+                    },
+                    "income": {
+                        "field": "Renda familiar",
+                        "form": "R$ {end} | R$ {start} até R$ {end}",
+                        "intervals": "Intervalos",
+                        "brackets": "Faixas de renda"
+                    },
+                    "reason": {
+                        "smallDistance": "Curta distância",
+                        "expensiveTransport": "Preço alto do transporte público",
+                        "publicTransportStationDistance": "Difícil acesso ao transporte público",
+                        "publicTransportSlow": "Lentidão do transporte público",
+                        "publicTransportDistance": "Viagem muito demorada",
+                        "crowdedPublicTransport": "Transporte público lotado",
+                        "fitness": "Atividade física",
+                        "others": "Others"
+                    },
+                    "sex": {
+                        "male": "Homem",
+                        "female": "Mulher"
+                    },
+                    "speed": {
+                        "form": "{end} km/h | {start} km/h até {end} km/h"
+                    },
+                    "tiers": {
+                        "selectTiers": "Mostrar fluxos",
+                        "notFoundTiers": "Nenhum resultado encontrado",
+                        "emptyFlows": "Nenhum fluxo encontrado. Tente selecionar outros filtros"
+                    }
+                }
+            },
+            "layers": {
+                "category": {
+                    "layers_highCapacityTransport": "Transportes de alta capacidade",
+                    "layers_bikelanes": "Infraestrutura cicloviária",
+                    "layers_accidents": "Ocorrências de trânsito"
+                },
+                "userLayers": "Camadas do usuário",
+                "editModal": {
+                    "editLayer": "Editar camada",
+                    "removeLayer": "Remover camada",
+                    "layerEditMode": "Editando camada {layer_name}"
+                }
+            },
+            "maps": {
+                "title": "Opções para múltiplos mapas",
+                "action": "Ativar mapa adicional",
+                "tripsSource": "Origem dos dados das viagens"
+            },
+            "upload": {
+                "title": "Suba aqui seus arquivos georeferrenciados",
+                "text": "Formatos de arquivos aceitos",
+                "extensions": [
+                    "shapefile em um arquivo .zip",
+                    "shapefile (4 arquivos: .cpg, .dbf, .shp e .shx)",
+                    ".kmz"
+                ],
+
+                "inputs": {
+                    "name": "Nome",
+                    "width": "Espessura (px)",
+                    "opacity": "Opacidade",
+                    "color": "Cor",
+                    "colorToolTip": "Cor em hexadecimal"
+                },
+                "validateInputs": {
+                    "name": "Nome é obrigatório",
+                    "width": "Espessura é obrigatória.",
+                    "opacity": "Opacidade é obrigatória.",
+                    "emptyColor": "Cor é obrigatória.",
+                    "invalidColor": "Cor deve ser informada em hexadecimal (#ffffff, por exemplo).", 
+
+                    "noShapeFiles": "Shapefiles não foram inseridos.",
+                    "invalidFileFormat": "Formato de arquivo inválido.",
+                    "notSameFilesName": "Os arquivos de um shapefile devem ter o mesmo nome.",
+                    "cpgMissingFiles": "Você deve adicionar 4 arquivos de um shapefile: .cpg, .dbf, .shp e .shx."
+                },
+
+                "button": "Enviar"
+            },
+            "flows": {
+                "hoverText": "Fluxos contendo entre {min} e {max} viagens",
+                "tierOptions": "Tier {tier_prop}: {tier_count} fluxo | Tier {tier_prop}: {tier_count} fluxos"
+            }
+        },
+        "twoMaps": {
+            "leftMap": "Mapa da Esquerda",
+            "rightMap": "Mapa da Direita",
+
+            "mirroredChanges": "Espelhar alterações",
+            "hideRightControls": "Ocultar controles da direita",
+
+            "independentControl": "Mover os mapas separadamente",
+            "sameControl": "Mover os mapas simultaneamente",
+
+            "copy": {
+                "flows": {
+                    "main": {
+                        "button": "Copiar fluxos selecionados",
+                        "title": "Copiar fluxos entre os mapas"
+                    },
+                    "option1": {
+                        "button": "Da esquerda para a direita",
+                        "title": "Copiar fluxos selecionados do mapa da esquerda para o da direita"
+                    },
+                    "option2": {
+                        "button": "Da direita para a esquerda",
+                        "title": "Copiar fluxos selecionados do mapa da direita para o da esquerda"
+                    }
+                },
+                "filters": {
+                    "main": {
+                        "button": "Copiar filtros selecionados",
+                        "title": "Copiar filtros entre os mapas"
+                    },
+                    "option1": {
+                        "button": "Da esquerda para a direita",
+                        "title": "Copiar filtros selecionados do mapa da esquerda para o da direita"
+                    },
+                    "option2": {
+                        "button": "Da direita para a esquerda",
+                        "title": "Copiar filtros selecionados do mapa da direita para o da esquerda"
+                    }
+                },
+                "layers": {
+                    "main": {
+                        "button": "Copiar camadas selecionadas",
+                        "title": "Copiar camadas entre os mapas"
+                    },
+                    "option1": {
+                        "button": "Da esquerda para a direita",
+                        "title": "Copiar camadas selecionadas do mapa da esquerda para o da direita"
+                    },
+                    "option2": {
+                        "button": "Da direita para a esquerda",
+                        "title": "Copiar camadas selecionadas do mapa da direita para o da esquerda"
+                    }
+                }
+            }
+        }
+    },
+
+    "BIKESP": {
+        "appName": "Piloto Bike SP - Painel Analítico",
+
+        "apply": "Aplicar",
+        "selected": "Selecionado",
+
+        "charts": {
+            "title": "{dataType} por {aggregation}",
+            "buttons": {
+                "open": "Abrir opções",
+                "close": "Fechar opções",
+                "tooltip": "Toggle tooltip",
+                "pdf": "Baixar PDF",
+                "csv": "Baixar CSV",
+                "img": "Baixar PNG",
+                "table": "Toggle table",
+                "labels": "Toggle labels",
+                "fullscreen": "Toggle fullscreen",
+                "stack": "Toggle stack mode",
+                "annotator": "Toggle annotator"
+            },
+            "table": {
+                "period": "Período",
+                "total": "Total"
+            }
+        },
+
+        "dataType": {
+            "changeDataType": "Selecionar tipo de dado",
+            "datatype_helper": "Escolha qual métrica você deseja visualizar no gráfico.",
+            "typeList": {
+                "TRIP_COUNT": "Número de viagens",
+                "TRIP_DURATION": "Duração média das viagens (em minutos)",
+                "TRIP_DISTANCE": "Distância média percorrida (km)",
+                "MEAN_SPEED": "Velocidade média (km/h)",
+                "TOTAL_SAMPLES": "Total de amostras",
+                "TOTAL_TRIPS": "Total de viagens",
+                "SAMPLE_MEAN_SPEED": "Velocidade média (km/h)"
+            }
+        },
+        "layers": {
+            "chooseMapLayer": "Selecione as camadas do mapa",
+            "selectMapLayer": "Selecione tipos de camadas do mapa",
+            "removeCategory": "Remover categoria",
+            "category": {
+                "layers_highCapacityTransport": "Transportes de alta capacidade",
+                "layers_bikelanes": "Infraestrutura cicloviária",
+                "layers_accidents": "Ocorrências de trânsito"
+            }
+        },
+        "filters": {
+            "chooseFilter": "Escolha um filtro",
+            "removeFilter": "Remover filtro",
+            
+            "changeAggregation": "Agrupar dados por",
+            "aggregation_helper": "Escolha uma categoria para agrupar os dados exibidos no gráfico.",
+            "aggregation": {
+                "GENDER": "Gênero",
+                "RACE": "Raça/cor",
+                "WEEK": "Semana",
+                "HOUR": "Hora do dia",
+                "DAY_OF_WEEK": "Dia da semana",
+                "PAYOUT_LEVEL": "Recompensa (R$/km)",
+                "REMUNERATION": "Nível de renda"
+            },
+
+            "money_value": "R$ {value}",
+            "day_week": {
+                "date": "Data",
+                "chooseDateofWeek": "Escolha um dia da semana",
+                "weekDays": {
+                    "sun": "Domingo",
+                    "mon": "Segunda-feira",
+                    "tue": "Terça-feira",
+                    "wed": "Quarta-feira",
+                    "thu": "Quinta-feira",
+                    "fri": "Sexta-feira",
+                    "sat": "Sábado"
+                }
+            },
+            "gender": {
+                "chooseGender": "Escolha um gênero",
+                "genderList": {
+                    "feminine": "Feminino",
+                    "masculine": "Masculino",
+                    "nonBinary": "Não binários",
+                    "na": "Não informado"
+                }
+            },
+            "race": {
+                "chooseRace": "Escolha uma raça",
+                "raceList": {
+                    "asian": "Amarelo",
+                    "black": "Preto",
+                    "brown": "Pardo",
+                    "indigenous": "Indígena",
+                    "na": "Não Informado",
+                    "white": "Branco"
+                }
+            }
+        },
+        "mapView": {
+            "changeViewType": "Selecione o tipo de visualização",
+            "viewtype_helper": "Escolha a forma como deseja visualizar os dados.",
+            "viewList": {
+                "voyager": "Voyager",
+                "basic": "Basic",
+                "bright": "Bright",
+                "sat1x": "Satellite Hybrid",
+                "sat2x": "Satellite Hybrid 2x",
+                "streets": "Streets",
+                "outdoor": "Outdoor",
+                "toner": "Toner",
+                "topo": "Topo",
+                "topographique": "Topographique"
+            }
+        }
+    }
+}

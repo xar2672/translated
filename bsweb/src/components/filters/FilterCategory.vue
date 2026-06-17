@@ -3,7 +3,7 @@
     <div class="category-toggle" @click="toggleCategory">
       <img :src="iconArrow" :class="['arrow', { active: isActive }]">
       <h3 class="category-name">
-        {{ $t('category.category_name') }}
+        {{ $t(`BIKESCIENCEWEB.tabs.filters.forms.aggregation.category.${category.category_name}`) }}
       </h3>
     </div>
     <div v-show="isActive" class="category-options">
@@ -37,7 +37,7 @@ const toggleCategory = () => {
 
 <style scoped>
 .category-name {
-  font-size: 12px;
+  font-size: .9rem;
   font-weight: bold;
 }
 .category-wrapper {
