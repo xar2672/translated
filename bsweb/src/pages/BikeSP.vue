@@ -43,7 +43,7 @@ onMounted(() => {
   display: flex;
   gap: 4px;
   align-items: flex-start;
-  padding: 4px 16px 16px 12px;
+  padding: 0px 16px 16px 12px;
   height: 80vh;
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
