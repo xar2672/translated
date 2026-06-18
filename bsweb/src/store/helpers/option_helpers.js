@@ -11,6 +11,7 @@ const capitalize = (sentence) => {
     .toLowerCase()
     .replace(/(?<=^|[\s\p{Pd}])\p{L}/gu, match => match.normalize("NFC").toLocaleUpperCase('pt-BR'));
 };
+const minPopUp = {maxWidth: 600, minWidth: 100, autoPan: true};
 
 const cptmIcon = new L.Icon({
   iconSize: [11, 11],
@@ -43,6 +44,7 @@ export const railway_station = {
           line: line, 
           name: station 
         });
+        layer.getPopup().update();
       };
 
       updateTranslation();
@@ -61,7 +63,7 @@ export const railway_station = {
       }
     });
 
-    layer.bindPopup(popupContent, {maxWidth: 600, minWidth: 100, autoPan: true});
+    layer.bindPopup(popupContent, minPopUp);
   },
   pointToLayer: function (feature, latlng) {
     return L.marker(latlng, { icon: cptmIcon });
@@ -85,6 +87,7 @@ export const railway_line = {
           num: feature.properties.translationData.line_number, 
           name: ltr_name 
         });
+        layer.getPopup().update();
       };
 
       updateTranslation();
@@ -103,7 +106,7 @@ export const railway_line = {
       }
     });
 
-    layer.bindPopup(popupContent, {maxWidth: 600, minWidth: 100, autoPan: true});
+    layer.bindPopup(popupContent, minPopUp);
   },
 };
 
@@ -126,6 +129,7 @@ export const subway_station = {
           line: emt_line, 
           name: station 
         });
+        layer.getPopup().update();
       };
 
       updateTranslation();
@@ -144,7 +148,7 @@ export const subway_station = {
       }
     });
 
-    layer.bindPopup(popupContent, {maxWidth: 600, minWidth: 100, autoPan: true});
+    layer.bindPopup(popupContent, minPopUp);
   },
   pointToLayer: function (feature, latlng) {
     return L.marker(latlng, { icon: metroIcon });
@@ -168,6 +172,7 @@ export const subway_line = {
           num: feature.properties.translationData.line_number, 
           name: ltr_name 
         });
+        layer.getPopup().update();
       };
 
       updateTranslation();
@@ -186,7 +191,7 @@ export const subway_line = {
       }
     });
 
-    layer.bindPopup(popupContent, {maxWidth: 600, minWidth: 100, autoPan: true});
+    layer.bindPopup(popupContent, minPopUp);
   },
 };
 
@@ -209,6 +214,7 @@ export const bikeLane = {
         const longFormatter = new Intl.DateTimeFormat(i18n.global.locale.value, formatter);
         const newDate = longFormatter.format(new Date(feature.properties.translationData.year, feature.properties.translationData.month, feature.properties.translationData.day));
         popupContent.innerHTML = i18n.global.t(feature.properties.translationData.key, {name: feature.properties.translationData.nome, extension: feature.properties.translationData.extension, date: newDate}, feature.properties.translationData.extension);
+        layer.getPopup().update();
       };
 
       updateTranslation();
@@ -227,7 +233,7 @@ export const bikeLane = {
       }
     });
 
-    layer.bindPopup(popupContent, {maxWidth: 600, minWidth: 100, autoPan: true});
+    layer.bindPopup(popupContent, minPopUp);
   },
 };
 
@@ -277,6 +283,7 @@ export const accidents = {
 
         modais = listFormat.format(modais);
         popupContent.innerHTML = i18n.global.t(feature.properties.translationData.key, {date: newDate, modal: modais}, num);
+        layer.getPopup().update();
       };
 
       updateTranslation();
@@ -295,7 +302,7 @@ export const accidents = {
       }
     });
 
-    layer.bindPopup(popupContent, {maxWidth: 600, minWidth: 100, autoPan: true});
+    layer.bindPopup(popupContent, minPopUp);
   },
   pointToLayer: function (feature, latlng) {
     return L.circleMarker(latlng, { radius: 3, opacity: 0.6, fillOpacity: 0.6, fillColor: '#bb0000', color: '#bb0000' });
