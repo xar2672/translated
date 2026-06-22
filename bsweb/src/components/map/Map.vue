@@ -21,7 +21,7 @@
       />
 
       <template v-if="renderZones">
-        <l-geo-json
+        <l-geo-json v-if="zones"
           :geojson="zones.geometry"
           :options-style="zones.style"
           :visible="showZones"
@@ -30,7 +30,7 @@
       </template>
 
       <template v-if="renderGrid && grid.geometry">
-        <l-geo-json
+        <l-geo-json v-if="grid"
           :geojson="grid.geometry"
           :options-style="grid.style"
           :visible="showGrid"
@@ -50,7 +50,8 @@
       <template v-for="bikelaneLayer in bikelaneLayers" :key="`bikelaneLayers-${bikelaneLayer.key}`">
         <template v-for="layer in bikelaneLayer.data" :key="`bikelaneLayers-${bikelaneLayer.key}-${layer.year}`">
           <l-geo-json
-            v-if="activeLayers[bikelaneLayer.key][mapkey] && layer.year >= bikelaneRange[0] && layer.year <= bikelaneRange[1]"
+            v-if="layer &&
+            activeLayers[bikelaneLayer.key][mapkey] && layer.year >= bikelaneRange[0] && layer.year <= bikelaneRange[1]"
             :geojson="layer.geometry"
             :options-style="bikelaneLayer.style"
             :options="bikelaneLayer.options"

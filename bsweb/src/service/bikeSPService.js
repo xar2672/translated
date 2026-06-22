@@ -17,7 +17,7 @@ export async function fetchBikeSPData(dataConfig) {
 export async function fetchGeographicBikeSPData(data) {
   const payload = buildFetchGeographicData(data);
   try {
-    const response = await axios.post(`${api_url}/bikesp/fetch_geographic_data`, payload,  { 'decompress': true });
+    const response = await axios.post(`${api_url}/bikesp/fetch_geographic_data`, payload, { 'decompress': true });
     return response.data.data || [];
   } catch (error) {
     console.error("Error in bikeSPService.fetchGeographicBikeSPData:", error);

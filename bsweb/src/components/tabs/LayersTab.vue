@@ -65,7 +65,7 @@ const hideSecondMapControl = computed({
 
 <style scoped>
 .map-title {
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: bold;
   margin-bottom: 10px;
 }

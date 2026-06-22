@@ -3,7 +3,7 @@
     <div class="category-toggle" @click="toggleCategory">
       <img :src="iconArrow" :class="['arrow', { active: isActive }]">
       <h3 class="category-name">
-        {{ $t(`BIKESCIENCEWEB.tabs.layers.category.${category.category_name}`)}}
+        {{ $t(`COMMONS.layers_category.${category.category_name}`)}}
       </h3>
     </div>
     <div v-show="isActive" class="category-options">

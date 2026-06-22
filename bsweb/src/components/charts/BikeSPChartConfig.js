@@ -1,4 +1,6 @@
-const config = (t) => {
+import { i18n } from '../../main.js';
+
+const config = () => {
     return {
         theme: '',
         responsive: true,
@@ -202,17 +204,17 @@ const config = (t) => {
                     annotator: true
                 },
                 buttonTitles: {
-                    open: t('BIKESP.charts.buttons.open'),
-                    close: t('BIKESP.charts.close'),
-                    tooltip: t('BIKESP.charts.buttons.tooltip'),
-                    pdf: t('BIKESP.charts.buttons.pdf'),
-                    csv: t('BIKESP.charts.buttons.csv'),
-                    img: t('BIKESP.charts.buttons.img'),
-                    table: t('BIKESP.charts.buttons.table'),
-                    labels: t('BIKESP.charts.buttons.labels'),
-                    fullscreen: t('BIKESP.charts.buttons.fullscreen'),
-                    stack: t('BIKESP.charts.buttons.stack'),
-                    annotator: t('BIKESP.charts.buttons.annotator')
+                    open: i18n.global.t('BIKESP.charts.buttons.open'),
+                    close: i18n.global.t('BIKESP.charts.close'),
+                    tooltip: i18n.global.t('BIKESP.charts.buttons.tooltip'),
+                    pdf: i18n.global.t('BIKESP.charts.buttons.pdf'),
+                    csv: i18n.global.t('BIKESP.charts.buttons.csv'),
+                    img: i18n.global.t('BIKESP.charts.buttons.img'),
+                    table: i18n.global.t('BIKESP.charts.buttons.table'),
+                    labels: i18n.global.t('BIKESP.charts.buttons.labels'),
+                    fullscreen: i18n.global.t('BIKESP.charts.buttons.fullscreen'),
+                    stack: i18n.global.t('BIKESP.charts.buttons.stack'),
+                    annotator: i18n.global.t('BIKESP.charts.buttons.annotator')
                 },
                 print: {
                     allowTaint: false,
@@ -305,8 +307,8 @@ const config = (t) => {
             sparkline: true,
             showSum: true,
             columnNames: {
-                period: t('BIKESP.charts.table.period'),
-                total: t('BIKESP.charts.table.total')
+                period: i18n.global.t('BIKESP.charts.table.period'),
+                total: i18n.global.t('BIKESP.charts.table.total')
             },
             th: {
                 backgroundColor: '#FAFAFAff',

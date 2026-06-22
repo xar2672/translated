@@ -52,13 +52,13 @@ function addFiltersPayload(filters, payload) {
 }
 
 export function buildFetchTripDataRequest(data) {
-  if (data.aggregation === undefined || data.data_type === undefined) {
+  if (data.aggregation === undefined || (data.data_type === undefined && data.dataConfig?.data_type === undefined)) {
     throw new Error("Request missing required fields");
   }
 
   const payload = {
     aggregation: data.aggregation,
-    data_type: data.data_type,
+    data_type: data.data_type ?? data.dataConfig?.data_type,
   };
 
   addFiltersPayload(data.filters, payload);
@@ -68,13 +68,13 @@ export function buildFetchTripDataRequest(data) {
 
 export function buildFetchGeographicData(data) {
   const payload = {
-    data_type: data.dataConfig.data_type,
+    data_type: data.data_type ?? data.activeDataConfig?.data_type,
     zoom_level: data.zoomLevel,
     center: data.mapCenter,
     max_distance: data.maxDistance,
   };
 
-  addFiltersPayload(data.dataConfig.filters, payload);
+  addFiltersPayload(data.filters, payload);
 
   return payload
 }

@@ -11,7 +11,7 @@
         :taggable="true" deselectLabel="" selectLabel="" :selectedLabel="$t('BIKESP.selected')">
       </multiselect>
       <div class="active-fields">
-        <div v-for="category in value" :key="category.category_name" class="filter-wrapper">
+        <div v-for="category in value" :key="category.value" class="filter-wrapper">
           <div class="filter-box">
             <button class="remove-btn-top" @click="removeLayerCategory(category)" :title="$t('BIKESP.layers.removeCategory')">×</button>
             <LayerSelector :category="category.value"/>
@@ -48,7 +48,7 @@ const allCombinedLayers = computed(() => {
   return [...allLayers, ...allBikelineLayers];
 });
 
-const translateLabels = (option) => t(`BIKESP.layers.category.${option.value.category_name}`);
+const translateLabels = (option) => t(`COMMONS.layers_category.${option.value.category_name}`);
 const options = allCombinedLayers.value.map(
   (category) => { return {key: category.category_name, name: translateLabels({value: {category_name: category.category_name}}), value: category} }
 );

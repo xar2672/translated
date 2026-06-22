@@ -54,10 +54,8 @@ onMounted(() => {
   border-radius: 0;
   background-color: #ffffff;
   border: 1px solid #ddd;
-  /*border-radius: 8px;*/
   max-width: 420px;
   margin: 0 auto;
-  /*padding: 16px;*/
   display: flex;
   flex-direction: column;
   gap: 16px;

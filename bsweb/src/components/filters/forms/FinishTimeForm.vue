@@ -136,7 +136,7 @@ export default {
 
   .timepicker-label {
     min-width: 20px;
-    margin-left: 10px;
+    margin: 0 10px;
   }
 
   .timepicker {

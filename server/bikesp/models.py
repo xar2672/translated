@@ -36,7 +36,7 @@ class Filters(Schema):
     week_days = fields.List(fields.Integer(), validate=ContainsOnly([0, 1, 2, 3, 4, 5, 6]), allow_none=False)
 
 AGGREGATIONS = ['GENDER', 'RACE', 'WEEK', 'HOUR', 'DAY_OF_WEEK', 'PAYOUT_LEVEL', 'REMUNERATION']
-DATA_TYPE = ['TRIP_COUNT', 'TRIP_DURATION', 'TRIP_DISTANCE', 'MEAN_SPEED']
+DATA_TYPE = ['TOTAL_TRIPS', 'TRIP_DURATION', 'TRIP_DISTANCE', 'MEAN_SPEED']
 class BikespDataRequest(Schema):
     filters = fields.Nested(Filters)
     aggregation = fields.String(validate=OneOf(AGGREGATIONS), required=True)
@@ -61,7 +61,7 @@ class BikespGeographicDataRequest(Schema):
     data_type = fields.String(validate=OneOf(GEO_DATA_TYPE), required=True)
     zoom_level = fields.Integer(validate=Range(min=1, max=20), required=True)
     center = fields.Nested(LatLng, required=True)
-    max_distance = fields.Float(requied=True)
+    max_distance = fields.Float(required=True)
 
 bikesp_data_request = BikespDataRequest()
 bikesp_geo_data_request = BikespGeographicDataRequest()

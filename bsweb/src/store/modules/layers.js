@@ -4,32 +4,36 @@ import * as style from '../helpers/style_layers';
 
 const api_url = process.env.VUE_APP_API_URL;
 
-const state = {
-  main: {
-    grid: {},
-    bikelaneRange: [0, 1], // min and max years selected for bikelanes
-  },
-  second: {
-    grid: {},
-    bikelaneRange: [0, 1], // min and max years selected for bikelanes
-  },
-  activeLayers: {
-    cptm_lines: { main: false, second: false },
-    cptm_stations: { main: false, second: false },
-    sp_accidents: { main: false, second: false },
-    subway_lines: { main: false, second: false },
-    subway_stations: { main: false, second: false },
-    sp_bikelane_ciclovia: { main: false, second: false },
-    sp_bikelane_ciclofaixa: { main: false, second: false },
-    sp_bikelane_ciclorrota: { main: false, second: false },
-  },
-  data: [],
-  bikelanes: [],
-  zones: {},
-  mirrorControl: false,
-  hideSecondMapControl: false,
-  bikelaneYears: [], // list of all years available for bikelanes
+const ORIGINAL_STATE = () => {
+  return {
+    features: [], // used by <l-geo-json>
+    main: {
+      grid: {},
+      bikelaneRange: [0, 1], // min and max years selected for bikelanes
+    },
+    second: {
+      grid: {},
+      bikelaneRange: [0, 1], // min and max years selected for bikelanes
+    },
+    activeLayers: {
+      cptm_lines: { main: false, second: false },
+      cptm_stations: { main: false, second: false },
+      sp_accidents: { main: false, second: false },
+      subway_lines: { main: false, second: false },
+      subway_stations: { main: false, second: false },
+      sp_bikelane_ciclovia: { main: false, second: false },
+      sp_bikelane_ciclofaixa: { main: false, second: false },
+      sp_bikelane_ciclorrota: { main: false, second: false },
+    },
+    data: [],
+    bikelanes: [],
+    zones: {},
+    mirrorControl: false,
+    hideSecondMapControl: false,
+    bikelaneYears: [], // list of all years available for bikelanes
+  };
 };
+const state = ORIGINAL_STATE();
 
 const getters = {
   layers: (state) => state.data,
@@ -184,6 +188,9 @@ const actions = {
 };
 
 const mutations = {
+  cleanState: (state) => {
+    Object.assign(state, ORIGINAL_STATE());
+  },
   addLayer: (state, resource) => {
     state.data = [...state.data, resource];
   },
@@ -246,7 +253,7 @@ const mutations = {
   setDefaultBikelaneLayers: (state, value) => {
     state.main.bikelaneLayers = value;
     state.second.bikelaneLayers = value;
-  },
+  }
 };
 
 export default {

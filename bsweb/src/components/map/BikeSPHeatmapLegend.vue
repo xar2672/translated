@@ -19,7 +19,7 @@ import { useStore } from 'vuex';
 const store = useStore();
 
 const gradient = computed(() => getHeatmapConfig(store.state.bikesp.activeDataConfig.data_type).gradient);
-const title =  computed(() => getHeatmapConfig(store.state.bikesp.activeDataConfig.data_type).title);
+const title =  computed(() => getHeatmapConfig(store.state.bikesp.activeDataConfig.data_type).label);
 
 const props = defineProps({
   min: { type: Number, required: true },
@@ -34,10 +34,10 @@ const barStyle = computed(() => {return {
 }});
 
 const compact = (number) => {
-  return Intl.NumberFormat('en-US', {
+  return new Intl.NumberFormat('en-US', {
     notation: "compact",
     maximumFractionDigits: 1
-  }).format(Math.round(number))
+  }).format(number);
 };
 </script>
 
@@ -51,7 +51,7 @@ const compact = (number) => {
   border-radius: 4px;
   margin: 10px;
   width: max-content;
-  min-width: 160px;
+  min-width: 200px;
   position: absolute;
   bottom: 10px;
   right: 10px;

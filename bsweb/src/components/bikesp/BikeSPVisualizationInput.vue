@@ -14,20 +14,21 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, nextTick } from 'vue';
 import { useStore } from 'vuex';
 
 const store = useStore();
 
 const selected = ref('CHART');
 
-const onChange = (e) => {
-  store.commit('bikesp/changeView', selected.value);
+const onChange = async (e) => {
+  store.dispatch('bikesp/changeView', selected.value);
+  await nextTick();
   store.dispatch('bikesp/updateData');
 };
 
 onMounted(() => {
-  store.commit('bikesp/changeView', selected.value);
+  store.dispatch('bikesp/changeView', selected.value);
 });
 </script>
 

@@ -5,7 +5,7 @@ import selectors, { copySelector } from '../helpers/default_selectors';
 const api_url = process.env.VUE_APP_API_URL;
 const default_grid_size = 20;
 
-const state = {
+const ORIGINAL_STATE = {
   selectors,
   main: {
     activeFilters: [],
@@ -49,6 +49,7 @@ const state = {
   hideSecondMapControl: false,
   freezeUpdates: false,
 };
+const state = {...ORIGINAL_STATE};
 
 const getters = {
   activeFilters: state => state.main.activeFilters,

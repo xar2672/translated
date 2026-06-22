@@ -1,6 +1,7 @@
 const heatmapConfig = {
   'TOTAL_SAMPLES': {
-    title: 'BIKESP.dataType.typeList.TOTAL_SAMPLES',
+    title: 'TOTAL_SAMPLES',
+    label: 'BIKESP.dataType.typeList.TOTAL_SAMPLES',
     gradient: {
       0.0:   '#00ccbc',  // aqua
       0.025: '#a1e6a1', // light green
@@ -12,7 +13,8 @@ const heatmapConfig = {
     },
   },
   'SAMPLE_MEAN_SPEED': {
-    title: 'BIKESP.dataType.typeList.SAMPLE_MEAN_SPEED',
+    title: 'SAMPLE_MEAN_SPEED',
+    label: 'BIKESP.dataType.typeList.SAMPLE_MEAN_SPEED',
     gradient: {
       0.0: '#2c7bb6',  // dark blue
       0.1: '#00ccbc',  // aqua
@@ -23,7 +25,8 @@ const heatmapConfig = {
     }
   },
   'TOTAL_TRIPS': {
-    title: 'BIKESP.dataType.typeList.TOTAL_TRIPS',
+    title: 'TOTAL_TRIPS',
+    label: 'BIKESP.dataType.typeList.TOTAL_TRIPS',
     gradient: {
       0.0:   '#00ccbc',  // aqua
       0.025: '#a1e6a1', // light green

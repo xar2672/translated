@@ -173,7 +173,7 @@ class Aggregations(BaseQuery):
         self.orderByGroups = False
 
 class DataTypes(BaseQuery):
-    def add_trip_count(self):
+    def add_total_trips(self):
         self.select_parts.append('COUNT(*)')
         self.table = "TRIP t"
 

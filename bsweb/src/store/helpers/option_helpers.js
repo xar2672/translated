@@ -11,7 +11,7 @@ const capitalize = (sentence) => {
     .toLowerCase()
     .replace(/(?<=^|[\s\p{Pd}])\p{L}/gu, match => match.normalize("NFC").toLocaleUpperCase('pt-BR'));
 };
-const minPopUp = {maxWidth: 600, minWidth: 100, autoPan: true};
+const minPopUp = {maxWidth: 600, minWidth: 30, autoPan: true};
 
 const cptmIcon = new L.Icon({
   iconSize: [11, 11],
@@ -239,8 +239,6 @@ export const bikeLane = {
 
 export const accidents = {
   onEachFeature: function (feature, layer) {
-    const [year, month, day] = data_acidente.split('-');
-    
     const {
       automovel,
       bicicleta,
@@ -250,6 +248,8 @@ export const accidents = {
       pedestre,
       data_acidente
     } = feature.properties;
+    const [year, month, day] = data_acidente.split('-');
+    
     let modais = [
       { type: 'automobile', val: automovel },
       { type: 'bicycle', val: bicicleta },

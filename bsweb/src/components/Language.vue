@@ -108,7 +108,7 @@ export default {
   display: inline-block;
   float: none;
   border: none;
-  width: max-content;
+  width: 155px !important;
 }
 .language-multiselect .multiselect__tags {
   align-items: center;

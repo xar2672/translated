@@ -11,6 +11,12 @@
             "range": "entre R$ {min} e R$ {max}",
             "more_than": "mais de R$ {value}"
         },
+
+        "layers_category" : {
+            "layers_highCapacityTransport": "Transportes de alta capacidade",
+            "layers_bikelanes": "Infraestrutura cicloviária",
+            "layers_accidents": "Ocorrências de trânsito"
+        },
         "layers_filter": {
             "spRailwayLines": "Linhas de Trem",
             "spSubwayLines": "Linhas de Metrô",
@@ -231,11 +237,6 @@
                 }
             },
             "layers": {
-                "category": {
-                    "layers_highCapacityTransport": "Transportes de alta capacidade",
-                    "layers_bikelanes": "Infraestrutura cicloviária",
-                    "layers_accidents": "Ocorrências de trânsito"
-                },
                 "userLayers": "Camadas do usuário",
                 "editModal": {
                     "editLayer": "Editar camada",
@@ -342,7 +343,7 @@
     },
 
     "BIKESP": {
-        "appName": "Piloto Bike SP - Painel Analítico",
+        "appName": "Piloto Bike SP — Painel Analítico",
 
         "apply": "Aplicar",
         "selected": "Selecionado",
@@ -372,24 +373,18 @@
             "changeDataType": "Selecionar tipo de dado",
             "datatype_helper": "Escolha qual métrica você deseja visualizar no gráfico.",
             "typeList": {
-                "TRIP_COUNT": "Número de viagens",
+                "TOTAL_TRIPS": "Número de viagens",
                 "TRIP_DURATION": "Duração média das viagens (em minutos)",
                 "TRIP_DISTANCE": "Distância média percorrida (km)",
                 "MEAN_SPEED": "Velocidade média (km/h)",
                 "TOTAL_SAMPLES": "Total de amostras",
-                "TOTAL_TRIPS": "Total de viagens",
                 "SAMPLE_MEAN_SPEED": "Velocidade média (km/h)"
             }
         },
         "layers": {
             "chooseMapLayer": "Selecione as camadas do mapa",
             "selectMapLayer": "Selecione tipos de camadas do mapa",
-            "removeCategory": "Remover categoria",
-            "category": {
-                "layers_highCapacityTransport": "Transportes de alta capacidade",
-                "layers_bikelanes": "Infraestrutura cicloviária",
-                "layers_accidents": "Ocorrências de trânsito"
-            }
+            "removeCategory": "Remover categoria"
         },
         "filters": {
             "chooseFilter": "Escolha um filtro",

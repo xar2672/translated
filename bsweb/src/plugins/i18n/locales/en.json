@@ -11,6 +11,12 @@
             "range": "from R$ {min} to R$ {max}",
             "more_than": "more than R$ {value}"
         },
+
+        "layers_category" : {
+            "layers_highCapacityTransport": "High-capacity public transport",
+            "layers_bikelanes": "Cycling infrastructure",
+            "layers_accidents": "Traffic accidents"
+        },
         "layers_filter": {
             "spRailwayLines": "SP Railway Lines",
             "spSubwayLines": "SP Subway Lines",
@@ -231,11 +237,6 @@
                 }
             },
             "layers": {
-                "category": {
-                    "layers_highCapacityTransport": "High capacity transports",
-                    "layers_bikelanes": "Bikelanes",
-                    "layers_accidents": "Accidents"
-                },
                 "userLayers": "User layers",
                 "editModal": {
                     "editLayer": "Edit layer", 
@@ -342,7 +343,7 @@
     },
 
     "BIKESP": {
-        "appName": "Bike SP Pilot - Analytics Dashboard",
+        "appName": "Bike SP Pilot — Analytics Dashboard",
 
         "apply": "Apply",
         "selected": "Selected",
@@ -372,24 +373,18 @@
             "changeDataType": "Select data type",
             "datatype_helper": "Choose which metric you would prefer to view on the graph.",
             "typeList": {
-                "TRIP_COUNT": "Number of trips",
+                "TOTAL_TRIPS": "Number of trips",
                 "TRIP_DURATION": "Average trip length (in minutes)",
                 "TRIP_DISTANCE": "Average distance traveled (km)",
                 "MEAN_SPEED": "Average speed (km/h)",
                 "TOTAL_SAMPLES": "Total of samples",
-                "TOTAL_TRIPS": "Total of trips",
                 "SAMPLE_MEAN_SPEED": "Average sample speed (km/h)"
             }
         },
         "layers": {
             "chooseMapLayer": "Select map layers",
             "selectMapLayer": "Select map layer type",
-            "removeCategory": "Remove category",
-            "category": {
-                "layers_highCapacityTransport": "High-capacity public transport",
-                "layers_bikelanes": "Cycling infrastructure",
-                "layers_accidents": "Traffic accidents"
-            }
+            "removeCategory": "Remove category"
         },
         "filters": {
             "chooseFilter": "Choose a filter",

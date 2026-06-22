@@ -63,7 +63,7 @@ def aggregate_per_tier(trips_merges):
     agg = trips_merges.groupby('tier', as_index=False) \
                       .agg(OrderedDict([('tripduration', ['median', 'mean']), 
                                         ('distance', ['median', 'mean', 'count'])]))
-    agg.columns = ['tier', 'median_duration', 'mean_duration', 'median_distance', 'mean_distance', 'trip_count']
+    agg.columns = ['tier', 'median_duration', 'mean_duration', 'median_distance', 'mean_distance', 'total_trips']
     return agg
 
 # STEP 4: count short and long trips for each tier
@@ -81,8 +81,8 @@ def merge_tiers_and_trips(tiers_df, per_tier_agg, short_trips, long_trips):
     all_merges = tiers_df.merge(per_tier_agg, on='tier') \
                          .merge(short_trips, on='tier', how='left') \
                          .merge(long_trips, on='tier', how='left')
-    all_merges['short_count_perc'] = all_merges['short_count'] / all_merges['trip_count'] * 100.0
-    all_merges['long_count_perc'] = all_merges['long_count'] / all_merges['trip_count'] * 100.0
+    all_merges['short_count_perc'] = all_merges['short_count'] / all_merges['total_trips'] * 100.0
+    all_merges['long_count_perc'] = all_merges['long_count'] / all_merges['total_trips'] * 100.0
     return all_merges
 
 # API FUNCTIONS

@@ -35,7 +35,7 @@ def add_query_aggregation_operations(q: query.Query):
 @operation_adder('data_type')
 def add_query_data_type(q: query.Query):
     return {
-        'TRIP_COUNT': q.add_trip_count,
+        'TOTAL_TRIPS': q.add_total_trips,
         'TRIP_DURATION': q.add_trip_duration,
         'TRIP_DISTANCE': q.add_trip_distance,
         'MEAN_SPEED': q.add_mean_speed

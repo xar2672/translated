@@ -73,7 +73,7 @@ export default {
 
 <style scoped>
 .map-title {
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: bold;
   margin-bottom: 10px;
 }
@@ -81,7 +81,6 @@ export default {
   margin: 20px;
 }
 .options span {
-    font-size: .9rem;
-  }
-  
+  font-size: .9rem;
+}
 </style>
