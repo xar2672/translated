@@ -1,4 +1,5 @@
 import tiles from '../helpers/tiles';
+import { markRaw } from 'vue';
 
 const state = {
   maps: {
@@ -98,7 +99,7 @@ const actions = {
 
 const mutations = {
   addToMap: (state, { mapkey, category, type, key, options }) => {
-    state.maps[mapkey].show[category][type][key] = options; 
+    state.maps[mapkey].show[category][type][key] = markRaw(options);
   },
   removeFromMap: (state, { mapkey, category, type, key }) => {
     delete state.maps[mapkey].show[category][type][key]; 

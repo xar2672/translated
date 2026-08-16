@@ -92,19 +92,11 @@
 </template>
 
 <script setup>
-import { ref, computed, watch, onMounted } from 'vue';
+import { ref, shallowRef, watch, computed, markRaw, onMounted } from 'vue';
 import { useStore } from 'vuex';
 import L from 'leaflet';
 import 'leaflet-polylinedecorator';
-import {
-  LMap,
-  LTileLayer,
-  LGeoJson,
-  LPolyline,
-  LFeatureGroup,
-  LTooltip,
-  LControlLayers,
-} from '@vue-leaflet/vue-leaflet';
+import { LMap, LTileLayer, LControlLayers, LGeoJson, LPolyline } from '@vue-leaflet/vue-leaflet';
 import { useI18n } from 'vue-i18n';
 
 const { t } = useI18n();
@@ -112,8 +104,10 @@ const { t } = useI18n();
 const props = defineProps({
   mapkey: { type: String, required: true }
 });
-
 const store = useStore();
+
+const mapRef = shallowRef(null);
+
 const zoom = ref(12);
 const center = ref({ lat: -23.550164466, lng: -46.633664132 });
 const renderZones = ref(false);
@@ -121,6 +115,7 @@ const renderGrid = ref(false);
 
 const developer_mode = computed(() => store.getters.developer_mode);
 const sharedControls = computed(() => store.getters.sharedControls);
+
 const centerMain = computed(() => store.getters.centerMain);
 const centerSecond = computed(() => store.getters.centerSecond);
 const zoomMain = computed(() => store.getters.zoomMain);
@@ -142,7 +137,6 @@ const zones = computed(() => store.state.layers.zones);
 const showZones = computed(() => store.state.map.maps[props.mapkey].show.zones);
 const showGrid = computed(() => store.state.map.maps[props.mapkey].show.grid);
 const secondMapIsActive = computed(() => store.state.map.secondMapIsActive);
-const mapRef = ref(null);
 
 watch(centerMain, (newValue) => {
   if (props.mapkey === 'main' && newValue.lat !== centerSecond.value.lat && newValue.lng !== centerSecond.value.lng) {
@@ -208,8 +202,8 @@ const initDecorator = (polyline) => {
 };
 
 const onMapReady = (map) => {
-  mapRef.value = map;
-};
+  mapRef.value = markRaw(map);
+}
 
 const zoomUpdated = (newZoom) => {
   if (mapControl.value === 'same') {
@@ -256,7 +250,6 @@ onMounted(async () => {
   if (props.mapkey === 'second') {
     await store.dispatch('updateCenter', { mapkey: 'second', center: centerMain.value });
   }
-
   await loadBaseLayers();
   await store.dispatch('user_shapefiles/loadSavedLayers');
 });

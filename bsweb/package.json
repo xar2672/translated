@@ -9,18 +9,19 @@
   },
   "dependencies": {
     "@oruga-ui/oruga-next": "0.9.3",
-    "axios": "1.8.2",
+    "axios": "^1.19.0",
     "buefy": "npm:@ntohq/buefy-next@^0.2.0",
     "core-js": "3.41.0",
     "eslint-plugin-vue": "9.32.0",
     "jquery": "3.7.1",
     "leaflet-polylinedecorator": "^1.6.0",
+    "leaflet.heat": "^0.2.0",
     "lodash": "^4.17.21",
     "shpjs": "6.0.1",
     "toastr": "2.1.4",
     "vue": "3.5.13",
     "vue-data-ui": "^2.12.6",
-    "vue-i18n": "11.1.2",
+    "vue-i18n": "^11.4.2",
     "vue-multiselect": "^3.2.0",
     "vue-plugin-load-script": "2.1.1",
     "vue-resource": "1.5.3",
@@ -30,14 +31,14 @@
     "vuex": "4.1.0"
   },
   "devDependencies": {
-    "@babel/core": "7.26.9",
+    "@babel/core": "^7.29.7",
     "@babel/eslint-parser": "7.26.8",
     "@vue-leaflet/vue-leaflet": "^0.10.1",
-    "@vue/cli-plugin-babel": "5.0.8",
+    "@vue/cli-plugin-babel": "^5.0.9",
     "@vue/cli-service": "5.0.8",
     "@vue/compiler-sfc": "^3.5.13",
     "css-loader": "^7.1.2",
-    "eslint": "9.22.0",
+    "eslint": "^9.39.5",
     "file-loader": "^6.2.0",
     "leaflet": "^1.9.4",
     "mini-css-extract-plugin": "^2.9.2"
@@ -102,5 +103,9 @@
     "> 1%",
     "last 2 versions",
     "not dead"
-  ]
+  ],
+  "allowScripts": {
+    "core-js@2.6.12": true,
+    "core-js@3.41.0": true
+  }
 }

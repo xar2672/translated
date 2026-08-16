@@ -54,6 +54,7 @@ watch(isActive, (value) => {
     category: 'flows',
     type: 'polyline',
     key: props.tier,
+    options: flow
   };
   if (value) {
     store.dispatch('addToMap', data);
@@ -69,6 +70,7 @@ watch(flow, () => {
       category: 'flows',
       type: 'polyline',
       key: props.tier,
+      options: flow
     });
   }
 });

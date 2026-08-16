@@ -1,7 +1,9 @@
+import L from 'leaflet';
+
 class HeatmapLayer extends L.Layer {
   constructor(data, options = {}) {
     super();
-    this.data = data;
+    this._rawData = data;
     this.options = {
       radius: 7,
       blur: 15,
@@ -15,31 +17,69 @@ class HeatmapLayer extends L.Layer {
       },
       ...options
     };
-
+    
     this._grad = this._createColorRamp(this.options.gradient);
+    this._createBrushes();
+    this._parseData(data);  
   }
 
   onAdd(map) {
     this._map = map;
+    if (!this._canvas) {
+      this._canvas = L.DomUtil.create('canvas', 'leaflet-heatmap-layer');
+      this._canvas.style.position = 'absolute';
+      this._canvas.style.pointerEvents = 'none';
+    }
 
-    this._canvas = L.DomUtil.create('canvas', 'leaflet-heatmap-layer');
-    this._canvas.style.position = 'absolute';
-    this._context = this._canvas.getContext('2d');
-
-    const size = this._map.getSize();
-    this._canvas.width = size.x;
-    this._canvas.height = size.y;
-
+    this._context = this._canvas.getContext('2d', { alpha: true });
     map.getPanes().overlayPane.appendChild(this._canvas);
-
     this._reset();
+ 
   }
 
   onRemove(map) {
     map.getPanes().overlayPane.removeChild(this._canvas);
   }
 
+  _createBrushes() {
+    this._brushes = [];
+    const r = this.options.radius;
+    
+    for (let i = 0; i < 256; i++) {
+      const brush = document.createElement('canvas');
+      brush.width = r * 2;
+      brush.height = r * 2;
+
+      const brushContext = brush.getContext('2d');
+      const color = this._getColorForValue(i / 255);
+
+      const gradient = brushContext.createRadialGradient(r, r, r * 0.01, r, r, r);
+      gradient.addColorStop(0, `rgba(${color[0]}, ${color[1]}, ${color[2]}, ${this.options.opacity})`);
+      gradient.addColorStop(1, `rgba(${color[0]}, ${color[1]}, ${color[2]}, 0)`);
+
+      brushContext.fillStyle = gradient;
+      brushContext.beginPath();
+      brushContext.arc(r, r, r, 0, Math.PI * 2);
+      brushContext.fill();
+      
+      this._brushes.push(brush);
+    }
+  }
+
+  _parseData(rawData) {
+    if (!rawData || rawData.length === 0) {
+      this.data = [];
+      return;
+    }
+    
+    this.data = rawData.map(p => ({
+      latLng: L.latLng(p[0], p[1]),
+      value: p[2]
+    }));
+  }
+
   _reset() {
+    if (!this._map) return;
     const topLeft = this._map.containerPointToLayerPoint([0, 0]);
     L.DomUtil.setPosition(this._canvas, topLeft);
 
@@ -51,27 +91,40 @@ class HeatmapLayer extends L.Layer {
   }
 
   _draw() {
-    const ctx = this._context;
-    ctx.clearRect(0, 0, this._canvas.width, this._canvas.height);
+    if (!this._map || !this.data || this.data.length === 0) return;
 
+    const ctx = this._context;
+    const width = this._canvas.width;
+    const height = this._canvas.height;
+
+    ctx.clearRect(0, 0, width, height);
+
+    const bounds = this._map.getBounds();
     const radius = this.options.radius;
     const max = this.options.maxIntensity;
     const min = this.options.minIntensity;
+    const range = max - min || 1;
 
-    for (const point of this.data) {
-      const latLng = L.latLng(point[0], point[1]);
-      const intensity = (point[2] - min) / max;
-      const color = this._getColorForValue(intensity);
+    for (let i = 0; i < this._rawData.length; i++) {
+      const point = this._rawData[i];
+      const lat = point[0];
+      const lng = point[1];
 
-      const p = this._map.latLngToContainerPoint(latLng);
-      const gradient = ctx.createRadialGradient(p.x, p.y, radius * 0.01, p.x, p.y, radius);
-      gradient.addColorStop(0, `rgba(${color[0]}, ${color[1]}, ${color[2]}, ${this.options.opacity})`);
-      gradient.addColorStop(1, `rgba(${color[0]}, ${color[1]}, ${color[2]}, 0)`);
+      if (lat < bounds.getSouth() || lat > bounds.getNorth() || 
+          lng < bounds.getWest() || lng > bounds.getEast()) {
+        continue;
+      }
 
-      ctx.fillStyle = gradient;
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, radius, 0, Math.PI * 2);
-      ctx.fill();
+      const p = this._map.latLngToContainerPoint([lat, lng]);
+      let intensity = (point[2] - min) / range;
+      intensity = Math.max(0, Math.min(1, intensity));
+
+      const brushIndex = Math.floor(intensity * 255);
+      const brush = this._brushes[brushIndex];
+
+      if (brush) {
+        ctx.drawImage(brush, p.x - radius, p.y - radius);
+      }
     }
   }
 
@@ -79,16 +132,27 @@ class HeatmapLayer extends L.Layer {
     this._reset();
   }
 
-  setData(data) {
-    this.data = data;
-    this.options.maxIntensity = data[data.length-1][2];
-    this.options.minIntensity = data[0][2] -1;
+  setData(data, maxIntensity) {
+    if (!data || data.length === 0) {
+      this._rawData = [];
+      this._parseData([]);
+      this._reset();
+      return;
+    }
+
+    this._rawData = data;
+    
+    this.options.maxIntensity = maxIntensity || data[data.length-1][2];
+    this.options.minIntensity = data[0][2] - 1;
+    
+    this._parseData(data);
     this._reset();
   }
 
   setGradient(gradient) {
     this.options.gradient = gradient
     this._grad = this._createColorRamp(gradient);
+    this._createBrushes();
     this._reset();
   }
 

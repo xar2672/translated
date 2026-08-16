@@ -25,12 +25,13 @@ const isMapViewOn = computed(() => store.getters['bikesp/isMapViewOn'])
 const hasNewDataConfig = computed(() => store.getters['bikesp/hasNewDataConfig'])
 
 const apply = () => {
-  store.dispatch('bikesp/updateData');
+  store.dispatch('bikesp/applyFilters');
 };
 
 onMounted(() => {
-  store.dispatch('bikesp/updateData');
+  store.dispatch('bikesp/applyFilters');
 });
+
 </script>
 
 <style>

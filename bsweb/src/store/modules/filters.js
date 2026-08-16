@@ -94,37 +94,45 @@ const actions = {
     let filters = mapkey === 'main' ? getters.filters : getters.filters2;
     const year = getters['flows/odYear'][mapkey];
 
-    return await axios
-      .post(`${api_url}/filter_data`, { ...filters, year })
-      .then(res => res.data)
-      .then(response => {
-        const flows = response.flows;
-        const tiers = Object.keys(flows);
-        const flows_props = response.flow_props;
+    try {
+      const res = await axios.post(`${api_url}/filter_data`, { ...filters, year });
+      const response = res.data; 
 
-        const limits = [];
-        for (let i = 0; i < 4; i++) {
-          limits.push({
-            min: flows_props.min[i],
-            max: flows_props.top[i],
-            flowsPercentage: flows_props.flows_perc[i],
-            flowsCount: flows_props.flow_counts[i],
-          });
-        }
-        dispatch('flows/setLimits', { limits, mapkey }, { root: true });
+      const flows = response.flows;
+      const tiers = Object.keys(flows);
+      const flows_props = response.flow_props;
 
-        if (tiers.length > 0) {
-          tiers.forEach(tier => {
-            dispatch('flows/addTripsPerTier', { tier, count: flows[tier].length, mapkey }, { root: true });
-            dispatch('flows/addFlows', { tier, flows: flows[tier], mapkey }, { root: true });
-          });
-          commit('setFlowsNotFound', false);
-        } else {
-          commit('setFlowsNotFound', true);
-          dispatch('flows/resetFlows', mapkey, { root: true });
-        }
-      })
-      .then(() => commit('loading_filters', false));
+      const limits = [];
+      for (let i = 0; i < 4; i++) {
+        limits.push({
+          min: flows_props.min[i],
+          max: flows_props.top[i],
+          flowsPercentage: flows_props.flows_perc[i],
+          flowsCount: flows_props.flow_counts[i],
+        });
+      }
+      
+      dispatch('flows/setLimits', { limits, mapkey }, { root: true });
+
+      if (tiers.length > 0) {
+        tiers.forEach(tier => {
+          dispatch('flows/addTripsPerTier', { tier, count: flows[tier].length, mapkey }, { root: true });
+          dispatch('flows/addFlows', { tier, flows: flows[tier], mapkey }, { root: true });
+        });
+        commit('setFlowsNotFound', false);
+      } else {
+        commit('setFlowsNotFound', true);
+        dispatch('flows/resetFlows', mapkey, { root: true });
+      }
+
+      commit('loading_filters', false);
+      return response; 
+
+    } catch (error) {
+      console.error(error);
+      commit('loading_filters', false);
+      throw error; 
+    }
   },
   updateFilterParams: ({ commit, dispatch, getters, state }, { filter, mapkey }) => {
     if (state.freezeUpdates) return;

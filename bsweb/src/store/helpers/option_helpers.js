@@ -250,7 +250,7 @@ export const accidents = {
     } = feature.properties;
     const [year, month, day] = data_acidente.split('-');
     
-    let modais = [
+    const modais = [
       { type: 'automobile', val: automovel },
       { type: 'bicycle', val: bicicleta },
       { type: 'truck', val: caminhao },
@@ -273,16 +273,19 @@ export const accidents = {
         const longFormatter = new Intl.DateTimeFormat(i18n.global.locale.value, formatter);
         const newDate = longFormatter.format(new Date(feature.properties.translationData.year, feature.properties.translationData.month, feature.properties.translationData.day));
 
-        modais = modais.filter(item => item.val > 0).map(item => i18n.global.t(`${feature.properties.translationData.key_modal}.${item.type}`));
+        let translatedModais = feature.properties.translationData.modais
+            .filter(item => item.val > 0)
+            .map(item => i18n.global.t(`${feature.properties.translationData.key_modal}.${item.type}`));
 
-        const num = modais.length;
+        const num = translatedModais.length;
         const listFormat = new Intl.ListFormat(i18n.global.locale.value, {
           style: "long",
           type: "conjunction",
         });
 
-        modais = listFormat.format(modais);
-        popupContent.innerHTML = i18n.global.t(feature.properties.translationData.key, {date: newDate, modal: modais}, num);
+        const modaisString = listFormat.format(translatedModais);
+
+        popupContent.innerHTML = i18n.global.t(feature.properties.translationData.key, {date: newDate, modal: modaisString}, num);
         layer.getPopup().update();
       };
 

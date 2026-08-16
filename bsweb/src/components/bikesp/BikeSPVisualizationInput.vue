@@ -24,7 +24,7 @@ const selected = ref('CHART');
 const onChange = async (e) => {
   store.dispatch('bikesp/changeView', selected.value);
   await nextTick();
-  store.dispatch('bikesp/updateData');
+  store.dispatch('bikesp/applyFilters');
 };
 
 onMounted(() => {

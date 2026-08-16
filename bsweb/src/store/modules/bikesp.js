@@ -1,4 +1,5 @@
 import { fetchBikeSPData, fetchGeographicBikeSPData } from '../../service/bikeSPService';
+import { toRaw } from 'vue';
 import isEqual from 'lodash/isEqual';
 
 const ORIGINAL_STATE = () => {
@@ -8,13 +9,13 @@ const ORIGINAL_STATE = () => {
             aggregation: '',
             data_type: 'TOTAL_TRIPS',
             activeLayers: [],
-            filters: []
+            filters: {}
         },
         activeDataConfig: {
             aggregation: '',
             data_type: 'TOTAL_TRIPS',
             activeLayers: [],
-            filters: []
+            filters: {}
         },
         zoomLevel: 8,
         mapCenter: { lat: -23.550164466, lng: -46.633664132 },
@@ -36,12 +37,12 @@ const getters = {
         return state.visualization === 'MAP';
     },
     hasNewDataConfig(state) {
-        return !isEqual(state.activeDataConfig, state.dataConfig);
+        return JSON.stringify(state.activeDataConfig) !== JSON.stringify(state.dataConfig);
     }
 };
 
 const mutations = {
-    cleanState: (state) => {
+    cleanState(state) {
         Object.assign(state, ORIGINAL_STATE());
     },
     updateActiveLayers(state, layer) {
@@ -51,7 +52,7 @@ const mutations = {
         ];
     },
     updateData(state, data) {
-        state.data = data;
+        state.data = Object.freeze(data);
     },
     updateDataType(state, data) {
         state.dataConfig.data_type = data;
@@ -60,7 +61,7 @@ const mutations = {
         state.dataConfig.aggregation = data;
     },
     updateActiveDataConfig(state, data) {
-        state.activeDataConfig = structuredClone(data);
+        state.activeDataConfig = structuredClone(toRaw(data));
     },
     updateFilters(state, data) {
         state.dataConfig.filters = {
@@ -77,43 +78,69 @@ const mutations = {
     },
     updateMaxDistance(state, newDistance) {
         state.maxDistance = newDistance;
-    } 
-};
-
-const actions = {
-    async updateData({ commit, dispatch, state }) {
-        try {
-            let data;
-            if (state.visualization === 'MAP') {
-                data = await fetchGeographicBikeSPData(state);
-            } else {
-                data = await fetchBikeSPData(state.dataConfig);
-            };
-            
-            commit('updateActiveDataConfig', state.dataConfig);
-            commit('updateData', data);
-            
-            state.activeDataConfig.activeLayers.forEach(({key, value}) => {
-                dispatch('setActiveLayer', {
-                    layer_key: key,
-                    mapkey: "main",
-                    value,
-                }, { root: true });
-            });
-        } catch (error) {
-            console.log("An error occurred", error);
-            commit('updateData', []);
-        }
     },
-    changeView({ commit, state}, view) {
-        commit('cleanState', state);
-        state.data.data_type = 'TOTAL_TRIPS';
+
+    changeViewMode(state, view) {
+        Object.assign(state, ORIGINAL_STATE());
+        
         if (state.dataConfig) {
             state.dataConfig.data_type = 'TOTAL_TRIPS';
             state.activeDataConfig.data_type = 'TOTAL_TRIPS';
         }
         state.visualization = view;
+    }
+
+};
+
+const actions = {
+
+    async applyFilters({ commit, dispatch, state }) {
+        commit('updateActiveDataConfig', state.dataConfig);
+        await dispatch('updateData');
     },
+    async updateData({ commit, dispatch, state }) {
+        try {
+            let apiPayload, data;
+            const activeConfig = state.activeDataConfig;
+            if (state.visualization === 'MAP') {
+                apiPayload = {
+                    dataType: activeConfig.data_type,
+                    zoomLevel: state.zoomLevel,
+                    mapCenter: toRaw(state.mapCenter),
+                    maxDistance: state.maxDistance,
+                    filters: activeConfig.filters
+                };
+                data = await fetchGeographicBikeSPData(apiPayload);
+            } else {
+                apiPayload = {
+                    dataType: activeConfig.data_type,
+                    aggregation: activeConfig.aggregation,
+                    filters: activeConfig.filters
+                };
+                data = await fetchBikeSPData(apiPayload);
+            };
+            
+            commit('updateData', data);
+            
+            if (activeConfig.activeLayers) {
+                activeConfig.activeLayers.forEach(({key, value}) => {
+                    dispatch('setActiveLayer', {
+                        layer_key: key,
+                        mapkey: "main",
+                        value,
+                    }, { root: true });
+                });
+            }
+        } catch (error) {
+            console.log("An error occurred", error);
+            commit('updateData', []);
+        }
+    },
+
+    changeView({ commit }, view) {
+        commit('changeViewMode', view);
+    }
+
 };
 
 export default {
